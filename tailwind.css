@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply h-[50px] whitespace-nowrap text-white text-center px-5 py-2.5 bg-[#29953A] rounded-lg justify-center items-center gap-2.5 inline-flex cursor-pointer hover:bg-green-700;
+  }
+  .btn-primary-1 {
+    @apply h-[50px] whitespace-nowrap text-green-600 text-center px-5 py-2.5 bg-green-600 bg-opacity-10 rounded-lg border border-green-600 justify-center items-center gap-2.5 inline-flex cursor-pointer hover:bg-opacity-20;
+  }
+  .btn-disable {
+    @apply h-[50px] whitespace-nowrap text-center text-white px-5 py-2.5 bg-stone-300 rounded-lg justify-center items-center gap-2.5 inline-flex cursor-not-allowed;
+  }
+}

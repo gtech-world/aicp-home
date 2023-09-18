@@ -3,6 +3,7 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
+    "allowJs": true,
     "importHelpers": true,
     "jsx": "preserve",
     "esModuleInterop": true,
@@ -16,7 +17,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@@/*": ["./src/.umi/*"],
-      "@@test/*": ["./src/.umi-test/*"]
+      "@@test/*": ["./src/.umi-test/*"],
+      "@public/*": ["./public/*"]
     }
   },
   "include": ["./**/*.d.ts", "./**/*.ts", "./**/*.tsx"]

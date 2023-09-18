@@ -16,9 +16,9 @@ export default defineConfig({
   hash: true,
 
   /**
-   * @name 使用 HashRouter
+   * @name 使用 Router
    */
-  history: { type: 'hash' },
+  history: { type: 'browser' },
   /**
    * @name 兼容性设置
    * @description 设置 ie11 不一定完美兼容，需要检查自己使用的所有依赖
@@ -34,6 +34,7 @@ export default defineConfig({
    */
   // umi routes: https://umijs.org/docs/routing
   routes,
+  // conventionRoutes: { base: 'src/pages', exclude: ['_app.tsx'] },
   /**
    * @name 主题的配置
    * @description 虽然叫主题，但是其实只是 less 的变量设置
@@ -80,7 +81,7 @@ export default defineConfig({
    * @name layout 插件
    * @doc https://umijs.org/docs/max/layout-menu
    */
-  title: 'Ant Design Pro',
+  title: 'AICP',
   layout: {
     locale: true,
     ...defaultSettings,
@@ -131,6 +132,7 @@ export default defineConfig({
     // 解决首次加载时白屏的问题
     { src: '/scripts/loading.js', async: true },
   ],
+
   //================ pro 插件配置 =================
   presets: ['umi-presets-pro'],
   /**
@@ -152,8 +154,10 @@ export default defineConfig({
       projectName: 'swagger',
     },
   ],
+
   mfsu: {
     strategy: 'normal',
   },
   requestRecord: {},
+  tailwindcss: {},
 });

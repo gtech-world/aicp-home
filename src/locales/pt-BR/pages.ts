@@ -1,6 +1,5 @@
 export default {
-  'pages.layouts.userLayout.title':
-    'Ant Design é a especificação de web design mais influente no distrito de Xihu',
+  'pages.layouts.userLayout.title': 'Ant Design é a especificação de web design mais influente no distrito de Xihu',
   'pages.login.accountLogin.tab': 'Login da conta',
   'pages.login.accountLogin.errorMessage': 'usuário/senha incorreto(admin/ant.design)',
   'pages.login.failure': 'Login falhou, por favor tente novamente!',
@@ -34,18 +33,15 @@ export default {
   'pages.searchTable.updateForm.ruleName.nameLabel': 'Nome da Regra',
   'pages.searchTable.updateForm.ruleName.nameRules': 'Por favor entre com o nome da regra!',
   'pages.searchTable.updateForm.ruleDesc.descLabel': 'Descrição da Regra',
-  'pages.searchTable.updateForm.ruleDesc.descPlaceholder':
-    'Por favor insira ao menos cinco caracteres',
-  'pages.searchTable.updateForm.ruleDesc.descRules':
-    'Insira uma descrição de regra de pelo menos cinco caracteres!',
+  'pages.searchTable.updateForm.ruleDesc.descPlaceholder': 'Por favor insira ao menos cinco caracteres',
+  'pages.searchTable.updateForm.ruleDesc.descRules': 'Insira uma descrição de regra de pelo menos cinco caracteres!',
   'pages.searchTable.updateForm.ruleProps.title': 'Configurar Propriedades',
   'pages.searchTable.updateForm.object': 'Objeto de Monitoramento',
   'pages.searchTable.updateForm.ruleProps.templateLabel': 'Modelo de Regra',
   'pages.searchTable.updateForm.ruleProps.typeLabel': 'Tipo de Regra',
   'pages.searchTable.updateForm.schedulingPeriod.title': 'Definir Período de Agendamento',
   'pages.searchTable.updateForm.schedulingPeriod.timeLabel': 'Hora de Início',
-  'pages.searchTable.updateForm.schedulingPeriod.timeRules':
-    'Por favor selecione um horáriod e início!',
+  'pages.searchTable.updateForm.schedulingPeriod.timeRules': 'Por favor selecione um horáriod e início!',
   'pages.searchTable.titleDesc': 'Descrição',
   'pages.searchTable.ruleName': 'O nome da regra é obrigatório',
   'pages.searchTable.titleCallNo': 'Número de chamadas de serviço',

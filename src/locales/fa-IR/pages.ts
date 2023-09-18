@@ -34,8 +34,7 @@ export default {
   'pages.searchTable.updateForm.ruleName.nameRules': 'لطفاً نام قانون را وارد کنید!',
   'pages.searchTable.updateForm.ruleDesc.descLabel': 'شرح قانون',
   'pages.searchTable.updateForm.ruleDesc.descPlaceholder': 'لطفاً حداقل پنج حرف وارد کنید',
-  'pages.searchTable.updateForm.ruleDesc.descRules':
-    'لطفاً حداقل یک قانون حاوی پنج کاراکتر شرح دهید!',
+  'pages.searchTable.updateForm.ruleDesc.descRules': 'لطفاً حداقل یک قانون حاوی پنج کاراکتر شرح دهید!',
   'pages.searchTable.updateForm.ruleProps.title': 'پیکربندی خصوصیات',
   'pages.searchTable.updateForm.object': 'نظارت بر شی',
   'pages.searchTable.updateForm.ruleProps.templateLabel': 'الگوی قانون',

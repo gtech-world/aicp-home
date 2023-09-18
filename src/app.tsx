@@ -6,9 +6,8 @@ import { Link, history } from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
 import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
 import { errorConfig } from './requestErrorConfig';
-import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 const isDev = process.env.NODE_ENV === 'development';
-const loginPath = '/user/login';
+const loginPath = '/login';
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
@@ -20,14 +19,6 @@ export async function getInitialState(): Promise<{
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
 }> {
   const fetchUserInfo = async () => {
-    try {
-      const msg = await queryCurrentUser({
-        skipErrorHandler: true,
-      });
-      return msg.data;
-    } catch (error) {
-      history.push(loginPath);
-    }
     return undefined;
   };
   // 如果不是登录页面，执行
@@ -47,7 +38,7 @@ export async function getInitialState(): Promise<{
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
-export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
+export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
     // actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
     actionsRender: () => [],
@@ -64,11 +55,11 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
 
     footerRender: () => <Footer />,
     onPageChange: () => {
-      const { location } = history;
+      // const { location } = history;
       // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
-        history.push(loginPath);
-      }
+      // if (!initialState?.currentUser && location.pathname !== loginPath) {
+      //   history.push(loginPath);
+      // }
     },
     layoutBgImgList: [],
     links: isDev

@@ -1,14 +1,3 @@
-html,
-body,
-#root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-    'Noto Color Emoji';
-}
-
 .colorWeak {
   filter: invert(80%);
 }
@@ -50,4 +39,137 @@ ol {
       }
     }
   }
+}
+
+html,
+body,
+.App {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+html,
+body {
+  overflow-y: auto;
+  height: 100%;
+}
+
+#__next {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  line-height: 1.375;
+}
+.box-layout {
+  width: calc(25% - 20px);
+}
+@media (max-width: 1980px) {
+  .box-layout {
+    width: calc(33.3% - 20px);
+  }
+}
+@media (max-width: 1440px) {
+  .box-layout {
+    width: calc(50% - 20px);
+  }
+}
+@media (min-width: 1281px) and (max-width: 1360px) {
+  html {
+    font-size: 15.11px;
+  }
+}
+
+@media (min-width: 1201px) and (max-width: 1280px) {
+  .box-layout {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (min-width: 1121px) and (max-width: 1200px) {
+  html {
+    font-size: 13.33px;
+  }
+}
+
+@media (min-width: 1041px) and (max-width: 1120px) {
+  html {
+    font-size: 12.44px;
+  }
+}
+@media (min-width: 961px) and (max-width: 1040px) {
+  html {
+    font-size: 11.56px;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 960px) {
+  html {
+    font-size: 10.67px;
+  }
+}
+
+/*@media (max-width: 900px) {*/
+/*  html {*/
+/*    font-size: 10px;*/
+/*  }*/
+/*}*/
+
+img:not([src]),
+img[src=''] {
+  opacity: 0;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.triangle {
+  height: 1.75rem;
+  width: 1.75rem;
+  background: #ffe184;
+  right: -0.9rem;
+  position: absolute;
+  transform: rotate(45deg);
+}
+
+.fixGrColor > path {
+  stroke: currentColor !important;
+}
+
+.svg-purple path {
+  stroke: #9c27b0;
+}
+.svg-blue path {
+  stroke: #0084ff;
+}
+.split .gutter {
+  width: 6px;
+  cursor: col-resize;
+}
+input {
+  padding-left: 10px;
+  outline: none;
+}
+
+button[disabled] {
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+#view:nth-child(even) {
+  background-color: #f3f3f3;
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Define the background color when hovering over a row */
+.hover-color-table tbody tr:hover {
+  background-color: #f3f3f3;
 }
