@@ -14,6 +14,12 @@ import { VscQuestion, VscVerified } from 'react-icons/vsc';
 import { Aicp as SVGAICP, Polygon as SVGPolygon } from '@/components/svgr';
 import { Table } from '@/components/common/table';
 
+function fromNow(time: number) {
+  const m = moment(time * 1000);
+  if (m.fromNow) return m.fromNow();
+  return '-';
+}
+
 function ItemInfo(p: { label: string; text: string; link?: string; tip?: any; className?: string }) {
   return (
     <div
@@ -156,9 +162,7 @@ export function Blockchain() {
     {
       title: t('Age'),
       dataIndex: 'blockTimestamp',
-      render: (text: number) => {
-        return moment(text * 1000).fromNow();
-      },
+      render: fromNow,
     },
     {
       title: t('Blockchain'),
