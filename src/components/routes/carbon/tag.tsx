@@ -1,4 +1,3 @@
-import { CarbonLayout } from '@/components/common/carbonLayout';
 import { ProductQrcode } from '@/components/common/productQrcode';
 import { Teacher as SvgTeacher } from '@/components/svgr';
 import { Link } from '@umijs/max';

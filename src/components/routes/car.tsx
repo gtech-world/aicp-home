@@ -25,7 +25,7 @@ import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
 import { IoCheckmarkCircleOutline, IoEllipsisHorizontalCircle } from 'react-icons/io5';
 import { useToggle } from 'react-use';
-import { useSearchParams } from '@umijs/max';
+import { Link, useSearchParams } from '@umijs/max';
 interface CarUIProps {
   data: {
     sbt: SbtInfo;
@@ -51,9 +51,9 @@ function ItemInfo(p: { label: string; text: string; link?: string }) {
     >
       <span className="font-bold text-black">{p.label}:</span>{' '}
       {p.link ? (
-        <a href={p.link} target="_blank" rel="noreferrer">
+        <Link to={p.link} target="_blank" rel="noreferrer">
           {p.text}
-        </a>
+        </Link>
       ) : (
         p.text
       )}
