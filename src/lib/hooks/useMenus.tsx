@@ -2,11 +2,11 @@ import { useIsMobile, useUser } from '@/components/common/context';
 import { MenuItem } from '@/components/common/poper';
 import { CARBON_PAGES } from '@/components/const';
 import { handleCarbonStr } from '@/lib/utils';
+import { useLocation, useNavigate } from '@umijs/max';
 import { useMemo } from 'react';
-import { FiHome, FiLogIn, FiLogOut, FiSearch } from 'react-icons/fi';
+import { FiHome, FiLogIn, FiLogOut } from 'react-icons/fi';
 import { VscAccount } from 'react-icons/vsc';
 import { useT } from './useT';
-import { useLocation, useNavigate } from '@umijs/max';
 
 export function useMenus(data: any[] = []) {
   const isMobile = useIsMobile();
@@ -18,11 +18,11 @@ export function useMenus(data: any[] = []) {
   return useMemo(() => {
     const menus: MenuItem[] = [];
     menus.push({ icon: <FiHome />, text: t('AICP Home'), to: '/' });
-    menus.push({
-      icon: <FiSearch />,
-      text: t('AICP Open Query'),
-      to: '/openquery',
-    });
+    // menus.push({
+    //   icon: <FiSearch />,
+    //   text: t('AICP Open Query'),
+    //   to: '/openquery',
+    // });
     if (user && !data.find((item) => item.to === pathname)) {
       menus.push({
         icon: <VscAccount />,

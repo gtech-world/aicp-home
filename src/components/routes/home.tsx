@@ -25,21 +25,21 @@ const Card: FC<{ windowWidth: boolean }> = ({ windowWidth }) => {
   };
 
   const tabsList = [
-    {
-      icon: <SvgQuery className="h-[6.125rem] " />,
-      to: '/openquery',
-      children: (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: t('{{value}} for public accessible').replace(
-              '{{value}}',
-              `<span class="font-bold">${t('Open Query')}</span>`,
-            ),
-          }}
-        />
-      ),
-      btText: t('Enter'),
-    },
+    // {
+    //   icon: <SvgQuery className="h-[6.125rem] " />,
+    //   to: '/openquery',
+    //   children: (
+    //     <div
+    //       dangerouslySetInnerHTML={{
+    //         __html: t('{{value}} for public accessible').replace(
+    //           '{{value}}',
+    //           `<span class="font-bold">${t('Open Query')}</span>`,
+    //         ),
+    //       }}
+    //     />
+    //   ),
+    //   btText: t('Enter'),
+    // },
 
     {
       icon: <SvgSignIn className="h-[5.875rem]" />,

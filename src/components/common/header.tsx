@@ -24,11 +24,11 @@ export function useMenus(data: any[] = []) {
   return useMemo(() => {
     const menus: MenuItem[] = [];
     menus.push({ icon: <FiHome />, text: t('AICP Home'), to: '/' });
-    menus.push({
-      icon: <FiSearch />,
-      text: t('AICP Open Query'),
-      to: '/openquery',
-    });
+    // menus.push({
+    //   icon: <FiSearch />,
+    //   text: t('AICP Open Query'),
+    //   to: '/openquery',
+    // });
     if (user && !data.find((item) => item.to === pathname)) {
       menus.push({
         icon: <VscAccount />,

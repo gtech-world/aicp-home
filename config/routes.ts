@@ -23,7 +23,7 @@ export default [
       { path: '/blockchain', component: './blockchain' },
       { path: '/car', component: './car' },
       { path: '/model', component: './model' },
-      { path: '/openquery', component: './openquery' },
+      // { path: '/openquery', component: './openquery' },
       {
         path: '/carbon',
         component: '@/layout/carbon',

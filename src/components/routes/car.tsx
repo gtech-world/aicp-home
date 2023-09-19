@@ -209,7 +209,7 @@ function QAS(p: { sbt: SbtInfo }) {
   return (
     <div className="flex w-full mt-5 mo:block mo:mt-0">
       <ItemQA type={1} sbt={sbt} />
-      <ItemQA type={2} sbt={sbt} />
+      {/* <ItemQA type={2} sbt={sbt} /> */}
       <ItemQA type={3} sbt={sbt} />
     </div>
   );
