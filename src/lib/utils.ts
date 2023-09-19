@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import _, { toInteger } from 'lodash';
 import { LABEL_CONTRACT, SCAN_BASE } from './env';
-import moment from 'moment';
+import { useIntl } from '@umijs/max';
 
 export function getErrorMsg(error: AxiosError | any): string {
   if (!error) return 'Unkown Error';
@@ -176,12 +176,6 @@ export function tryParse<T>(data: any) {
   }
 }
 
-export const getCurrentDate = () => {
-  const currentTime = moment();
-  const formattedTime = currentTime.format('YYYY-MM-DD HH:mm:ss');
-  return formattedTime;
-};
-
 export const scrollToTop = () => {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
@@ -193,4 +187,20 @@ export const handleContentRender = (text: string, width: number) => {
   } else {
     return '';
   }
+};
+
+export const autoFormaterRealTime = (fmt: ReturnType<typeof useIntl>['formatRelativeTime'], stime: number) => {
+  const time = Math.abs(Math.floor(stime / 1000));
+  const [unit, rtime]: [Parameters<ReturnType<typeof useIntl>['formatRelativeTime']>[1], number] =
+    time < 60 * 60
+      ? ['minutes', Math.floor(time / 60)]
+      : time < 60 * 60 * 24
+      ? ['hours', Math.floor(time / 60 / 60)]
+      : time < 60 * 60 * 24 * 30
+      ? ['days', Math.floor(time / 60 / 60 / 24)]
+      : time < 60 * 60 * 24 * 30 * 12
+      ? ['months', Math.floor(time / 60 / 60 / 24 / 30)]
+      : ['years', Math.floor(time / 60 / 60 / 24 / 30 / 12)];
+
+  return fmt(stime > 0 ? rtime : -rtime, unit);
 };

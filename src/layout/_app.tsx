@@ -11,13 +11,11 @@ import 'react-tippy/dist/tippy.css';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 import { SWRConfig } from 'swr/_internal';
-import moment from 'moment';
 
 function InitProvider(p: { children: React.ReactNode }) {
   const [_store] = useState<Store>(initStore());
   useEffect(() => {
     modalRootRef.current = document.body as any;
-    moment.locale('zh-CN');
   }, []);
   return (
     <SWRConfig

@@ -5,9 +5,8 @@ import { SCAN_BASE } from '@/lib/env';
 import { useAsyncM } from '@/lib/hooks/useAsyncM';
 import { useT } from '@/lib/hooks/useT';
 import { getSbtDetail, noArgs } from '@/lib/oldHttp';
-import { genScanTokenUrl, genScanUrl, shortStr, titleCase } from '@/lib/utils';
+import { autoFormaterRealTime, genScanTokenUrl, genScanUrl, shortStr, titleCase } from '@/lib/utils';
 import classNames from 'classnames';
-import moment from 'moment';
 import { Link, useSearchParams } from '@umijs/max';
 import { useMemo } from 'react';
 import { VscQuestion, VscVerified } from 'react-icons/vsc';
@@ -67,7 +66,7 @@ function CardInfo(p: LabelDetail) {
     return res;
   }, [data.metadata]);
 
-  const { t } = useT();
+  const { t, formatDate } = useT();
   return (
     <div className="break-all">
       <ItemInfo
@@ -109,7 +108,7 @@ function CardInfo(p: LabelDetail) {
           'The life cycle scope that the PCF data covers, typically Cradle-to-Grave (full-life-cycle) or Cradle-to-Gate.',
         )}
       />
-      <ItemInfo label={t('Print Timestamp')} text={moment(data.labelPrintDate * 1000).format('YYYY-MM-DD HH:mm:ss')} />
+      <ItemInfo label={t('Print Timestamp')} text={formatDate(data.labelPrintDate * 1000)} />
     </div>
   );
 }
@@ -117,7 +116,7 @@ function CardInfo(p: LabelDetail) {
 export function Blockchain() {
   const [sq] = useSearchParams();
   const tokenId: string = sq.get('tokenId') as string;
-  const { t } = useT();
+  const { t, formatRelativeTime } = useT();
   const isMobile = useIsMobile();
   const { value, loading }: any = useAsyncM(
     noArgs(() => getSbtDetail(tokenId), [tokenId]),
@@ -156,7 +155,7 @@ export function Blockchain() {
     {
       title: t('Age'),
       dataIndex: 'blockTimestamp',
-      render: (time: number) => moment(time * 1000).format('YYYY-MM-DD HH:mm:ss'),
+      render: (time: number) => autoFormaterRealTime(formatRelativeTime, time * 1000 - Date.now()),
     },
     {
       title: t('Blockchain'),

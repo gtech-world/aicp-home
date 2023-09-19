@@ -1,10 +1,10 @@
+import { Btn } from '@/components/common/button';
 import { Modal } from '@/components/common/modal';
+import { Select2, useSelectState } from '@/components/common/select';
+import { useT } from '@/lib/hooks/useT';
+import { getAddRealDataList, getProductSystemAllList, uploadResult } from '@/lib/http';
 import { FC, Fragment, useEffect, useMemo, useState } from 'react';
 import InventoryAddRealDataModal from './inventoryAddRealDataModal';
-import { getAddRealDataList, getProductSystemAllList, uploadResult } from '@/lib/http';
-import { getCurrentDate } from '@/lib/utils';
-import { Btn } from '@/components/common/button';
-import { Select2, useSelectState } from '@/components/common/select';
 
 type formDataType = { [key: string]: string };
 type realDataType = Pick<InventoryController.uploadResult, 'lcaParamList'>;
@@ -25,6 +25,7 @@ const InventoryResultModal: FC<InventoryController.InventoryResultModalProps> = 
   const productListSelectState = useSelectState(productList_, -1);
   const productId = (productListSelectState.items[productListSelectState.current] as any)?.id;
   const [loading, setLoading] = useState<boolean>(true);
+  const { formatDate } = useT();
   const getProductSystemList = () => {
     getProductSystemAllList()
       .then((res) => {
@@ -44,7 +45,7 @@ const InventoryResultModal: FC<InventoryController.InventoryResultModalProps> = 
         processId: e.context['@id'],
         paramValue: e.value.toString(),
         paramName: e.name,
-        dateTime: getCurrentDate(),
+        dateTime: formatDate(Date.now()),
       };
     });
 

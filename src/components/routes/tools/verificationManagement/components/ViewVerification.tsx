@@ -2,6 +2,7 @@ import { Modal } from '@/components/common/modal';
 import { FC, Fragment, useState } from 'react';
 import JSZip from 'jszip';
 import { useOnError } from '@/components/common/context';
+import axios from 'axios';
 
 const ViewVerification: FC<VerificationManagementController.ViewVerificationManagementModal> = ({
   closeModal,
@@ -18,7 +19,8 @@ const ViewVerification: FC<VerificationManagementController.ViewVerificationMana
 
       fileList.forEach((file) => {
         folderName = file.fileName.split('/')[0];
-        zip.file(file.fileName, file.downloadUrl);
+        const getFile = axios.get(file.downloadUrl, { responseType: 'arraybuffer' }).then((res) => res.data);
+        zip.file(file.fileName, getFile);
       });
       const content = await zip.generateAsync({ type: 'blob' });
       const link = document.createElement('a');

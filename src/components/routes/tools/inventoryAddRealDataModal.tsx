@@ -1,8 +1,8 @@
 import { Btn } from '@/components/common/button';
 import { Modal } from '@/components/common/modal';
 import { Table } from '@/components/common/table';
-import React, { FC, useEffect, useState } from 'react';
-import { getCurrentDate } from '@/lib/utils';
+import { useT } from '@/lib/hooks/useT';
+import { FC, useEffect, useState } from 'react';
 
 const InventoryAddRealDataModal: FC<InventoryController.InventoryAddRealDataModalProps> = ({
   onOpenModal,
@@ -11,6 +11,7 @@ const InventoryAddRealDataModal: FC<InventoryController.InventoryAddRealDataModa
   realArr,
 }) => {
   const [allTableData, setAllTableData] = useState<InventoryController.InventoryRealDataList[]>(tableData);
+  const { formatDate } = useT();
   const onSubmit = () => {
     const table = document?.getElementById('realDataTable') as HTMLTableElement;
     const rows = table.getElementsByTagName('tr');
@@ -32,7 +33,7 @@ const InventoryAddRealDataModal: FC<InventoryController.InventoryAddRealDataModa
         processId: e.context['@id'],
         paramValue: values.slice(1)[i][0] || e.value.toString(),
         paramName: e.name,
-        dateTime: getCurrentDate(),
+        dateTime: formatDate(Date.now()),
       };
       return newArr;
     });
