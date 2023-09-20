@@ -48,9 +48,10 @@ const Card: FC<{ windowWidth: boolean }> = ({ windowWidth }) => {
         <div
           className="mx-3"
           dangerouslySetInnerHTML={{
-            __html: t('{{value}} with authenticated account*')
-              .replace('{{value}}', `<span class="font-bold">${t('Sign in')}</span>`)
-              .replace(isMobile ? '</br>' : '', ''),
+            __html: t('{{value}} with authenticated account*').replace(
+              '{{value}}',
+              `<span class="font-bold">${t('Sign in')}</span>`,
+            ),
           }}
         />
       ),
@@ -66,19 +67,15 @@ const Card: FC<{ windowWidth: boolean }> = ({ windowWidth }) => {
   ];
   return (
     <Fragment>
-      <div className="flex justify-center w-full px-5 bg-white">
-        <div
-          className={` flex text-lg mo:text-base flex-shrink-0 max-w-[90rem] mo:max-w-auto pt-10 pb-5  flex-col
-        mo:px-0  ${windowWidth ? 'px-[3%]' : 'px-[7.5rem]'}
-       w-full mo:flex-col mo:mt-11 mo:mb-0`}
-        >
+      <div className="flex justify-center w-full bg-white">
+        <div className="flex text-lg mo:text-base flex-shrink-0 max-w-[90rem] px-[7.5rem] mo:px-5 mo:max-w-auto pt-10 pb-5  flex-col w-full mo:flex-col mo:mt-11 mo:mb-0">
           <ul className="flex justify-between w-full pb-6 mo:flex-col mo:pb-0">
             {tabsList.map((v, i) => {
               return (
-                <li key={`tabsList${i}`} className={classNames('  mr-3 flex last:mr-0 mo:mr-0 mo:flex-col')}>
+                <li key={`tabsList${i}`} className={classNames('mr-5 flex flex-1 last:mr-0 mo:mr-0 mo:flex-col')}>
                   <div
                     className={classNames(
-                      ' pt-10 mo:pt-[3.125rem] w-[22.5rem] mo:w-full relative flex flex-col justify-between p-5 rounded-2xl h-[23.25rem] mo:mb-5 border-solid border-black border-[3px] ',
+                      ' pt-10 mo:pt-[3.125rem] w-full relative flex flex-col justify-between p-5 rounded-2xl h-[23.25rem] mo:mb-5 border-solid border-black border-[3px] ',
                     )}
                   >
                     <div className="flex flex-col items-center justify-center">{v.icon}</div>
@@ -102,8 +99,8 @@ const Card: FC<{ windowWidth: boolean }> = ({ windowWidth }) => {
         </div>
       </div>
 
-      <div className="flex justify-center w-full px-5 bg-white ">
-        <div className="w-full px-[7.5rem] md:px-0 max-w-[90rem] text-base  mo:pt-0 pb-11 mo:flex-col flex-shrink-0 mo:flex">
+      <div className="flex justify-center w-full bg-white ">
+        <div className="w-full px-[7.5rem] mo:px-5 max-w-[90rem] text-base  mo:pt-0 pb-11 mo:flex-col flex-shrink-0 mo:flex">
           <div className="flex mo:mb-10">
             <span>*</span>
             <span className="mo:ml-2">

@@ -15,7 +15,7 @@
   "Open Query": "公开查询",
   "{{value}} for public accessible": "面向公众的{{value}}",
   "Sign in": "登入",
-  "{{value}} with authenticated account*": "使用经认证的专业账户*</br>{{value}}",
+  "{{value}} with authenticated account*": "使用经认证的专业账户*{{value}}",
   "Enter": "进入",
   "Explore": "探索",
   "Work with AICD for a Net Zero future": "与AICD一起建筑净零排放的未来",
