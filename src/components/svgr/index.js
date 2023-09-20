@@ -12,6 +12,7 @@ export { default as CTag } from './CTag';
 export { default as Car } from './Car';
 export { default as Carbon3 } from './Carbon3';
 export { default as Carbon3Name } from './Carbon3Name';
+export { default as CarbonFooter } from './CarbonFooter';
 export { default as Co2 } from './Co2';
 export { default as Co2E } from './Co2E';
 export { default as Digital3 } from './Digital3';

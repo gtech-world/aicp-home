@@ -5,7 +5,7 @@ import { ToolsLayout } from '@/components/common/toolsLayout';
 import { exportLcaResultExcel, getLcaProductDetailList, getLcaResultDetail } from '@/lib/http';
 import { BomNode, deepSetBomChild, isTagType } from '@/lib/tagtools';
 import { tryParse } from '@/lib/utils';
-import CarbonFooter from '@public/carbon_footer.svg';
+import { CarbonFooter } from '@/components/svgr';
 import { useSearchParams } from '@umijs/max';
 import classNames from 'classnames';
 import { EChartsOption, SankeySeriesOption } from 'echarts';
@@ -110,6 +110,12 @@ export function InventoryResult() {
           padding: 20,
           tooltip: {
             trigger: 'item',
+            formatter: (item: any) => {
+              console.info('item:', item);
+              const content = `${item.name} ${item.value}(${referenceUnit})`;
+              if (item.marker) return `${item.marker} ${content}`;
+              return content;
+            },
           },
           series: {
             type: 'sankey',
@@ -135,6 +141,9 @@ export function InventoryResult() {
 
         // data and links
         sortBoms.forEach((item) => {
+          // targetName
+          if (isTagType(item.tagType, 'REFERENCE')) generalInfo.targetName = item.flowName;
+
           const links = (chartData.series as SankeySeriesOption).links;
           const data = (chartData.series as SankeySeriesOption).data;
           const value = _.first(mapTagResult[item.flowId])?.result || 0;

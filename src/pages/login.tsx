@@ -1,2 +1,7 @@
 import SignIn from '@/components/routes/signIn';
-export default SignIn;
+import App from '@/layout/_app';
+export default () => (
+  <App>
+    <SignIn />
+  </App>
+);

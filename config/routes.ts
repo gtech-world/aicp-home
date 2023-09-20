@@ -13,17 +13,16 @@
 
 export default [
   { layout: false, path: '*', component: './404' },
+  { layout: false, path: '/', component: './index' },
+  { layout: false, path: '/login', component: './login' },
   {
     layout: false,
     path: '/',
     component: '@/layout/root',
     routes: [
-      { path: '/', component: './index' },
-      { path: '/login', component: './login' },
       { path: '/blockchain', component: './blockchain' },
       { path: '/car', component: './car' },
       { path: '/model', component: './model' },
-      // { path: '/openquery', component: './openquery' },
       {
         path: '/carbon',
         component: '@/layout/carbon',
