@@ -1,11 +1,18 @@
 import Footer from '@/components/Footer';
+import { MenuOutlined, UnorderedListOutlined, UserOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
-import { history } from '@umijs/max';
+import { history, useNavigate } from '@umijs/max';
+import { ReactNode, useMemo } from 'react';
 import defaultSettings from '../config/defaultSettings';
-import { Aicp, Digital3 } from './components/svgr';
+import { Aicp, Co2, Digital3 } from './components/svgr';
 import App from './layout/_app';
 import { errorConfig } from './requestErrorConfig';
+import HeaderDropdown from './components/HeaderDropdown';
+import { MenuProps } from 'antd/es/menu';
+import { FiLogOut } from 'react-icons/fi';
+import { useStore, useUser } from './components/common/context';
+import { useT } from './lib/hooks/useT';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/login';
 
@@ -37,11 +44,41 @@ export async function getInitialState(): Promise<{
   };
 }
 
+function MenuAction() {
+  const { t } = useT();
+  const { setUser } = useUser();
+  const push = useNavigate();
+  const menuActionItems: MenuProps['items'] = useMemo(
+    () => [
+      {
+        icon: <FiLogOut />,
+        label: t('Log Out'),
+        key: '1',
+        onClick: () => {
+          setUser(undefined);
+          push('/');
+        },
+      },
+    ],
+    [t],
+  );
+  return (
+    <HeaderDropdown menu={{ items: menuActionItems }}>
+      <MenuOutlined className="text-2xl text-white" />
+    </HeaderDropdown>
+  );
+}
+
+const menuicons: { [k: string]: ReactNode } = {
+  '/main/tools': <UnorderedListOutlined />,
+  '/main/tags': <Co2 />,
+  '/user': <UserOutlined />,
+};
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
     // actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
-    actionsRender: () => [],
+    actionsRender: () => [<MenuAction key="menu" />],
     logo: (
       <div className="flex gap-3 items-end text-white">
         <Aicp height="24" />
@@ -49,17 +86,21 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       </div>
     ),
     footerRender: () => <Footer />,
-    onPageChange: () => {
-      // const { location } = history;
-      // 如果没有登录，重定向到 login
-      // if (!initialState?.currentUser && location.pathname !== loginPath) {
-      //   history.push(loginPath);
-      // }
-    },
+    onPageChange: () => {},
     layoutBgImgList: [],
     links: [],
+    menuDataRender: (menuData) => {
+      menuData.forEach((item) => {
+        item.path && (item.icon = menuicons[item.path]);
+      });
+      return menuData;
+    },
     menuHeaderRender: undefined,
     childrenRender: (children) => {
+      if (!useStore.getState().userData) {
+        history.push('/login');
+        return null;
+      }
       return <App>{children}</App>;
     },
     ...initialState?.settings,

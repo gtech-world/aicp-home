@@ -2,8 +2,8 @@ import { UserData } from '@/lib/@types/type';
 import { useT } from '@/lib/hooks/useT';
 import { getErrorMsg } from '@/lib/utils';
 import { useLocation, useNavigate } from '@umijs/max';
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { create } from 'zustand';
 export interface Toast {
   type: 'info' | 'error';
   msg: string;
@@ -33,15 +33,30 @@ export function getUserData() {
   }
 }
 
-export const StoreContext = createContext<any>({});
+// export const StoreContext = createContext<any>({});
 
 export interface UpStore extends Store {
   update: (data: Partial<Store>) => void;
 }
-
-export function useStore() {
-  return useContext(StoreContext) as UpStore;
+export function initStore() {
+  const store: Store = {
+    inited: true,
+    isMobile: window.innerWidth <= 900,
+    last_input_vin: sessionStorage.getItem('last_input_vin') || '',
+    show_header_tip: !localStorage.getItem('hidden_header_tip'),
+  };
+  const ud = getUserData();
+  if (ud && new Date().getTime() - ud.loginTime < 1000 * 60 * 60 * 24) store.userData = ud;
+  return store;
 }
+export const useStore = create<UpStore>((set) => ({
+  ...initStore(),
+  update: (data = {}) => set(data),
+}));
+
+// export function useStore() {
+//   return useContext(StoreContext) as UpStore;
+// }
 
 const needLogin = ['/dashboard', '/product', '/activities', '/pcf', '/carbon', '/tools', '/model'];
 const matchPath = (list: string[], target: string) => {
@@ -66,46 +81,34 @@ function Redrect(p: { children?: React.ReactNode }) {
   return <>{p.children}</>;
 }
 
-export function StoreProvider(p: { children?: React.ReactNode; init: Store }) {
-  const [state, setState] = useState(p.init || {});
-  const unfirst = useRef(false);
-  useEffect(() => {
-    if (unfirst.current) {
-      setState((old) => ({ ...old, ...p.init }));
-    }
-    unfirst.current = true;
-  }, [p.init]);
-  const update = useCallback((data: Partial<Store>) => {
-    setState((old: any) => ({ ...old, ...data }));
-  }, []);
-  const value = useMemo(() => ({ ...state, update }), [state]);
+// export function StoreProvider(p: { children?: React.ReactNode; init: Store }) {
+//   const [state, setState] = useState(p.init || {});
+//   const unfirst = useRef(false);
+//   useEffect(() => {
+//     if (unfirst.current) {
+//       setState((old) => ({ ...old, ...p.init }));
+//     }
+//     unfirst.current = true;
+//   }, [p.init]);
+//   const update = useCallback((data: Partial<Store>) => {
+//     setState((old: any) => ({ ...old, ...data }));
+//   }, []);
+//   const value = useMemo(() => ({ ...state, update }), [state]);
 
-  // update IsMobile
-  useEffect(() => {
-    const onResize = () => update({ isMobile: window.innerWidth <= 900 });
-    window.addEventListener('resize', onResize);
-    return () => {
-      window.removeEventListener('resize', onResize);
-    };
-  }, []);
-  return (
-    <StoreContext.Provider value={value}>
-      <Redrect>{p.children}</Redrect>
-    </StoreContext.Provider>
-  );
-}
-
-export function initStore() {
-  const store: Store = {
-    inited: true,
-    isMobile: window.innerWidth <= 900,
-    last_input_vin: sessionStorage.getItem('last_input_vin') || '',
-    show_header_tip: !localStorage.getItem('hidden_header_tip'),
-  };
-  const ud = getUserData();
-  if (ud && new Date().getTime() - ud.loginTime < 1000 * 60 * 60 * 24) store.userData = ud;
-  return store;
-}
+//   // update IsMobile
+//   useEffect(() => {
+//     const onResize = () => update({ isMobile: window.innerWidth <= 900 });
+//     window.addEventListener('resize', onResize);
+//     return () => {
+//       window.removeEventListener('resize', onResize);
+//     };
+//   }, []);
+//   return (
+//     <StoreContext.Provider value={value}>
+//       <Redrect>{p.children}</Redrect>
+//     </StoreContext.Provider>
+//   );
+// }
 
 export function useIsMobile() {
   const { isMobile } = useStore();

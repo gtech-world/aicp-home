@@ -1,4 +1,3 @@
-import { initStore, Store, StoreProvider } from '@/components/common/context';
 import { HeaderTip } from '@/components/common/headerTip';
 import { modalRootRef } from '@/components/common/modal';
 import { Toast } from '@/components/common/toast';
@@ -6,14 +5,14 @@ import '@/lib/env';
 import classNames from 'classnames';
 
 import { authGetResData } from '@/lib/http';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import 'react-tippy/dist/tippy.css';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 import { SWRConfig } from 'swr/_internal';
+import { useUser } from '@/components/common/context';
 
 function InitProvider(p: { children: React.ReactNode }) {
-  const [_store] = useState<Store>(initStore());
   useEffect(() => {
     modalRootRef.current = document.body as any;
   }, []);
@@ -25,7 +24,7 @@ function InitProvider(p: { children: React.ReactNode }) {
         fetcher: authGetResData,
       }}
     >
-      <StoreProvider init={_store}>{p.children}</StoreProvider>
+      {p.children}
     </SWRConfig>
   );
 }
