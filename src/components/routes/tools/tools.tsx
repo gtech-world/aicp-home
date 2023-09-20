@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { AlcaIcon, AmodelIcon, AinventoryIcon, VerifiedIcon } from '@/components/svgr';
 import { Link } from '@umijs/max';
-
+import { PageContainer } from '@ant-design/pro-components';
 function ToolsContent(item: any) {
   const { data: v, i } = item;
   const Vicon = v.icon;
@@ -52,7 +52,7 @@ const data = [
     title: '产品生命周期评价工具',
     text: '产品生命周期评价工具“A-LCA”是专门为汽车行业定制的产品生命周期分析与建模工具，帮助用户评估汽车供应链的产品与服务在其生命周期内对环境的影响，为计算产品碳足迹和其他环境声明提供基础。',
     list: ['LCA参考流程数据库、LCIA方法数据库', '建立产品生命周期评价模型', '进行环境影响的分析和评估'],
-    link: '/tools/lca',
+    link: '/main/tools/lca',
   },
   {
     icon: AmodelIcon,
@@ -61,7 +61,7 @@ const data = [
     title: '产品碳足迹模型管理工具',
     text: '碳足迹模型是一个结构化的电子文档，用于帮助汽车供应链的企业计算和跟踪其产品的碳足迹，这些模型通常包含用于收集和计算排放数据的流程、公式、参数和指导说明。',
     list: ['可信存储用户建立的模型', '变更与版本管理', '对模型进行自动化验证', '查看和管理实景数据输入项目'],
-    link: '/tools/model',
+    link: '/main/tools/model',
   },
   {
     icon: AinventoryIcon,
@@ -70,7 +70,7 @@ const data = [
     title: '产品碳足迹实景清单工具',
     text: '碳足迹清单是一个记录和追踪碳排放源的清单，它一般基于事先设立的碳足迹模型以及实际生产过程中获取的实景数据进行计算得到。“A-Inventory”帮助用户获取面向具体产品批次及其真实生产信息的碳足迹结果。',
     list: ['管理实景数据输入项', '基于模型和输入项计算碳足迹结果', '可信隐私计算过程的自动化验证'],
-    link: '/tools/inventory',
+    link: '/main/tools/inventory',
   },
   {
     icon: VerifiedIcon,
@@ -82,20 +82,19 @@ const data = [
       '用户可添加碳足迹结果相关的所有报告、材料、文档等',
       '经授权的第三方验证人可在完成相关核查、验证工作后提交验证信息',
     ],
-    link: '/tools/verificationManagement',
+    link: '/main/tools/verify',
   },
 ];
 
 export function Tools() {
   return (
-    <ToolsLayout canBack={true} className="text-black" isNew>
-      <h3 className=" text-[20px] leading-6 font-semibold mo:text-center">AICP产品碳足迹工具集</h3>
+    <PageContainer title="AICP产品碳足迹工具集">
       <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {data.map((v, i) => {
           return <ToolsContent key={`inProgress${i}`} data={v} i={i} />;
         })}
       </ul>
-    </ToolsLayout>
+    </PageContainer>
   );
 }
 

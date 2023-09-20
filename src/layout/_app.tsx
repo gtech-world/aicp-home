@@ -46,12 +46,6 @@ function InitToolTip() {
 export default function App(p: { children?: ReactNode }) {
   return (
     <div suppressHydrationWarning id="__app" className={classNames('App font-OpenSans relative')}>
-      {/* <head>
-        <title>AICP</title>
-        <meta name="description" content="AICP Home" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
-        <link rel="icon" href="/favicon.ico" />
-      </head> */}
       <InitProvider>
         <HeaderTip />
         {p.children}

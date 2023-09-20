@@ -1,10 +1,10 @@
 import Footer from '@/components/Footer';
-import { LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
-import { Link, history } from '@umijs/max';
+import { history } from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
-import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
+import { Aicp, Digital3 } from './components/svgr';
+import App from './layout/_app';
 import { errorConfig } from './requestErrorConfig';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/login';
@@ -42,17 +42,12 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
     // actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
     actionsRender: () => [],
-    avatarProps: {
-      src: initialState?.currentUser?.avatar,
-      title: <AvatarName />,
-      render: (_, avatarChildren) => {
-        return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;
-      },
-    },
-    // waterMarkProps: {
-    //   content: initialState?.currentUser?.name,
-    // },
-
+    logo: (
+      <div className="flex gap-3 items-end text-white">
+        <Aicp height="24" />
+        <Digital3 height="16" />
+      </div>
+    ),
     footerRender: () => <Footer />,
     onPageChange: () => {
       // const { location } = history;
@@ -62,21 +57,10 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       // }
     },
     layoutBgImgList: [],
-    links: isDev
-      ? [
-          <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI 文档</span>
-          </Link>,
-        ]
-      : [],
+    links: [],
     menuHeaderRender: undefined,
-    // 自定义 403 页面
-    // unAccessible: <div>unAccessible</div>,
-    // 增加一个 loading 的状态
     childrenRender: (children) => {
-      // if (initialState?.loading) return <PageLoading />;
-      return children;
+      return <App>{children}</App>;
     },
     ...initialState?.settings,
   };

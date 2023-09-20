@@ -1,7 +1,7 @@
 import { Button } from '@/components/common/button';
 import { Pagination } from '@/components/common/pagination';
 import { Table } from '@/components/common/table';
-import { ToolsLayout } from '@/components/common/toolsLayout';
+import { PageContainer } from '@ant-design/pro-components';
 import { RealData } from '@/components/modal/RealData';
 import { useUnVerifier } from '@/lib/hooks/useUser';
 import { getResultList } from '@/lib/http';
@@ -163,7 +163,7 @@ export function Inventory() {
             <div className={classNames(`flex justify-between ${colorText[record?.state]?.color}`)}>
               <Link
                 className="cursor-pointer text-lg leading-[27px]"
-                to={record.state === 1 ? `/tools/inventoryResult?id=${record.loadNumber}` : ''}
+                to={record.state === 1 ? `/main/tools/inventory/result?id=${record.loadNumber}` : ''}
               >
                 {colorText[record?.state]?.text}
               </Link>
@@ -232,15 +232,9 @@ export function Inventory() {
   const unVerifier = useUnVerifier();
 
   return (
-    <ToolsLayout
-      isNew
-      className="flex flex-col justify-between flex-1 text-black "
-      canBack
-      link={{ pathName: '/tools/tools', homeTitle: '产品碳足迹工具集', currentTitle: '产品碳足迹实景清单工具' }}
-    >
+    <PageContainer title="我的产品碳足迹结果">
       <div className="">
         <h3 className="flex items-center justify-between text-2xl font-semibold">
-          <span>我的产品碳足迹结果</span>
           {unVerifier && (
             <Button
               onClick={() => setOpenResultModal(true)}
@@ -300,7 +294,7 @@ export function Inventory() {
       {openViewRealDataModal && (
         <RealData {...paramDetailRef.current} onClose={() => setOpenViewRealDataModal(false)} />
       )}
-    </ToolsLayout>
+    </PageContainer>
   );
 }
 

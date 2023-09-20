@@ -43,7 +43,7 @@ const Card: FC<{ windowWidth: boolean }> = ({ windowWidth }) => {
 
     {
       icon: <SvgSignIn className="h-[5.875rem]" />,
-      to: user ? '/carbon/allService' : '/login',
+      to: user ? '/main' : '/login',
       children: (
         <div
           className="mx-3"
@@ -398,7 +398,7 @@ export function Home() {
             了解AICP服务
           </button>
           <Link
-            to={user ? '/carbon/allService' : '/login'}
+            to={user ? '/main' : '/login'}
             className=" inline-block ml-5 mo:ml-0 mt-[3.75rem] text-center w-[13.75rem] rounded-lg bg-white whitespace-nowrap text-green-2 text-2xl font-medium px-[1.9375rem] py-3 mo:mt-5 mo:text-lg mo:px-[3.125rem] mo:w-full"
             children={'登入AICP账户'}
           />

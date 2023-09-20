@@ -2,7 +2,7 @@ import { Button } from '@/components/common/button';
 import { Modal } from '@/components/common/modal';
 import { Pagination } from '@/components/common/pagination';
 import { Table } from '@/components/common/table';
-import { ToolsLayout } from '@/components/common/toolsLayout';
+import { PageContainer } from '@ant-design/pro-components';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Loading } from '@/components/common/loading';
 import { EditorProductSystem } from '@/components/modal/EditorProductSystem';
@@ -198,12 +198,7 @@ export function Model() {
   };
 
   return (
-    <ToolsLayout
-      isNew
-      canBack
-      link={{ pathName: '/tools/tools', homeTitle: '产品碳足迹工具集', currentTitle: '产品碳足迹模型管理工具' }}
-      className="flex flex-col justify-between flex-1 pb-12 text-black "
-    >
+    <PageContainer>
       <div className="">
         <h3 className="flex items-center justify-between text-2xl font-semibold">
           <span>我的产品系统</span>
@@ -325,7 +320,7 @@ export function Model() {
           </ul>
         </Modal>
       )}
-    </ToolsLayout>
+    </PageContainer>
   );
 }
 

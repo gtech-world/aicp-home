@@ -1,12 +1,14 @@
 import Chart from '@/components/common/Chart';
 import { Button } from '@/components/common/button';
 import { Loading } from '@/components/common/loading';
-import { ToolsLayout } from '@/components/common/toolsLayout';
+import { CarbonFooter } from '@/components/svgr';
+import { useT } from '@/lib/hooks/useT';
 import { exportLcaResultExcel, getLcaProductDetailList, getLcaResultDetail } from '@/lib/http';
 import { BomNode, deepSetBomChild, isTagType } from '@/lib/tagtools';
 import { tryParse } from '@/lib/utils';
-import { CarbonFooter } from '@/components/svgr';
-import { useSearchParams } from '@umijs/max';
+import { PageContainer } from '@ant-design/pro-components';
+import { useIntl, useRoutes, useSearchParams, useSelectedRoutes } from '@umijs/max';
+import { BreadcrumbProps } from 'antd';
 import classNames from 'classnames';
 import { EChartsOption, SankeySeriesOption } from 'echarts';
 import _ from 'lodash';
@@ -139,17 +141,19 @@ export function InventoryResult() {
           return '';
         };
 
+        const NameFlag: { [k: string]: boolean } = {};
         // data and links
         sortBoms.forEach((item) => {
-          // targetName
           if (isTagType(item.tagType, 'REFERENCE')) generalInfo.targetName = item.flowName;
-
           const links = (chartData.series as SankeySeriesOption).links;
           const data = (chartData.series as SankeySeriesOption).data;
           const value = _.first(mapTagResult[item.flowId])?.result || 0;
 
           // add data
-          data?.push({ name: item.flowName, value: _.round(value, 2), depth: item._depth });
+          if (!NameFlag[item.flowName]) {
+            NameFlag[item.flowName] = true;
+            data?.push({ name: item.flowName, value: _.round(value, 2), depth: item._depth });
+          }
 
           // add links
           if (item.childFlowIds && item.childFlowIds.length) {
@@ -170,13 +174,19 @@ export function InventoryResult() {
           );
 
           const otherName = getOtherName(item);
-          if (otherName) {
-            data?.push({ name: otherName, depth: item._depth - 1 });
+          if (otherName && item._depth > 0) {
+            if (!NameFlag[otherName]) {
+              NameFlag[otherName] = true;
+              data?.push({ name: otherName, depth: item._depth - 1 });
+            }
             links?.push({ target: item.flowName, source: otherName, value: other });
-          } else if (other > 0) {
+          } else if (other > 0 && item._depth > 0) {
             const otherNameDeep = getOtherNameForDeep(item);
             if (otherNameDeep) {
-              data?.push({ name: otherNameDeep, depth: item._depth - 1 });
+              if (!NameFlag[otherNameDeep]) {
+                NameFlag[otherNameDeep] = true;
+                data?.push({ name: otherNameDeep, depth: item._depth - 1 });
+              }
               links?.push({ target: item.flowName, source: otherNameDeep, value: other });
             }
           }
@@ -215,7 +225,7 @@ export function InventoryResult() {
   };
 
   return (
-    <ToolsLayout className="text-lg text-black">
+    <PageContainer title="碳足迹结果" className="text-lg text-black">
       {loading ? (
         <div className="h-[100vh] w-full items-center">
           <Loading />
@@ -261,7 +271,7 @@ export function InventoryResult() {
           </div>
         </div>
       )}
-    </ToolsLayout>
+    </PageContainer>
   );
 }
 

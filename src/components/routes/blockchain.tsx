@@ -12,7 +12,7 @@ import { useMemo } from 'react';
 import { VscQuestion, VscVerified } from 'react-icons/vsc';
 import { Aicp as SVGAICP, Polygon as SVGPolygon } from '@/components/svgr';
 import { Table } from '@/components/common/table';
-
+import { PageContainer } from '@ant-design/pro-components';
 function ItemInfo(p: { label: string; text: string; link?: string; tip?: any; className?: string }) {
   return (
     <div
@@ -196,13 +196,7 @@ export function Blockchain() {
     `<a href="${SCAN_BASE}" target="_blank" rel="noreferrer" class="text-green-2">polygonscan</a>`,
   );
   return (
-    <div className="flex flex-col flex-1 w-full text-black bg-gray-16 min-h-fit">
-      <header className="bg-green-2 text-white flex items-center h-[4.25rem] px-[4.375rem] w-full">
-        <SVGAICP fill="#29953A" className="h-[2.25rem] mo:h-[1.75rem] fill-white ml-[3.125rem] mo:ml-4" />
-        <div className="w-[5.9rem] mo:w-[4.5rem] ml-4 mo:ml-3 text-base mo:text-[0.8rem] mo:leading-[1.125rem]">
-          {t('Trust Label NFT Viewer')}
-        </div>
-      </header>
+    <PageContainer className="flex flex-col flex-1 w-full text-black bg-gray-16 min-h-fit">
       {loading ? (
         <Loading />
       ) : (
@@ -265,7 +259,7 @@ export function Blockchain() {
           </div>
         </div>
       )}
-    </div>
+    </PageContainer>
   );
 }
 

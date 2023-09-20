@@ -1,4 +1,4 @@
-import { ToolsLayout } from '@/components/common/toolsLayout';
+import { PageContainer } from '@ant-design/pro-components';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Table } from '@/components/common/table';
 import { Pagination } from '@/components/common/pagination';
@@ -239,12 +239,7 @@ export function VerificationManagementList() {
   }, [pgNum]);
 
   return (
-    <ToolsLayout
-      isNew
-      className="flex flex-col justify-between flex-1 text-black "
-      canBack
-      link={{ pathName: '/tools/tools', homeTitle: '产品碳足迹工具集', currentTitle: '验证管理' }}
-    >
+    <PageContainer>
       <div className="">
         <h3 className="flex items-center justify-between text-2xl font-semibold">
           <span>验证管理列表</span>
@@ -305,7 +300,7 @@ export function VerificationManagementList() {
           }}
         />
       )}
-    </ToolsLayout>
+    </PageContainer>
   );
 }
 

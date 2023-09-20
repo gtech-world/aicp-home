@@ -62,7 +62,7 @@ export function Modal(p: ModalProps) {
       {...other}
       ref={ref}
       className={classNames(
-        'fixed left-0  top-0 w-full h-full overflow-auto z-50 bg-black/25 flex justify-center items-center',
+        'fixed left-0  top-0 w-full h-full overflow-auto z-[500] bg-black/25 flex justify-center items-center',
         className,
       )}
       onClick={onClickOut}

@@ -1,6 +1,7 @@
 import { ProductQrcode } from '@/components/common/productQrcode';
 import { Teacher as SvgTeacher } from '@/components/svgr';
 import { Link } from '@umijs/max';
+import { PageContainer } from '@ant-design/pro-components';
 
 function PartInfo(p: { label: string; text: string }) {
   return (
@@ -64,11 +65,10 @@ const tagData = [
     id: '144049913',
     qrcodeDisable: false,
     link: [
-      { text: '标签信息', href: '/car?vin=1500101202311001' },
+      { text: '标签信息', href: '/main/tags/label?vin=1500101202311001' },
       {
         text: '在区块链浏览器查看',
-        target: '_blank',
-        href: '/blockchain?tokenId=1000000',
+        href: '/main/tags/chain?tokenId=1000000',
       },
     ],
   },
@@ -76,11 +76,13 @@ const tagData = [
 
 export function Tag() {
   return (
-    <div className="flex flex-wrap">
-      {tagData.map((v, i) => {
-        return <Card key={`tagData${i}`} data={v} />;
-      })}
-    </div>
+    <PageContainer>
+      <div className="flex flex-wrap">
+        {tagData.map((v, i) => {
+          return <Card key={`tagData${i}`} data={v} />;
+        })}
+      </div>
+    </PageContainer>
   );
 }
 

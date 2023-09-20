@@ -26,6 +26,7 @@ import React, { useCallback, useMemo } from 'react';
 import { IoCheckmarkCircleOutline, IoEllipsisHorizontalCircle } from 'react-icons/io5';
 import { useToggle } from 'react-use';
 import { Link, useSearchParams } from '@umijs/max';
+import { PageContainer } from '@ant-design/pro-components';
 interface CarUIProps {
   data: {
     sbt: SbtInfo;
@@ -51,7 +52,7 @@ function ItemInfo(p: { label: string; text: string; link?: string }) {
     >
       <span className="font-bold text-black">{p.label}:</span>{' '}
       {p.link ? (
-        <Link to={p.link} target="_blank" rel="noreferrer">
+        <Link to={p.link} target={p.link.startsWith('http') ? '_blank' : '_self'} rel="noreferrer">
           {p.text}
         </Link>
       ) : (
@@ -80,7 +81,7 @@ function CarInfos(p: CarUIProps) {
         label={t('Label SBT Address')}
         text={t('View on blockchain explorer')}
         // link={genScanTokenUrl(sbt.sbtTokenId)}
-        link={'/blockchain?tokenId=' + sbt.sbtTokenId}
+        link={'/main/tags/chain?tokenId=' + sbt.sbtTokenId}
       />
     </div>
   );
@@ -392,24 +393,13 @@ export function Car() {
   const onBack = useGoBack();
   const { t } = useT();
   return (
-    <div className="flex flex-col flex-1 w-full text-black bg-gray-16 min-h-fit">
+    <PageContainer className="flex flex-col flex-1 w-full text-black bg-gray-16 min-h-fit">
       {isMobile ? (
         <>{loading ? <Loading /> : <>{data ? <MobileCar data={data} /> : vin ? <Empty /> : null}</>}</>
       ) : (
-        <HeaderLayout className="!px-7">
-          {loading ? (
-            <Loading />
-          ) : (
-            <>
-              <div className="w-full px-5 max-w-[1480px] mx-auto">
-                <button onClick={onBack} className="self-start ml-1">{`< ${t('Back')}`}</button>
-              </div>
-              {data ? <PcCar data={data} /> : vin ? <Empty /> : null}
-            </>
-          )}
-        </HeaderLayout>
+        <>{loading ? <Loading /> : <>{data ? <PcCar data={data} /> : vin ? <Empty /> : null}</>}</>
       )}
-    </div>
+    </PageContainer>
   );
 }
 

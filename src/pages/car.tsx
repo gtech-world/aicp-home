@@ -1,3 +1,8 @@
 import { Car } from '@/components/routes/car';
+import App from '@/layout/_app';
 
-export default Car;
+export default () => (
+  <App>
+    <Car />
+  </App>
+);
