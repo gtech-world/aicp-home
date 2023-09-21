@@ -1,7 +1,8 @@
+import { useIntl } from '@umijs/max';
 import { AxiosError } from 'axios';
 import _, { toInteger } from 'lodash';
+import moment from 'moment';
 import { LABEL_CONTRACT, SCAN_BASE } from './env';
-import { useIntl } from '@umijs/max';
 
 export function getErrorMsg(error: AxiosError | any): string {
   if (!error) return 'Unkown Error';
@@ -203,4 +204,10 @@ export const autoFormaterRealTime = (fmt: ReturnType<typeof useIntl>['formatRela
       : ['years', Math.floor(time / 60 / 60 / 24 / 30 / 12)];
 
   return fmt(stime > 0 ? rtime : -rtime, unit);
+};
+
+export const getCurrentDate = (date = '', dateType = 'YYYY-MM-DD HH:mm:ss') => {
+  const currentTime = moment(date);
+  const formattedTime = currentTime.format(dateType);
+  return formattedTime;
 };
