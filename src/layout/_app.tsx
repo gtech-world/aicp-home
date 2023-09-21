@@ -45,7 +45,6 @@ export default function App(p: { children?: ReactNode }) {
   return (
     <div suppressHydrationWarning id="__app" className={classNames('App font-OpenSans relative')}>
       <InitProvider>
-        <HeaderTip />
         {p.children}
         <Toast />
       </InitProvider>
