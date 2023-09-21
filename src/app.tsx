@@ -1,72 +1,34 @@
 import Footer from '@/components/Footer';
-import { MenuOutlined, UnorderedListOutlined, UserOutlined } from '@ant-design/icons';
+import { UnorderedListOutlined, UserOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
-import { history, useNavigate } from '@umijs/max';
-import { ReactNode, useMemo } from 'react';
+import { history } from '@umijs/max';
+import { ReactNode } from 'react';
 import defaultSettings from '../config/defaultSettings';
+import MenuAction from './components/Header/MenuAction';
+import { useStore } from './components/common/context';
 import { Aicp, Co2, Digital3 } from './components/svgr';
 import App from './layout/_app';
+import { UserData } from './lib/@types/type';
 import { errorConfig } from './requestErrorConfig';
-import HeaderDropdown from './components/HeaderDropdown';
-import { MenuProps } from 'antd/es/menu';
-import { FiLogOut } from 'react-icons/fi';
-import { useStore, useUser } from './components/common/context';
-import { useT } from './lib/hooks/useT';
-const isDev = process.env.NODE_ENV === 'development';
-const loginPath = '/login';
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
  * */
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
-  currentUser?: API.CurrentUser;
+  currentUser?: UserData;
   loading?: boolean;
-  fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+  fetchUserInfo?: () => Promise<UserData | undefined>;
 }> {
   const fetchUserInfo = async () => {
-    return undefined;
+    return useStore.getState().userData;
   };
-  // 如果不是登录页面，执行
-  const { location } = history;
-  if (location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
-    return {
-      fetchUserInfo,
-      currentUser,
-      settings: defaultSettings as Partial<LayoutSettings>,
-    };
-  }
   return {
     fetchUserInfo,
+    currentUser: useStore.getState().userData,
     settings: defaultSettings as Partial<LayoutSettings>,
   };
-}
-
-function MenuAction() {
-  const { t } = useT();
-  const { setUser } = useUser();
-  const push = useNavigate();
-  const menuActionItems: MenuProps['items'] = useMemo(
-    () => [
-      {
-        icon: <FiLogOut />,
-        label: t('Log Out'),
-        key: '1',
-        onClick: () => {
-          setUser(undefined);
-          push('/');
-        },
-      },
-    ],
-    [t],
-  );
-  return (
-    <HeaderDropdown menu={{ items: menuActionItems }}>
-      <MenuOutlined className="text-2xl text-white" />
-    </HeaderDropdown>
-  );
 }
 
 const menuicons: { [k: string]: ReactNode } = {
@@ -74,6 +36,7 @@ const menuicons: { [k: string]: ReactNode } = {
   '/main/tags': <Co2 />,
   '/user': <UserOutlined />,
 };
+
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {

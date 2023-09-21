@@ -10,23 +10,21 @@ import {
 
 import { useIsMobile } from '@/components/common/context';
 import { Empty } from '@/components/common/empty';
-import { HeaderLayout } from '@/components/common/headerLayout';
 import { Loading } from '@/components/common/loading';
 import { StepProgress } from '@/components/common/progress';
 import { CAR_SRC, genSbtPhase, PHASE } from '@/components/const';
 import { SbtInfo, SbtPhase } from '@/lib/@types/type';
 import { useAsyncM } from '@/lib/hooks/useAsyncM';
 import { useAutoAnim } from '@/lib/hooks/useAutoAnim';
-import { useGoBack } from '@/lib/hooks/useGoBack';
 import { useT } from '@/lib/hooks/useT';
 import { getSbgEmissionInventory, getSbtInfo, noArgs } from '@/lib/oldHttp';
 import { ftmCarbonEmission, ftmTimestamp, handleCarbonStr } from '@/lib/utils';
+import { PageContainer } from '@ant-design/pro-components';
+import { Link, useSearchParams } from '@umijs/max';
 import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
 import { IoCheckmarkCircleOutline, IoEllipsisHorizontalCircle } from 'react-icons/io5';
 import { useToggle } from 'react-use';
-import { Link, useSearchParams } from '@umijs/max';
-import { PageContainer } from '@ant-design/pro-components';
 interface CarUIProps {
   data: {
     sbt: SbtInfo;
@@ -352,7 +350,7 @@ function PcCar(p: CarUIProps) {
   );
 }
 
-export function Car() {
+export function Label() {
   // const { query } = useRouter();
   const [sq] = useSearchParams();
   const vin: string = sq.get('vin') as string;
@@ -390,8 +388,6 @@ export function Car() {
       use: '12.9',
     };
   }, [value]);
-  const onBack = useGoBack();
-  const { t } = useT();
   return (
     <PageContainer className="flex flex-col flex-1 w-full text-black bg-gray-16 min-h-fit">
       {isMobile ? (
@@ -403,4 +399,4 @@ export function Car() {
   );
 }
 
-export default Car;
+export default Label;

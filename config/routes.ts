@@ -34,8 +34,8 @@ export default [
     name: 'tags',
     routes: [
       { path: '', component: './tags' },
-      { path: 'label', component: './car' },
-      { path: 'chain', component: './blockchain' },
+      { path: 'label', component: './label' },
+      { path: 'chain', component: './chain' },
     ],
   },
   { path: '/user', name: 'user' },

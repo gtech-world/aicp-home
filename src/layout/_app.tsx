@@ -10,7 +10,6 @@ import 'react-tippy/dist/tippy.css';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 import { SWRConfig } from 'swr/_internal';
-import { useUser } from '@/components/common/context';
 
 function InitProvider(p: { children: React.ReactNode }) {
   useEffect(() => {
