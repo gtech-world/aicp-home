@@ -1,18 +1,16 @@
+import WrapPageContainer from '@/components/ant/WrapPageContainer';
+import { WrapProTable } from '@/components/ant/WrapProTable';
 import { Button } from '@/components/common/button';
-import { Modal } from '@/components/common/modal';
-import { Pagination } from '@/components/common/pagination';
-import { Table } from '@/components/common/table';
-import { PageContainer } from '@ant-design/pro-components';
-import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Loading } from '@/components/common/loading';
+import { Modal } from '@/components/common/modal';
+import { Table } from '@/components/common/table';
 import { EditorProductSystem } from '@/components/modal/EditorProductSystem';
 import { NewProductSystem } from '@/components/modal/NewProductSystem';
-import { ProduceSystemController } from '@/lib/@types/produceSystem';
+import { useProductList } from '@/lib/hooks/useDatas';
 import { useUnVerifier } from '@/lib/hooks/useUser';
-import { getLcaProductList, updateLcaModelState } from '@/lib/http';
-import { shortStr, sleep } from '@/lib/utils';
+import { updateLcaModelState } from '@/lib/http';
 import classNames from 'classnames';
-import { handleContentRender, scrollToTop } from '@/lib/utils';
+import { useMemo, useState } from 'react';
 
 export function Model() {
   const [status, setStatus] = useState<any>(null);
@@ -21,126 +19,12 @@ export function Model() {
   const [opResult, setOpResult] = useState<any>(null);
   const [createProductView, setCreateProductView] = useState<boolean>(false);
   const [pgNum, setPgNum] = useState(1);
-  const [productViewSelectedIndex, setProductViewSelectedIndex] = useState<number>(-1);
   const [reload, setReload] = useState(0);
-  const [tableData, setTableData] = useState<Partial<ProduceSystemController.ProduceSystemList>>({});
-  const [productList, setProductList] = useState<any>([]);
-  const [tableLoading, setTableLoading] = useState<boolean>(true);
-  const queryLcaProductList = async () => {
-    const res = await getLcaProductList(pgNum);
-    setTableData(res);
-    setTableLoading(false);
-  };
-  useEffect(() => {
-    let stop = false;
-    const task = async () => {
-      while (true) {
-        if (stop) return;
-        try {
-          await queryLcaProductList();
-          await sleep(10000);
-        } catch (e) {
-          continue;
-        }
-      }
-    };
-    task();
-    return () => {
-      stop = true;
-    };
-  }, []);
-
-  const columns = useMemo(
-    () => [
-      {
-        title: '产品系统',
-        dataIndex: 'name',
-        width: '200px',
-        render: (text: string) => {
-          return (
-            <span
-              data-tooltip-id="tooltip"
-              data-tooltip-place="top-start"
-              data-tooltip-content={handleContentRender(text, 20)}
-              className="w-[200px] font-normal  text-lg leading-[27px] truncate inline-block"
-            >
-              {text}
-            </span>
-          );
-        },
-      },
-      {
-        title: '产品系统ID',
-        dataIndex: 'uuid',
-        width: '15rem',
-        render: (text: string) => {
-          return (
-            <span
-              data-tooltip-id="tooltip"
-              data-tooltip-content={text}
-              className="text-lg w-[15rem] truncate inline-block font-normal leading-[27px]"
-            >
-              {shortStr(text, 8, 8)}
-            </span>
-          );
-        },
-      },
-      {
-        title: '操作人',
-        dataIndex: 'name',
-        width: '8rem',
-        render: (text: string, record: ProduceSystemController.ListRecords) => {
-          return (
-            <span className="w-[8rem] text-lg truncate inline-block font-normal leading-[27px]">
-              {record.updateUser.name}
-            </span>
-          );
-        },
-      },
-      {
-        title: '描述',
-        dataIndex: 'description',
-        width: '14rem',
-        render: (text: string) => {
-          return (
-            <div
-              data-tooltip-content={handleContentRender(text, 11)}
-              data-tooltip-id="tooltip"
-              className="w-[14rem] text-lg truncate inline-block font-normal leading-[27px]"
-            >
-              {text || '-'}
-            </div>
-          );
-        },
-      },
-      {
-        title: '上传时间',
-        dataIndex: 'createTime',
-        width: '13rem',
-        render: (text: string) => {
-          return <span className="w-[13rem] text-lg truncate inline-block font-normal leading-[27px]">{text}</span>;
-        },
-      },
-      {
-        title: '',
-        width: '20rem',
-        render: (text: string, record: any) => {
-          return (
-            <div className="flex justify-between flex-1 ml-10 text-green-2 break-keep">
-              <div
-                className="flex items-center font-normal justify-center cursor-pointer text-lg leading-[27px]"
-                onClick={() => setEditorProductSystem(record)}
-              >
-                查看
-              </div>
-            </div>
-          );
-        },
-      },
-    ],
-    [],
+  const { data, isLoading, mutate: refresh } = useProductList(pgNum, 10000);
+  const tableSource = useMemo<Record<string, any>[]>(
+    () => (data?.records || []).map((item, i) => ({ ...item, key: 'pl' + i, optName: item.updateUser.name })),
+    [data],
   );
-
   const realColumns = useMemo(
     () => [
       {
@@ -164,11 +48,6 @@ export function Model() {
         emptyText: '-',
         width: '30%',
       },
-      // {
-      //   title: "描述",
-      //   dataIndex: 'description',
-      //   emptyText:'-'
-      // },
     ],
     [],
   );
@@ -192,52 +71,88 @@ export function Model() {
 
   const onSuccess = () => {
     setPgNum(1);
-    if (pgNum === 1) {
-      queryLcaProductList();
-    }
+    if (pgNum === 1) refresh();
   };
 
+  const columns = useMemo<Parameters<typeof WrapProTable>['0']['columns']>(
+    () => [
+      {
+        title: '产品系统',
+        dataIndex: 'name',
+        ellipsis: true,
+        copyable: true,
+      },
+      {
+        title: '产品系统ID',
+        dataIndex: 'uuid',
+        ellipsis: true,
+        copyable: true,
+      },
+      {
+        title: '操作人',
+        dataIndex: 'optName',
+      },
+      {
+        title: '描述',
+        dataIndex: 'description',
+        ellipsis: true,
+        copyable: true,
+      },
+      {
+        title: '上传时间',
+        dataIndex: 'createTime',
+        valueType: 'dateTime',
+      },
+      {
+        title: '操作',
+        valueType: 'option',
+        render: (_dom, entity) => [
+          <div
+            key={'key_look'}
+            className="text-green-2 cursor-pointer"
+            onClick={() => {
+              setEditorProductSystem(entity);
+            }}
+          >
+            查看
+          </div>,
+        ],
+      },
+    ],
+    [],
+  );
   return (
-    <PageContainer>
-      <div className="">
-        <h3 className="flex items-center justify-between text-2xl font-semibold">
-          <span>我的产品系统</span>
-          {unVerifier && (
-            <Button
-              onClick={() => setCreateProductView(true)}
-              className={classNames('w-40 text-lg font-normal text-white rounded-lg bg-green-2 h-11 hover:bg-green-28')}
-            >
-              新建产品系统
-            </Button>
-          )}
-        </h3>
-        <div className="w-full p-5 mt-5 bg-white rounded-2xl">
-          <div className="pb-6 mt-5 overflow-x-auto">
-            <div className="min-h-[20.25rem] text-base leading-[1.625rem] min-w-[68.25rem]">
-              <Table
-                loading={tableLoading}
-                columns={columns}
-                columnsHeight={'h-[3.125rem]'}
-                mouseHoverKey={'id'}
-                data={tableData?.records || []}
-                columnsClassName=" cursor-pointer "
-                headerClassName={{ background: '#fff', fontWeight: '700', fontSize: '18px', lineHeight: '27px' }}
-              />
-            </div>
-          </div>
-        </div>
+    <WrapPageContainer
+      title="我的产品系统"
+      extra={
+        unVerifier
+          ? [
+              <Button
+                key="btn"
+                onClick={() => setCreateProductView(true)}
+                className={classNames('w-40 text-lg font-normal text-white rounded bg-green-2 h-11 hover:bg-green-28')}
+              >
+                新建产品系统
+              </Button>,
+            ]
+          : []
+      }
+    >
+      <div className="bg-white">
+        <WrapProTable
+          columns={columns}
+          dataSource={tableSource}
+          loading={isLoading}
+          pagination={{
+            pageSize: 10,
+            total: data?.total || 0,
+            onChange: (page) => {
+              setPgNum(page);
+            },
+          }}
+        />
       </div>
-      <Pagination
-        onChange={(v: any) => {
-          setPgNum(v);
-          scrollToTop();
-          setTableLoading(true);
-        }}
-        className="my-8"
-        total={tableData?.total || 0}
-        pgSize={10}
-        pgNum={pgNum}
-      />
+
       {status !== null && (
         <Modal title="更改状态" onClose={() => setStatus(null)}>
           <div className="flex">
@@ -300,27 +215,7 @@ export function Model() {
           onSuccess={() => onSuccess()}
         />
       )}
-      {productViewSelectedIndex > -1 && (
-        <Modal title="查看产品" onClose={() => setProductViewSelectedIndex(-1)}>
-          <ul className="text-lg max-w-[32rem]">
-            <li className="flex">
-              <label className="inline-block min-w-[5.625rem]">产品名称 :</label>
-              <span className="break-all text-gray-6">{productList[productViewSelectedIndex]?.text}</span>
-            </li>
-            <li className="my-5">
-              <label className="inline-block w-[5.625rem]">产品类型 :</label>
-              <span className="text-gray-6">{productList[productViewSelectedIndex]?.type}</span>
-            </li>
-            <li className="flex">
-              <label className="inline-block min-w-[5.625rem]">描述 :</label>
-              <span className="break-all text-gray-6">
-                {productList[productViewSelectedIndex]?.desc ? productList[productViewSelectedIndex]?.desc : '-'}
-              </span>
-            </li>
-          </ul>
-        </Modal>
-      )}
-    </PageContainer>
+    </WrapPageContainer>
   );
 }
 

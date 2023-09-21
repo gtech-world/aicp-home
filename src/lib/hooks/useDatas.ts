@@ -19,3 +19,9 @@ export function useInventoryLiteAll(load?: boolean) {
 export function useVerifiers(load?: boolean) {
   return useSWR<any[]>(load ? '/api/verifyRecord/verifiers' : null);
 }
+
+export function useProductList(pgNum: number, interval: number = 0) {
+  return useSWR<ProduceSystemController.ProduceSystemList>(`/api/product-system/list/?pageNum=${pgNum}&pageSize=10`, {
+    refreshInterval: interval,
+  });
+}

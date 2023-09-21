@@ -4,7 +4,7 @@ import { useNavigate } from '@umijs/max';
 import { useMemo } from 'react';
 import { MenuProps } from 'antd';
 import { FiLogOut } from 'react-icons/fi';
-import HeaderDropdown from '../HeaderDropdown';
+import HeaderDropdown from './HeaderDropdown';
 import { MenuOutlined } from '@ant-design/icons';
 
 export function MenuAction() {

@@ -1,11 +1,9 @@
-import { ToolsLayout } from '@/components/common/toolsLayout';
-import { PageContainer } from '@ant-design/pro-components';
-import React from 'react';
+import WrapPageContainer from '@/components/ant/WrapPageContainer';
 
 export function Lca() {
   return (
-    <PageContainer>
-      <div className="bg-white p-5 rounded-2xl text-base mt-5 leading-[1.625rem]">
+    <WrapPageContainer title="“A-LCA”产品生命周期评价工具">
+      <div className="bg-white p-5 text-base leading-[1.625rem]">
         <h4 className="mb-4 text-xl font-semibold">关于生命周期评价</h4>
         <p>
           生命周期评价（Life Cycle Assessment,
@@ -64,7 +62,7 @@ export function Lca() {
           {/* <a className="ml-5 underline text-blue-0" rel="noreferrer" target="_blank" href="https://gtech-lca-1317970565.cos.ap-shanghai.myqcloud.com/AICP_LCA_LCIA_Method_202306.zolca">LCIA Method库</a> */}
         </div>
       </div>
-    </PageContainer>
+    </WrapPageContainer>
   );
 }
 

@@ -25,6 +25,7 @@ module.exports = {
           20: '#eeeeee',
           bg: '#f1f1f1',
           28: '#f8f8f8',
+          f0: '#f0f2f5',
         },
         green: {
           2: '#29953A',

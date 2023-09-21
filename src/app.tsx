@@ -1,11 +1,10 @@
-import Footer from '@/components/Footer';
 import { UnorderedListOutlined, UserOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history } from '@umijs/max';
 import { ReactNode } from 'react';
 import defaultSettings from '../config/defaultSettings';
-import MenuAction from './components/Header/MenuAction';
+import MenuAction from './components/ant/MenuAction';
 import { useStore } from './components/common/context';
 import { Aicp, Co2, Digital3 } from './components/svgr';
 import App from './layout/_app';
@@ -48,7 +47,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
         <Digital3 height="16" />
       </div>
     ),
-    footerRender: () => <Footer />,
+    footerRender: () => null,
     onPageChange: () => {},
     layoutBgImgList: [],
     links: [],
