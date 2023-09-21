@@ -24,6 +24,28 @@ ol {
   list-style: none;
 }
 
+.ant-layout-sider {
+  background: white !important;
+  .ant-layout-sider-children {
+    padding-inline: 0 !important;
+    div[role='menuitem'],
+    li[role='menuitem'] {
+      margin-inline: 0 !important;
+      width: 100% !important;
+    }
+    div[role='menuitem']:hover,
+    li[role='menuitem']:hover {
+      color: #29953a !important;
+      border-radius: 0;
+      background: rgba(41, 149, 58, 0.1) !important;
+    }
+    .ant-menu-item-selected {
+      border-radius: 0;
+      background: rgba(41, 149, 58, 0.1);
+      border-right: #29953a solid 2px;
+    }
+  }
+}
 @media (max-width: 768px) {
   .ant-table {
     width: 100%;
