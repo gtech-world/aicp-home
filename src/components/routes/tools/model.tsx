@@ -125,7 +125,7 @@ export function Model() {
     ],
     [],
   );
-  const scrollX = _.sumBy(columns, 'width');
+
   return (
     <WrapPageContainer
       title="我的产品系统"
@@ -148,7 +148,6 @@ export function Model() {
           columns={columns}
           dataSource={tableSource}
           loading={isLoading}
-          scroll={{ x: scrollX }}
           pagination={{
             pageSize: 10,
             total: data?.total || 0,

@@ -1,26 +1,20 @@
-import { PageContainer } from '@ant-design/pro-components';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Table } from '@/components/common/table';
-import { Pagination } from '@/components/common/pagination';
-import { Button } from '@/components/common/button';
+import WrapPageContainer from '@/components/ant/WrapPageContainer';
+import WrapProTable, { ProTableColumns } from '@/components/ant/WrapProTable';
+import { Btn } from '@/components/common/button';
+import { useStore } from '@/components/common/context';
+import { VectorIcon } from '@/components/svgr';
+import { useVerificationList } from '@/lib/hooks/useDatas';
+import _ from 'lodash';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import AddVerification from './components/AddOrEditVerification';
 import ViewVerification from './components/ViewVerification';
-import { getVerificationManagementList } from '@/lib/services/verificationManagement';
-import { useStore } from '@/components/common/context';
-import _ from 'lodash';
-import { handleContentRender } from '@/lib/utils';
-import { shortStr } from '@/lib/utils';
-import { VectorIcon } from '@/components/svgr';
 
-type ListType = VerificationManagementController.VerificationRecord;
 export function VerificationManagementList() {
   const { userData } = useStore();
   const [pgNum, setPgNum] = useState(1);
-  const [tableData, setTableData] = useState<Partial<VerificationManagementController.ListPage>>({});
   const [openAddOrEditVerificationModal, setOpenAddOrEditVerificationModal] = useState<boolean>(false);
   const [openViewFileModal, setOpenViewFileModal] = useState<boolean>(false);
   const viewFileRef = useRef<VerificationManagementController.AttachmentFileList[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
   const editInfoDataRef = useRef<{
     type: VerificationManagementController.VerificationManagementModal['type'];
     recordId?: number;
@@ -40,103 +34,48 @@ export function VerificationManagementList() {
     },
     [userData],
   );
-  const columns = useMemo(
+  const columns = useMemo<ProTableColumns>(
     () => [
       {
         title: '验证记录',
         dataIndex: 'name',
-        width: '10rem',
-        render: (text: string) => {
-          return (
-            <span
-              data-tooltip-content={handleContentRender(text, 20)}
-              data-tooltip-id="tooltip"
-              className="w-[13rem] text-lg leading-[27px] truncate inline-block"
-            >
-              {text}
-            </span>
-          );
-        },
+        width: 160,
+        ellipsis: true,
       },
       {
         title: '验证记录ID',
         dataIndex: 'id',
-        width: '6rem',
-        render: (text: string) => {
-          return (
-            <div className="flex  text-lg leading-[27px]  w-[6rem]">
-              <span className="">{text}</span>
-            </div>
-          );
-        },
+        width: 160,
+        ellipsis: true,
       },
       {
         title: '发起人',
-        dataIndex: 'loadNumber',
-        width: '8rem',
-        render: (text: string, record: ListType) => {
-          return (
-            <span
-              data-tooltip-content={handleContentRender(record.createUser.name, 20)}
-              data-tooltip-id="tooltip"
-              className="text-lg leading-[27px] max-w-[13rem]  truncate inline-block"
-            >
-              {record.createUser.name}
-            </span>
-          );
-        },
+        dataIndex: '_createUserName',
+        width: 160,
+        ellipsis: true,
       },
-
       {
         title: '组织机构',
-        width: '2rem',
-        dataIndex: 'productName',
-        render: (text: string, record: ListType) => {
-          return (
-            <span className=" text-lg leading-[27px] max-w-[14rem] truncate inline-block ">
-              {record.organization.name}
-            </span>
-          );
-        },
+        width: 160,
+        ellipsis: true,
+        dataIndex: '_organizationName',
       },
       {
         title: '碳足迹批次',
-        dataIndex: 'loadName',
-        width: '10rem',
-        render: (text: string, record: ListType) => {
-          return (
-            <span
-              data-tooltip-content={handleContentRender(record.inventory.loadName, 11)}
-              data-tooltip-id="tooltip"
-              className="w-[13rem] text-lg leading-[27px] truncate inline-block"
-            >
-              {record.inventory.loadName}
-            </span>
-          );
-        },
+        dataIndex: '_loadName',
+        width: 160,
+        ellipsis: true,
       },
       {
         title: '碳足迹批次ID',
         dataIndex: 'loadNumber',
-        width: '10rem',
-        render: (text: string) => {
-          return (
-            <span
-              data-tooltip-content={text}
-              data-tooltip-id="tooltip"
-              className="w-[13rem] text-lg leading-[27px] truncate inline-block"
-            >
-              {}
-              {shortStr(text, 8, 8)}
-            </span>
-          );
-        },
+        width: 160,
+        ellipsis: true,
       },
       {
         title: '附件',
-        dataIndex: 'productDescription',
-        width: '18.75rem',
-        render: (text: string, record: any) => {
+        width: 160,
+        render: (_dom, record) => {
           return (
             <div
               onClick={() => onViewFile(record.attachmentFileList)}
@@ -151,30 +90,19 @@ export function VerificationManagementList() {
       {
         title: '最后编辑',
         dataIndex: 'updateTime',
-        width: '14rem',
-        render: (text: string) => <span className=" text-lg leading-[27px] w-[12rem] ">{text}</span>,
+        valueType: 'dateTime',
+        width: 170,
       },
       {
         title: '验证人',
-        dataIndex: 'name',
-        width: '18.625rem',
-        render: (text: string, record: ListType) => {
-          return (
-            <span
-              data-tooltip-content={handleContentRender(record.verifyUser.name, 11)}
-              data-tooltip-id="tooltip"
-              className="max-w-[11rem] text-lg leading-[27px]  truncate inline-block"
-            >
-              {record.verifyUser.name}
-            </span>
-          );
-        },
+        dataIndex: '_verifyUserName',
+        width: 160,
+        ellipsis: true,
       },
       {
         title: '验证文档',
-        dataIndex: 'verifyFileList',
-        width: '8.125rem',
-        render: (text: string, record: ListType) => {
+        width: 130,
+        render: (_bom, record) => {
           return record.verifyFileList.length ? (
             <div
               onClick={() => onViewFile(record.verifyFileList)}
@@ -188,96 +116,79 @@ export function VerificationManagementList() {
       },
       {
         title: '验证状态',
-        dataIndex: 'state',
-        width: '8.125rem',
-        render: (text: string) => (
-          <span className=" text-lg leading-[27px] max-w-[14rem] ">{text ? '已验证' : ''}</span>
-        ),
+        width: 130,
+        render: (_dom, record) => <span className="">{record.state ? '已验证' : ''}</span>,
       },
       {
         title: '验证时间',
         dataIndex: 'proofTime',
-        width: '8.125rem',
-        render: (text: string) => <span className="text-lg leading-[27px] w-[13rem] ">{text}</span>,
+        valueType: 'dateTime',
+        width: 170,
       },
       {
-        title: '',
-        width: '20rem',
-        render: (text: string, record: ListType) => {
-          return (
-            !record.state && (
-              <div className="flex justify-between flex-1 text-green-2 break-keep">
-                <div
-                  className="flex items-center font-normal justify-center cursor-pointer text-lg leading-[27px]"
-                  onClick={() => onOpenModal(record)}
-                >
-                  编辑
-                </div>
-              </div>
-            )
-          );
+        title: '操作',
+        width: 120,
+        valueType: 'option',
+        render: (_dom, record) => {
+          return !record.state
+            ? [
+                <div key="edit" className="flex justify-between flex-1 text-green-2 break-keep">
+                  <div
+                    className="flex items-center font-normal justify-center cursor-pointer leading-[27px]"
+                    onClick={() => onOpenModal(record)}
+                  >
+                    编辑
+                  </div>
+                </div>,
+              ]
+            : [];
         },
       },
     ],
     [onOpenModal],
   );
-
-  const getList = async () => {
-    try {
-      setLoading(true);
-      const res = await getVerificationManagementList(pgNum);
-      setTableData(res);
-    } catch (e) {
-      console.log('eeee', e);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getList();
-  }, [pgNum]);
+  const { data, isLoading, mutate: refresh } = useVerificationList(pgNum);
+  const tableSource = useMemo(
+    () =>
+      (data?.records || []).map((item, i) => ({
+        ...item,
+        key: 'verify_' + i,
+        _createUserName: item.createUser?.name,
+        _organizationName: item.organization?.name,
+        _loadName: item.inventory?.loadName,
+        _verifyUserName: item.verifyUser?.name,
+      })),
+    [data],
+  );
 
   return (
-    <PageContainer>
-      <div className="">
-        <h3 className="flex items-center justify-between text-2xl font-semibold">
-          <span>验证管理列表</span>
-          {userData?.role === 'admin' && (
-            <Button
-              onClick={() => onOpenModal({})}
-              className="w-40 text-lg font-normal text-white rounded-lg bg-green-2 h-11 hover:bg-green-28"
-            >
-              新建验证记录
-            </Button>
-          )}
-        </h3>
-        <div className="w-full p-5 mt-5 bg-white rounded-2xl">
-          <div className="pb-6 mt-5 overflow-x-auto">
-            <div className="text-base leading-[1.625rem] min-w-[62.25rem]">
-              <Table
-                columns={columns}
-                loading={loading}
-                columnsHeight={'h-[3.125rem] '}
-                mouseHoverKey="id"
-                data={tableData?.records || []}
-                className=""
-                columnsClassName=" cursor-default "
-                headerClassName={{ background: '#fff', fontWeight: '700', fontSize: '18px', lineHeight: '27px' }}
-              />
-            </div>
-          </div>
-        </div>
+    <WrapPageContainer
+      title="验证管理列表"
+      extra={
+        userData?.role === 'admin'
+          ? [
+              <Btn key="key_new_verify" onClick={() => onOpenModal({})}>
+                新建验证记录
+              </Btn>,
+            ]
+          : []
+      }
+    >
+      <div className="bg-white">
+        <WrapProTable
+          columns={columns}
+          dataSource={tableSource}
+          loading={isLoading}
+          scroll={{ x: scrollX }}
+          pagination={{
+            pageSize: 10,
+            total: data?.total || 0,
+            onChange: (page) => {
+              setPgNum(page);
+            },
+          }}
+        />
       </div>
-      <Pagination
-        className="my-8"
-        onChange={(v: any) => {
-          setPgNum(v);
-        }}
-        total={tableData.total || 0}
-        pgSize={10}
-        pgNum={pgNum}
-      />
       {openAddOrEditVerificationModal && editInfoDataRef.current && (
         <AddVerification
           type={editInfoDataRef.current.type}
@@ -285,7 +196,7 @@ export function VerificationManagementList() {
           closeModal={() => {
             setPgNum(1);
             if (pgNum === 1) {
-              getList();
+              refresh();
             }
             setOpenAddOrEditVerificationModal(false);
             editInfoDataRef.current = undefined;
@@ -300,7 +211,7 @@ export function VerificationManagementList() {
           }}
         />
       )}
-    </PageContainer>
+    </WrapPageContainer>
   );
 }
 

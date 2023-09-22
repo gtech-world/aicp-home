@@ -118,7 +118,6 @@ export function Inventory() {
     ],
     [],
   );
-  const scrollX = _.sumBy(columns, 'width');
 
   const { data, isLoading, mutate: refresh } = useInventoryList(pgNum, 10000);
   const tableSource = useMemo(
@@ -149,7 +148,6 @@ export function Inventory() {
           columns={columns}
           dataSource={tableSource}
           loading={isLoading}
-          scroll={{ x: scrollX }}
           pagination={{
             pageSize: 10,
             total: data?.total || 0,

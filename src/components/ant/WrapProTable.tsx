@@ -1,13 +1,14 @@
 import { ProTable, ProTableProps, ParamsType } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
 import classNames from 'classnames';
+import _ from 'lodash';
 
 export function WrapProTable<
   DataType extends Record<string, any>,
   Params extends ParamsType = ParamsType,
   ValueType = 'text',
 >(p: ProTableProps<DataType, Params, ValueType>) {
-  const { className, ...other } = p;
+  const { className, columns, ...other } = p;
   const tableCss = useEmotionCss(({ token }) => ({
     '.ant-table-container': {
       borderStartStartRadius: '0 !important',
@@ -40,9 +41,12 @@ export function WrapProTable<
       visibility: 'hidden',
     },
   }));
+  const scrollX = _.sumBy(columns, 'width');
   return (
     <ProTable
       bordered
+      columns={columns}
+      scroll={{ x: scrollX }}
       search={false}
       options={false}
       rowKey={'key'}
