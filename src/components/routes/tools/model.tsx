@@ -1,6 +1,6 @@
 import WrapPageContainer from '@/components/ant/WrapPageContainer';
 import { ProTableColumns, WrapProTable } from '@/components/ant/WrapProTable';
-import { Button } from '@/components/common/button';
+import { Btn, Button } from '@/components/common/button';
 import { Loading } from '@/components/common/loading';
 import { Modal } from '@/components/common/modal';
 import { Table } from '@/components/common/table';
@@ -132,13 +132,9 @@ export function Model() {
       extra={
         unVerifier
           ? [
-              <Button
-                key="btn"
-                onClick={() => setCreateProductView(true)}
-                className={classNames('w-40 text-lg font-normal text-white rounded bg-green-2 h-11 hover:bg-green-28')}
-              >
+              <Btn key="key_new_ps" onClick={() => setCreateProductView(true)}>
                 新建产品系统
-              </Button>,
+              </Btn>,
             ]
           : []
       }

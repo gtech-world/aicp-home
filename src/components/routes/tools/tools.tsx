@@ -1,14 +1,12 @@
-import { ToolsLayout } from '@/components/common/toolsLayout';
-import React from 'react';
-import classNames from 'classnames';
-import { AlcaIcon, AmodelIcon, AinventoryIcon, VerifiedIcon } from '@/components/svgr';
+import WrapPageContainer from '@/components/ant/WrapPageContainer';
+import { AinventoryIcon, AlcaIcon, AmodelIcon, VerifiedIcon } from '@/components/svgr';
 import { Link } from '@umijs/max';
-import { PageContainer } from '@ant-design/pro-components';
+import classNames from 'classnames';
 function ToolsContent(item: any) {
   const { data: v, i } = item;
   const Vicon = v.icon;
   return (
-    <li className={classNames('bg-white  rounded-xl w-full p-5 mr-5 flex flex-col justify-between mt-5 ', {})}>
+    <li className={classNames('bg-white  rounded-xl w-full p-5 flex flex-col justify-between', {})}>
       <div className="">
         <div className="flex items-center h-20 md:m-5">
           <Vicon width="64" height="64" className="mr-5" />
@@ -88,13 +86,13 @@ const data = [
 
 export function Tools() {
   return (
-    <PageContainer title="AICP产品碳足迹工具集">
-      <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <WrapPageContainer title="AICP产品碳足迹工具集">
+      <ul className="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-4">
         {data.map((v, i) => {
           return <ToolsContent key={`inProgress${i}`} data={v} i={i} />;
         })}
       </ul>
-    </PageContainer>
+    </WrapPageContainer>
   );
 }
 

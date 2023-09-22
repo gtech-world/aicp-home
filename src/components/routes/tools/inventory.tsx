@@ -1,12 +1,11 @@
 import WrapPageContainer from '@/components/ant/WrapPageContainer';
 import WrapProTable, { ProTableColumns } from '@/components/ant/WrapProTable';
-import { Button } from '@/components/common/button';
+import { Btn, Button } from '@/components/common/button';
 import { RealData } from '@/components/modal/RealData';
 import { useInventoryList } from '@/lib/hooks/useDatas';
 import { useUnVerifier } from '@/lib/hooks/useUser';
-import { Link, history } from '@umijs/max';
+import { history } from '@umijs/max';
 import classNames from 'classnames';
-import _ from 'lodash';
 import { useMemo, useRef, useState } from 'react';
 import InventoryResultModal from './inventoryResultModal';
 
@@ -132,13 +131,9 @@ export function Inventory() {
       extra={
         unVerifier
           ? [
-              <Button
-                key="newinventory"
-                onClick={() => setOpenResultModal(true)}
-                className={classNames('w-40 text-lg font-normal text-white rounded bg-green-2 h-11')}
-              >
+              <Btn key="new_inventory" onClick={() => setOpenResultModal(true)}>
                 新建碳足迹结果
-              </Button>,
+              </Btn>,
             ]
           : []
       }
