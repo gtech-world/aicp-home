@@ -10,6 +10,7 @@ import { useProductList } from '@/lib/hooks/useDatas';
 import { useUnVerifier } from '@/lib/hooks/useUser';
 import { updateLcaModelState } from '@/lib/http';
 import classNames from 'classnames';
+import _ from 'lodash';
 import { useMemo, useState } from 'react';
 
 export function Model() {
@@ -80,31 +81,34 @@ export function Model() {
         title: '产品系统',
         dataIndex: 'name',
         ellipsis: true,
-        copyable: true,
+        width: 200,
       },
       {
         title: '产品系统ID',
         dataIndex: 'uuid',
         ellipsis: true,
-        copyable: true,
+        width: 200,
       },
       {
         title: '操作人',
         dataIndex: 'optName',
+        width: 100,
       },
       {
         title: '描述',
         dataIndex: 'description',
         ellipsis: true,
-        copyable: true,
+        width: 200,
       },
       {
         title: '上传时间',
         dataIndex: 'createTime',
         valueType: 'dateTime',
+        width: 170,
       },
       {
         title: '操作',
+        width: 100,
         valueType: 'option',
         render: (_dom, entity) => [
           <div
@@ -121,6 +125,7 @@ export function Model() {
     ],
     [],
   );
+  const scrollX = _.sumBy(columns, 'width');
   return (
     <WrapPageContainer
       title="我的产品系统"
@@ -143,6 +148,7 @@ export function Model() {
           columns={columns}
           dataSource={tableSource}
           loading={isLoading}
+          scroll={{ x: scrollX }}
           pagination={{
             pageSize: 10,
             total: data?.total || 0,

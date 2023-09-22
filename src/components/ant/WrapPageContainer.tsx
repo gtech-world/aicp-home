@@ -23,6 +23,10 @@ export function WrapPageContainer(p: PageContainerProps) {
         padding: 0,
         paddingBlock: '0 !important',
       },
+      '.ant-pro-page-container-children-container': {
+        paddingBlock: '0 !important',
+        paddingInline: '0 !important',
+      },
     },
   }));
   return <PageContainer className={classNames(className, pageCss)} {...props} />;
