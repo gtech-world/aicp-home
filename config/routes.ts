@@ -25,7 +25,7 @@ export default [
       { path: 'lca', component: './tools/lca', name: 'lca' },
       { path: 'model', component: './tools/model', name: 'model' },
       { path: 'inventory', component: './tools/inventory', name: 'inventory' },
-      { path: 'inventory/result', component: './tools/inventoryResult' },
+      { path: 'inventory/result', component: './tools/inventoryResult', name: 'inventory.result', hideInMenu: true },
       { path: 'verify', component: './tools/verificationManagement', name: 'verify' },
     ],
   },

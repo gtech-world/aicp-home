@@ -52,4 +52,5 @@ export function WrapProTable<
   );
 }
 
+export type ProTableColumns = Parameters<typeof WrapProTable>['0']['columns'];
 export default WrapProTable;

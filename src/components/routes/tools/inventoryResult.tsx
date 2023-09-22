@@ -1,14 +1,12 @@
+import WrapPageContainer from '@/components/ant/WrapPageContainer';
 import Chart from '@/components/common/Chart';
-import { Button } from '@/components/common/button';
+import { Btn } from '@/components/common/button';
 import { Loading } from '@/components/common/loading';
 import { CarbonFooter } from '@/components/svgr';
-import { useT } from '@/lib/hooks/useT';
 import { exportLcaResultExcel, getLcaProductDetailList, getLcaResultDetail } from '@/lib/http';
 import { BomNode, deepSetBomChild, isTagType } from '@/lib/tagtools';
 import { tryParse } from '@/lib/utils';
-import { PageContainer } from '@ant-design/pro-components';
-import { useIntl, useRoutes, useSearchParams, useSelectedRoutes } from '@umijs/max';
-import { BreadcrumbProps } from 'antd';
+import { useSearchParams } from '@umijs/max';
 import classNames from 'classnames';
 import { EChartsOption, SankeySeriesOption } from 'echarts';
 import _ from 'lodash';
@@ -113,7 +111,6 @@ export function InventoryResult() {
           tooltip: {
             trigger: 'item',
             formatter: (item: any) => {
-              console.info('item:', item);
               const content = `${item.name} ${item.value}(${referenceUnit})`;
               if (item.marker) return `${item.marker} ${content}`;
               return content;
@@ -201,7 +198,7 @@ export function InventoryResult() {
   }, [value]);
 
   const doExport = async () => {
-    if (!sq.get('id')) return false;
+    if (!sq.get('id') || exportLoading) return false;
     setExportLoading(true);
     const res: any = await exportLcaResultExcel(sq.get('id'));
     if (res.headers) {
@@ -225,13 +222,24 @@ export function InventoryResult() {
   };
 
   return (
-    <PageContainer title="碳足迹结果" className="text-lg text-black">
+    <WrapPageContainer
+      title="碳足迹结果"
+      className="text-lg text-black"
+      extra={[
+        <Btn key="key_export_pdf" onClick={doExport} className="hidden" busy={exportLoading}>
+          将此页面生成PDF
+        </Btn>,
+        <Btn key="key_export_excel" onClick={doExport} className="min-w-[100px]" busy={exportLoading}>
+          导出计算明细Excel
+        </Btn>,
+      ]}
+    >
       {loading ? (
         <div className="h-[100vh] w-full items-center">
           <Loading />
         </div>
       ) : (
-        <div className="pt-8 mo:break-all">
+        <div className="mo:break-all">
           <div className="grid grid-cols-2 gap-5 mo:grid-cols-1">
             <MCard tit="产品碳足迹">
               <div className="flex items-center flex-1 px-9 mb-9">
@@ -255,23 +263,9 @@ export function InventoryResult() {
               {chartData && <Chart className="w-full !h-[360px]" option={chartData} />}
             </MCard>
           </div>
-          <div className="flex justify-center w-full mt-5 mb-10">
-            <Button
-              onClick={() => !exportLoading && doExport()}
-              className="mt-5 text-lg bg-green-2 w-[26.875rem] text-white rounded-lg  h-14 flex items-center justify-center hover:bg-green-28"
-            >
-              {exportLoading ? (
-                <div>
-                  <Loading size="2rem" color={'#fff'} />
-                </div>
-              ) : (
-                <span>导出Excel</span>
-              )}
-            </Button>
-          </div>
         </div>
       )}
-    </PageContainer>
+    </WrapPageContainer>
   );
 }
 

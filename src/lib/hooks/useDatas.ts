@@ -25,3 +25,9 @@ export function useProductList(pgNum: number, interval: number = 0) {
     refreshInterval: interval,
   });
 }
+
+export function useInventoryList(pgNum: number, interval: number = 0) {
+  return useSWR<InventoryController.InventoryList>(`/api/inventory/list/?pageNum=${pgNum}&pageSize=10`, {
+    refreshInterval: interval,
+  });
+}

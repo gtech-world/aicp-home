@@ -1,5 +1,5 @@
 import WrapPageContainer from '@/components/ant/WrapPageContainer';
-import { WrapProTable } from '@/components/ant/WrapProTable';
+import { ProTableColumns, WrapProTable } from '@/components/ant/WrapProTable';
 import { Button } from '@/components/common/button';
 import { Loading } from '@/components/common/loading';
 import { Modal } from '@/components/common/modal';
@@ -75,7 +75,7 @@ export function Model() {
     if (pgNum === 1) refresh();
   };
 
-  const columns = useMemo<Parameters<typeof WrapProTable>['0']['columns']>(
+  const columns = useMemo<ProTableColumns>(
     () => [
       {
         title: '产品系统',
