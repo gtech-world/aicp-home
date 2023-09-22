@@ -11,14 +11,18 @@ import classNames from 'classnames';
 import { EChartsOption, SankeySeriesOption } from 'echarts';
 import _ from 'lodash';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
+const html2pdf = require('html2pdf.js');
 
 function MCard(p: { children?: ReactNode; tit: string; className?: string }) {
   const { children, tit, className } = p;
   return (
     <div
-      className={classNames('flex w-full flex-col bg-white min-h-[6.25rem]', className)}
+      className={classNames(
+        'for2pdf-item flex w-full flex-col bg-white min-h-[6.25rem] border-t-[3px] border-solid border-green-2',
+        className,
+      )}
       style={{
-        boxShadow: '0px 3px 0px 0px #29953A inset, 0px 2px 10px 0px rgba(26, 62, 31, 0.10)',
+        boxShadow: '0px 2px 10px 0px rgba(26, 62, 31, 0.10)',
       }}
     >
       <div
@@ -221,15 +225,37 @@ export function InventoryResult() {
     }
   };
 
+  const doExportPDF = async () => {
+    const el = document.getElementById('inventory-result-content');
+    if (!el) return;
+    const name = `PCF-${generalInfo.loadName}.pdf`;
+    html2pdf()
+      .set({
+        margin: 5,
+        filename: name,
+        html2canvas: {
+          width: 1200,
+          windowWidth: 1200,
+          onclone: (doc: Document) => {
+            _.forEach(doc.getElementsByClassName('for2pdf-item'), (item) => {
+              (item as HTMLElement).style.boxShadow = 'none';
+            });
+          },
+        },
+      })
+      .from(el)
+      .save();
+  };
+
   return (
     <WrapPageContainer
       title="碳足迹结果"
       className="text-lg text-black"
       extra={[
-        <Btn key="key_export_pdf" onClick={doExport} className="hidden" busy={exportLoading}>
+        <Btn key="key_export_pdf" onClick={doExportPDF}>
           将此页面生成PDF
         </Btn>,
-        <Btn key="key_export_excel" onClick={doExport} className="min-w-[100px]" busy={exportLoading}>
+        <Btn key="key_export_excel" onClick={doExport} busy={exportLoading}>
           导出计算明细Excel
         </Btn>,
       ]}
@@ -239,7 +265,7 @@ export function InventoryResult() {
           <Loading />
         </div>
       ) : (
-        <div className="mo:break-all">
+        <div className="mo:break-all max-w-[1200px] inventory-result-content" id="inventory-result-content">
           <div className="grid grid-cols-2 gap-5 mo:grid-cols-1">
             <MCard tit="产品碳足迹">
               <div className="flex items-center flex-1 px-9 mb-9">
