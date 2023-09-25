@@ -11,7 +11,8 @@ import classNames from 'classnames';
 import { EChartsOption, SankeySeriesOption } from 'echarts';
 import _ from 'lodash';
 import { ReactNode, useEffect, useMemo, useState } from 'react';
-const html2pdf = require('html2pdf.js');
+import { toPng } from 'html-to-image';
+const pdfMake = require('pdfmake');
 
 function MCard(p: { children?: ReactNode; tit: string; className?: string }) {
   const { children, tit, className } = p;
@@ -229,22 +230,14 @@ export function InventoryResult() {
     const el = document.getElementById('inventory-result-content');
     if (!el) return;
     const name = `PCF-${generalInfo.loadName}.pdf`;
-    html2pdf()
-      .set({
-        margin: 5,
-        filename: name,
-        html2canvas: {
-          width: 1200,
-          windowWidth: 1200,
-          onclone: (doc: Document) => {
-            _.forEach(doc.getElementsByClassName('for2pdf-item'), (item) => {
-              (item as HTMLElement).style.boxShadow = 'none';
-            });
-          },
-        },
-      })
-      .from(el)
-      .save();
+    toPng(el)
+      .then((png) =>
+        pdfMake.createPdf({
+          content: [{ image: png, width: 515 }],
+        }),
+      )
+      .then((pdf) => pdf.download(name))
+      .catch(console.error);
   };
 
   return (
@@ -265,7 +258,7 @@ export function InventoryResult() {
           <Loading />
         </div>
       ) : (
-        <div className="mo:break-all max-w-[1200px] inventory-result-content" id="inventory-result-content">
+        <div className="mo:break-all max-w-[1200px]" id="inventory-result-content">
           <div className="grid grid-cols-2 gap-5 mo:grid-cols-1">
             <MCard tit="产品碳足迹">
               <div className="flex items-center flex-1 px-9 mb-9">
