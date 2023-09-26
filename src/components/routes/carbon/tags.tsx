@@ -11,17 +11,19 @@ function Card(p: {
 }) {
   const { title, icon, qrcodeDisable, by, id, link, qrCode } = p.data;
   return (
-    <div className="bg-white mr-5 w-[22.875rem] mo:w-full p-5 rounded-lg mb-5 text-base mo:mr-0">
+    <div className="bg-white mr-5 w-[23.25rem] mo:w-full p-5 rounded-lg mb-5 text-base mo:mr-0 clac">
       <ProductQrcode qrcodeDisable={qrcodeDisable} data={qrCode} />
       <div className="flex flex-col mt-5">
         <h3 className="text-xl font-semibold">{title}</h3>
         <span>{by}</span>
         <span>标签ID : {id}</span>
       </div>
-      <div className="flex flex-col text-blue-0 underline mt-2.5 font-semibold">
+      <div className="flex flex-row text-blue-0 underline mt-2.5 font-semibold">
         {link.map((v: { href: string; text: string; target: string }, i: number) => {
+          console.log('href', v.href);
+
           return (
-            <Link key={`link${i}`} target={v.target} className="mt-2.5" to={v.href}>
+            <Link key={`link${i}`} target={v.target} className="mt-2.5 mr-5" to={v.href}>
               {v.text}
             </Link>
           );
@@ -35,7 +37,7 @@ export function Tag() {
   const [tagList, setTagList] = useState<SbtTokenController.Records>();
 
   const getTagList = async () => {
-    const res = await getCarbonTagList();
+    const res: SbtTokenController.Records = await getCarbonTagList();
     res.records = (res?.records || []).map(({ loadName, proofTime, tokenId, tokenUrl, uuid, verifyUserName }) => {
       return {
         title: loadName,
@@ -44,14 +46,14 @@ export function Tag() {
         id: uuid,
         qrcodeDisable: false,
         link: [
-          { text: '标签信息', href: `/main/tags/label?vin=${uuid}` },
+          { text: '标签信息', href: `/label?vin=${uuid}` },
           {
             text: '在区块链浏览器查看',
             target: '_blank',
-            href: `/main/tags/chain?tokenId=${tokenId}}`,
+            href: `/chain?tokenId=${tokenId}`,
           },
         ],
-        qrCode: ` https://aicp.gtech.world/main/tags/label?vin=${uuid}`,
+        qrCode: ` https://aicp.gtech.world/label?vin=${uuid}`,
       };
     }) as any;
     setTagList(res);
@@ -60,6 +62,9 @@ export function Tag() {
   useEffect(() => {
     getTagList();
   }, []);
+
+  console.log('tagList', tagList);
+
   return (
     <PageContainer>
       <div className="flex flex-wrap">

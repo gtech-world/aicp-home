@@ -17,6 +17,9 @@ export default [
   { layout: false, path: '/login', component: './login' },
   { layout: false, path: '/model', component: './model' },
   { layout: false, path: '/main', redirect: '/main/tools' },
+  { layout: false, path: '/label', component: './label' },
+  { layout: false, path: '/chain', component: './chain' },
+
   {
     path: '/main/tools',
     name: 'tools',

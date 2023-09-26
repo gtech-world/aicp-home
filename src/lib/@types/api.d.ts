@@ -1,5 +1,5 @@
 //列表页公共参数
-declare type Page = {
+declare type Page<T> = {
   countId?: number;
   current: number;
   maxLimit?: number;
@@ -9,4 +9,5 @@ declare type Page = {
   searchCount?: boolean;
   size: number;
   total: number;
+  records: T;
 };
