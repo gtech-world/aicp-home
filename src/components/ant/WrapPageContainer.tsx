@@ -10,7 +10,7 @@ export function WrapPageContainer(p: PageContainerProps) {
       backgroundColor: token.colorBgBase,
       '.ant-breadcrumb': {
         fontSize: '.875rem',
-        marginBottom: '0.5rem',
+        paddingBlockStart: '0 !important',
       },
       '.ant-page-header-heading-title': {
         fontSize: '1.25rem',
