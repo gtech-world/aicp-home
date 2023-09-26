@@ -3,6 +3,15 @@ import { AxiosError } from 'axios';
 import _, { toInteger } from 'lodash';
 import moment from 'moment';
 import { LABEL_CONTRACT, SCAN_BASE } from './env';
+import dayjs from 'dayjs';
+
+export const DATE_FTM = {
+  long: 'YYYY-MM-DD HH:mm:ss',
+  short: 'YYYY-MM-DD',
+};
+export function formatDate(t?: number | string | Date | null, opt: string = DATE_FTM.long) {
+  return dayjs(t).format(opt);
+}
 
 export function getErrorMsg(error: AxiosError | any): string {
   if (!error) return 'Unkown Error';

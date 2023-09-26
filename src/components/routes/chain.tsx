@@ -1,20 +1,19 @@
 import { useIsMobile } from '@/components/common/context';
 import { Loading } from '@/components/common/loading';
 import { ProductQrcode } from '@/components/common/productQrcode';
+import { Table } from '@/components/common/table';
+import { Aicp as SVGAICP, Polygon as SVGPolygon } from '@/components/svgr';
 import { SCAN_BASE } from '@/lib/env';
 import { useAsyncM } from '@/lib/hooks/useAsyncM';
 import { useT } from '@/lib/hooks/useT';
-import { autoFormaterRealTime, genScanTokenUrl, genScanUrl, shortStr, titleCase } from '@/lib/utils';
-import classNames from 'classnames';
+import { noArgs } from '@/lib/http';
+import { getSbtDetail } from '@/lib/services/carbonTag';
+import { autoFormaterRealTime, formatDate, genScanTokenUrl, genScanUrl, shortStr, titleCase } from '@/lib/utils';
 import { Link, useSearchParams } from '@umijs/max';
+import classNames from 'classnames';
 import { useMemo } from 'react';
 import { VscQuestion, VscVerified } from 'react-icons/vsc';
-import { Aicp as SVGAICP, Polygon as SVGPolygon } from '@/components/svgr';
-import { Table } from '@/components/common/table';
-import { PageContainer } from '@ant-design/pro-components';
 import { HeaderLayout } from '../common/headerLayout';
-import { getSbtDetail } from '@/lib/services/carbonTag';
-import { noArgs } from '@/lib/http';
 function ItemInfo(p: { label: string; text: string; link?: string; tip?: any; className?: string }) {
   return (
     <div
@@ -68,7 +67,7 @@ function CardInfo(p: LabelDetail) {
     return res;
   }, [data.metadata]);
 
-  const { t, formatDate } = useT();
+  const { t } = useT();
   return (
     <div className="break-all">
       <ItemInfo

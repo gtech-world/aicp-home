@@ -1,6 +1,6 @@
 import { UnorderedListOutlined, UserOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
-import type { RunTimeLayoutConfig } from '@umijs/max';
+import type { RunTimeLayoutConfig, RuntimeConfig } from '@umijs/max';
 import { history } from '@umijs/max';
 import { ReactNode } from 'react';
 import defaultSettings from '../config/defaultSettings';
@@ -75,4 +75,33 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
  */
 export const request = {
   ...errorConfig,
+};
+
+/**
+ * locale
+ *
+ * react-intl
+ *
+ */
+
+export const locale: RuntimeConfig['locale'] = {
+  textComponent: 'span',
+  onError: () => {
+    console.log('error handler...');
+  },
+  // locale: string
+  // formats: CustomFormats
+  // messages: Record<string, string> | Record<string, MessageFormatElement[]>
+  // defaultLocale: string
+  formats: {},
+  defaultFormats: {
+    date: {
+      long: { dateStyle: 'long' },
+    },
+  },
+  // timeZone?: string
+  // textComponent?: React.ComponentType | keyof React.ReactHTML
+  // wrapRichTextChunksInFragment?: boolean
+  // defaultRichTextElements?: Record<string, FormatXMLElementFn<React.ReactNode>>
+  // onError(err: string): void
 };
