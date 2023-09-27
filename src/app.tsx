@@ -39,11 +39,13 @@ const menuicons: { [k: string]: ReactNode } = {
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
-    actionsRender: () => [<MenuAction key="menu" />],
-    logo: (
-      <div className="flex gap-3 items-end text-white">
-        <Aicp height="24" />
-        <Digital3 height="16" />
+    headerRender: () => (
+      <div className="px-5 w-full h-full flex justify-between items-center">
+        <Link to="/" className="flex gap-3 items-end text-white">
+          <Aicp height="24" fill="white" />
+          <Digital3 height="16" />
+        </Link>
+        <MenuAction key="menu" />
       </div>
     ),
     footerRender: false,

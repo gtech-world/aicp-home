@@ -12,6 +12,7 @@ import { handleCarbonStr, sleep, textTo2 } from '@/lib/utils';
 import { useLocation, useNavigate } from '@umijs/max';
 import { FiHome, FiLogIn, FiLogOut, FiSearch } from 'react-icons/fi';
 import { VscAccount } from 'react-icons/vsc';
+import { useTitle } from 'react-use';
 
 export function useMenus(data: any[] = []) {
   const isMobile = useIsMobile();
@@ -111,6 +112,7 @@ export function Header(
   },
 ) {
   const { children, className, tits, showQuery, isManager, nopx = false, menus, ...other } = p;
+  useTitle('AICP');
   const { t } = useT();
   const mTit = tits || t('Automotive Industry Carbon Platform') || '';
   const mTits = useMemo(() => textTo2(mTit), [mTit]);

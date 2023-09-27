@@ -1,7 +1,14 @@
+import { shortStr } from '@/lib/utils';
 import { ProTable, ProTableProps, ParamsType } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
+import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import _ from 'lodash';
+
+export function wrapRenderText(text: any) {
+  if (_.size(text) >= 16) return <Tooltip title={text}>{shortStr(text, 8, 8)}</Tooltip>;
+  return text;
+}
 
 export function WrapProTable<
   DataType extends Record<string, any>,

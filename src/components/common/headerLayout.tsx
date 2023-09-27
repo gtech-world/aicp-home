@@ -7,6 +7,7 @@ import { useHeaderTipHeight } from './headerTip';
 export function HomeHeaderLayout(p: HTMLAttributes<HTMLDivElement>) {
   const { className, children, ...props } = p;
   const isMobile = useIsMobile();
+
   return (
     <div className="relative flex flex-col flex-1 w-full min-h-fit bg-gray-16 ">
       {isMobile ? (

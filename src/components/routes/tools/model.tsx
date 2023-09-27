@@ -1,5 +1,5 @@
 import WrapPageContainer from '@/components/ant/WrapPageContainer';
-import { ProTableColumns, WrapProTable } from '@/components/ant/WrapProTable';
+import { ProTableColumns, WrapProTable, wrapRenderText } from '@/components/ant/WrapProTable';
 import { Btn, Button } from '@/components/common/button';
 import { Loading } from '@/components/common/loading';
 import { Modal } from '@/components/common/modal';
@@ -86,8 +86,8 @@ export function Model() {
       {
         title: '产品系统ID',
         dataIndex: 'uuid',
-        ellipsis: true,
-        width: 200,
+        width: 170,
+        renderText: wrapRenderText,
       },
       {
         title: '操作人',

@@ -1,5 +1,5 @@
 import WrapPageContainer from '@/components/ant/WrapPageContainer';
-import WrapProTable, { ProTableColumns } from '@/components/ant/WrapProTable';
+import WrapProTable, { ProTableColumns, wrapRenderText } from '@/components/ant/WrapProTable';
 import { Btn, Button } from '@/components/common/button';
 import { RealData } from '@/components/modal/RealData';
 import { useInventoryList } from '@/lib/hooks/useDatas';
@@ -53,8 +53,8 @@ export function Inventory() {
       {
         title: '批次结果ID',
         dataIndex: 'loadNumber',
-        width: 128,
-        ellipsis: true,
+        width: 170,
+        renderText: wrapRenderText,
       },
 
       {
@@ -65,9 +65,9 @@ export function Inventory() {
       },
       {
         title: '系统产品ID',
-        width: 128,
         dataIndex: 'productUuid',
-        ellipsis: true,
+        width: 170,
+        renderText: wrapRenderText,
       },
       {
         title: '描述',

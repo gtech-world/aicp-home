@@ -27,7 +27,7 @@ export function MenuAction() {
   );
   return (
     <HeaderDropdown menu={{ items: menuActionItems }}>
-      <MenuOutlined className="text-2xl text-white" />
+      <MenuOutlined rev className="text-2xl text-white cursor-pointer" />
     </HeaderDropdown>
   );
 }

@@ -1,5 +1,5 @@
 import WrapPageContainer from '@/components/ant/WrapPageContainer';
-import WrapProTable, { ProTableColumns } from '@/components/ant/WrapProTable';
+import WrapProTable, { ProTableColumns, wrapRenderText } from '@/components/ant/WrapProTable';
 import { Btn } from '@/components/common/button';
 import { useStore } from '@/components/common/context';
 import { VectorIcon } from '@/components/svgr';
@@ -69,8 +69,8 @@ export function VerificationManagementList() {
       {
         title: '碳足迹批次ID',
         dataIndex: 'loadNumber',
-        width: 160,
-        ellipsis: true,
+        width: 170,
+        renderText: wrapRenderText,
       },
       {
         title: '附件',
