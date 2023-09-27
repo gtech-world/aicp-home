@@ -21,7 +21,7 @@ export function Btn(p: BtnProps) {
   const { busy, disabled, className, defStyle = 'btn-primary', children, ...props } = p;
   return (
     <button
-      className={classNames(className, {
+      className={classNames(className, 'leading-none', {
         [defStyle]: !disabled,
         'btn-disable': disabled,
       })}

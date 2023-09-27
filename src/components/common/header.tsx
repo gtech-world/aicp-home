@@ -7,7 +7,6 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { useIsMobile, useLastInputVin, useOnError, useUser } from './context';
 import { MenuItem, PoperMenu } from './poper';
 
-import { CARBON_PAGES } from '@/components/const';
 import { useT } from '@/lib/hooks/useT';
 import { handleCarbonStr, sleep, textTo2 } from '@/lib/utils';
 import { useLocation, useNavigate } from '@umijs/max';
@@ -33,7 +32,7 @@ export function useMenus(data: any[] = []) {
       menus.push({
         icon: <VscAccount />,
         text: handleCarbonStr(t('AICP Digital3 Carbon System')),
-        to: CARBON_PAGES[0].to,
+        to: '/main',
       });
     }
     if (isMobile && user) {
@@ -51,7 +50,7 @@ export function useMenus(data: any[] = []) {
       text: t('Document'),
       to: 'https://docs.gtech.world/',
       onClick: () => {
-        push('https://docs.gtech.world/');
+        open('https://docs.gtech.world/', '_blank');
       },
     });
     menus.push({

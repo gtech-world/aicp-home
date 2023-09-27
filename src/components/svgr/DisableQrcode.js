@@ -4,7 +4,8 @@ const SvgDisableQrcode = (props) => (
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
     width={32}
-    height={33}
+    height={32}
+    viewBox="0 0 32 32"
     fill="none"
     {...props}
   >

@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import QRCode from 'qrcode.react';
+import { Carbon3Name, DisableQrcode } from '../svgr';
 
 export function ProductQrcode(p: any) {
   const { qrText, className, qrcodeDisable, data } = p;
@@ -11,8 +12,8 @@ export function ProductQrcode(p: any) {
             'py-2 px-6 rounded-[1.90rem] border-[1.75px] border-green-2 flex justify-center items-center mo:px-3',
           )}
         >
-          <div className="border-r-[3px] border-green-4 pr-5 mr-5 flex flex-col justify-between h-full">
-            <img className="mb-2" src="/carbon3_name.svg" alt="" />
+          <div className="border-r-[3px] border-green-4 pr-5 mr-5 flex flex-col items-center justify-between h-full">
+            <Carbon3Name className="mb-2 shrink-0" />
             <img className="w-[6.875rem]" src="/earth_1.png" alt="" />
           </div>
           <div className="w-[7.125rem] flex flex-col items-center">
@@ -20,7 +21,7 @@ export function ProductQrcode(p: any) {
               {qrText ? qrText : 'Product Carbon Footprint Certified by AIAG'}
             </p>
             {qrcodeDisable ? (
-              <img className="w-[5.75rem]" src={'/disable_qrcode.svg'} alt="" />
+              <DisableQrcode width="92" height="92" />
             ) : (
               <QRCode className="w-[5.75rem]" size={92} value={data} />
             )}

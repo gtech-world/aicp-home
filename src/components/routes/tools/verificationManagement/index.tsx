@@ -82,7 +82,7 @@ export function VerificationManagementList() {
               className="w-[112px] flex flex-row items-center bg-[#F1F1F1] justify-center rounded cursor-pointer"
             >
               <VectorIcon />
-              <div className="ml-2 ">文件夹V</div>
+              <div className="ml-2 ">文件夹</div>
             </div>
           );
         },

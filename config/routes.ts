@@ -12,19 +12,16 @@
  */
 
 export default [
-  { layout: false, path: '*', component: './404' },
-  { layout: false, path: '/', component: './index' },
-  { layout: false, path: '/login', component: './login' },
-  { layout: false, path: '/model', component: './model' },
-  { layout: false, path: '/main', redirect: '/main/tools' },
-  { layout: false, path: '/label', component: './label' },
-  { layout: false, path: '/chain', component: './chain' },
-
+  { layout: false, name: 'aicp', path: '*', component: './404' },
+  { layout: false, name: 'aicp', path: '/', component: './index' },
+  { layout: false, name: 'aicp', path: '/login', component: './login' },
+  { layout: false, name: 'aicp', path: '/model', component: './model' },
+  { layout: false, name: 'aicp', path: '/main', redirect: '/main/tools' },
   {
     path: '/main/tools',
     name: 'tools',
     routes: [
-      { path: '', component: './tools/tools' },
+      { path: '', component: './tools/tools', hideInMenu: true },
       { path: 'lca', component: './tools/lca', name: 'lca' },
       { path: 'model', component: './tools/model', name: 'model' },
       { path: 'inventory', component: './tools/inventory', name: 'inventory' },
@@ -36,9 +33,9 @@ export default [
     path: '/main/tags',
     name: 'tags',
     routes: [
-      { path: '', component: './tags' },
-      { path: 'label', component: './label' },
-      { path: 'chain', component: './chain' },
+      { path: '', component: './tags', hideInMenu: true },
+      { path: 'label', component: './label', hideInMenu: true },
+      { path: 'chain', component: './chain', hideInMenu: true },
     ],
   },
   { path: '/user', name: 'user' },

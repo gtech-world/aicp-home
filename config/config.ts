@@ -82,7 +82,7 @@ export default defineConfig({
    * @name layout 插件
    * @doc https://umijs.org/docs/max/layout-menu
    */
-  title: '',
+  title: 'AICP',
   layout: {
     locale: true,
     ...defaultSettings,

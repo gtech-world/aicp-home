@@ -1,7 +1,7 @@
 import { UnorderedListOutlined, UserOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig, RuntimeConfig } from '@umijs/max';
-import { history } from '@umijs/max';
+import { Link, history } from '@umijs/max';
 import { ReactNode } from 'react';
 import defaultSettings from '../config/defaultSettings';
 import MenuAction from './components/ant/MenuAction';
@@ -31,9 +31,9 @@ export async function getInitialState(): Promise<{
 }
 
 const menuicons: { [k: string]: ReactNode } = {
-  '/main/tools': <UnorderedListOutlined />,
+  '/main/tools': <UnorderedListOutlined rev />,
   '/main/tags': <Co2 />,
-  '/user': <UserOutlined />,
+  '/user': <UserOutlined rev />,
 };
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout

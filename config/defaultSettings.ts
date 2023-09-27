@@ -17,7 +17,7 @@ const Settings: ProLayoutProps & {
   fixSiderbar: true,
   siderWidth: 228,
   colorWeak: false,
-  title: '',
+  title: false,
   pwa: true,
   iconfontUrl: '',
   colorPrimary: Colors.primary,

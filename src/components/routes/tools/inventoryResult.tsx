@@ -245,10 +245,10 @@ export function InventoryResult() {
       title="碳足迹结果"
       className="text-lg text-black"
       extra={[
-        <Btn key="key_export_pdf" onClick={doExportPDF}>
+        <Btn className="w-[142px]" key="key_export_pdf" onClick={doExportPDF}>
           将此页面生成PDF
         </Btn>,
-        <Btn key="key_export_excel" onClick={doExport} busy={exportLoading}>
+        <Btn className="w-[149px]" key="key_export_excel" onClick={doExport} busy={exportLoading}>
           导出计算明细Excel
         </Btn>,
       ]}
