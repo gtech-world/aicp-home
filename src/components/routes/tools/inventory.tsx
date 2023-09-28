@@ -1,6 +1,6 @@
 import WrapPageContainer from '@/components/ant/WrapPageContainer';
 import WrapProTable, { ProTableColumns, wrapRenderText } from '@/components/ant/WrapProTable';
-import { Btn, Button } from '@/components/common/button';
+import { Btn } from '@/components/common/button';
 import { RealData } from '@/components/modal/RealData';
 import { useInventoryList } from '@/lib/hooks/useDatas';
 import { useUnVerifier } from '@/lib/hooks/useUser';

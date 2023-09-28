@@ -1,6 +1,6 @@
 import WrapPageContainer from '@/components/ant/WrapPageContainer';
 import { ProTableColumns, WrapProTable, wrapRenderText } from '@/components/ant/WrapProTable';
-import { Btn, Button } from '@/components/common/button';
+import { Btn } from '@/components/common/button';
 import { Loading } from '@/components/common/loading';
 import { Modal } from '@/components/common/modal';
 import { Table } from '@/components/common/table';
@@ -8,19 +8,14 @@ import { EditorProductSystem } from '@/components/modal/EditorProductSystem';
 import { NewProductSystem } from '@/components/modal/NewProductSystem';
 import { useProductList } from '@/lib/hooks/useDatas';
 import { useUnVerifier } from '@/lib/hooks/useUser';
-import { updateLcaModelState } from '@/lib/http';
-import classNames from 'classnames';
-import _ from 'lodash';
 import { useMemo, useState } from 'react';
 
 export function Model() {
-  const [status, setStatus] = useState<any>(null);
   const [viewReal, setViewReal] = useState<any>(null);
   const [editorProductSystem, setEditorProductSystem] = useState<any>();
   const [opResult, setOpResult] = useState<any>(null);
   const [createProductView, setCreateProductView] = useState<boolean>(false);
   const [pgNum, setPgNum] = useState(1);
-  const [reload, setReload] = useState(0);
   const { data, isLoading, mutate: refresh } = useProductList(pgNum, 10000);
   const tableSource = useMemo<Record<string, any>[]>(
     () => (data?.records || []).map((item, i) => ({ ...item, key: 'pl' + i, optName: item.updateUser.name })),
@@ -52,21 +47,6 @@ export function Model() {
     ],
     [],
   );
-  const doChangeState = async (state: number) => {
-    const title = '更改状态';
-    setOpResult({
-      title,
-      loading: true,
-    });
-    await updateLcaModelState(status.id, state);
-    setReload(reload + 1);
-    setOpResult({
-      title,
-      loading: false,
-      resultText: '操作成功',
-    });
-    setStatus(null);
-  };
 
   const unVerifier = useUnVerifier();
 
@@ -153,35 +133,6 @@ export function Model() {
           }}
         />
       </div>
-
-      {status !== null && (
-        <Modal title="更改状态" onClose={() => setStatus(null)}>
-          <div className="flex">
-            {opResult?.loading ? (
-              <Loading />
-            ) : (
-              <div className="flex flex-1">
-                {status.state > -2 && (
-                  <Button
-                    onClick={() => doChangeState(status.state === 1 ? 0 : 1)}
-                    className="flex-1 w-full text-lg text-white rounded-lg bg-green-2 h-11"
-                  >
-                    {status.state === 1 ? '弃用' : '激活'}
-                  </Button>
-                )}
-                {status.state === -1 && (
-                  <Button
-                    onClick={() => doChangeState(-2)}
-                    className="flex-1 w-full ml-5 text-lg border-2 rounded-lg border-green-2 bg-green-2/10 text-green-2 hover:bg-green-2/20 h-11"
-                  >
-                    删除
-                  </Button>
-                )}
-              </div>
-            )}
-          </div>
-        </Modal>
-      )}
       {!!viewReal && (
         <Modal title={viewReal.modelName + '模型中的实景输入项'} onClose={() => setViewReal(null)}>
           <div className="flex w-[60rem] min-h-[16rem] flex-col pb-2">

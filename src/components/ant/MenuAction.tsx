@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { MenuProps } from 'antd';
 import { FiLogOut } from 'react-icons/fi';
 import HeaderDropdown from './HeaderDropdown';
-import { MenuOutlined } from '@ant-design/icons';
+import { AiOutlineMenu } from 'react-icons/ai';
 
 export function MenuAction() {
   const { t } = useT();
@@ -27,7 +27,7 @@ export function MenuAction() {
   );
   return (
     <HeaderDropdown menu={{ items: menuActionItems }}>
-      <MenuOutlined rev className="text-2xl text-white cursor-pointer" />
+      <AiOutlineMenu className="text-2xl text-white cursor-pointer" />
     </HeaderDropdown>
   );
 }

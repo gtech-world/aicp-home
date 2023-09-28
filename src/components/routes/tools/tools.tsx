@@ -1,10 +1,13 @@
 import WrapPageContainer from '@/components/ant/WrapPageContainer';
+import { Btn } from '@/components/common/button';
 import { AinventoryIcon, AlcaIcon, AmodelIcon, VerifiedIcon } from '@/components/svgr';
-import { Link } from '@umijs/max';
+import { Link, useNavigate } from '@umijs/max';
 import classNames from 'classnames';
+import {} from '@umijs/max';
 function ToolsContent(item: any) {
   const { data: v, i } = item;
   const Vicon = v.icon;
+  const push = useNavigate();
   return (
     <li className={classNames('bg-white  rounded-xl w-full p-5 flex flex-col justify-between', {})}>
       <div className="">
@@ -32,12 +35,9 @@ function ToolsContent(item: any) {
           })}
         </div>
       </div>
-      <Link
-        to={v.link}
-        className="flex items-center justify-center w-full h-[50px] p-4 mt-5 ml-auto text-lg text-white rounded-lg shrink-0 bg-green-2 "
-      >
+      <Btn className="mt-5" size="large" onClick={() => push(v.link)}>
         进入
-      </Link>
+      </Btn>
     </li>
   );
 }

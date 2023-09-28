@@ -1,10 +1,7 @@
+import { Page } from './api';
 import { Organization } from './type';
 
 declare namespace ProduceSystemController {
-  type ProduceSystemList = Page & {
-    records: ListRecords[];
-  };
-
   type ListRecords = {
     createTime: string;
     createUserId?: number;
@@ -24,7 +21,7 @@ declare namespace ProduceSystemController {
     uuid: any;
     version: string;
   };
-
+  type ProduceSystemList = Page<ListRecords[]>;
   type RecordUpdateUserList = {
     address?: string;
     admin: boolean;

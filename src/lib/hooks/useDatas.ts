@@ -1,6 +1,7 @@
 import { ProduceSystemController } from '@/lib/@types/produceSystem';
 import _ from 'lodash';
 import useSWR from 'swr';
+import { InventoryController } from '../@types/inventory';
 
 export function useProductSystem(psId: number, interval: number = 0) {
   return useSWR<ProduceSystemController.ListRecords>(`/api/product-system/${psId}/detail`, {

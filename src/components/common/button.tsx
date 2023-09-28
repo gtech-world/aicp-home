@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { ButtonHTMLAttributes, HTMLAttributes } from 'react';
 import { FaSpinner } from 'react-icons/fa';
-
+import { Button as AntBtn, ButtonProps } from 'antd';
 export function Button(p: HTMLAttributes<HTMLButtonElement>) {
   const { children, className, ...other } = p;
 
@@ -15,19 +15,20 @@ export function Button(p: HTMLAttributes<HTMLButtonElement>) {
 export type BtnProps = {
   busy?: boolean;
   defStyle?: 'btn-primary' | 'btn-primary-1';
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+} & ButtonProps;
 
 export function Btn(p: BtnProps) {
-  const { busy, disabled, className, defStyle = 'btn-primary', children, ...props } = p;
+  const { busy, type = 'primary', className, defStyle = 'btn-primary', children, ...props } = p;
   return (
-    <button
-      className={classNames(className, 'leading-none', {
-        [defStyle]: !disabled,
-        'btn-disable': disabled,
+    <AntBtn
+      type={defStyle === 'btn-primary-1' ? 'default' : type}
+      className={classNames(className, 'leading-none !shadow-none', {
+        // [defStyle]: !disabled,
+        // 'btn-disable': disabled,
       })}
       {...props}
     >
-      {busy ? <FaSpinner className="animate-spin" /> : children}
-    </button>
+      {busy ? <FaSpinner className="animate-spin mx-auto" /> : children}
+    </AntBtn>
   );
 }

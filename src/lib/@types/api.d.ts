@@ -1,5 +1,5 @@
 //列表页公共参数
-declare type Page<T> = {
+export type Page<T> = {
   countId?: number;
   current: number;
   maxLimit?: number;

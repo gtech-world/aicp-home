@@ -1,3 +1,5 @@
+import { Page } from './api';
+
 declare namespace InventoryController {
   interface InventoryAddRealDataModalProps {
     onOpenModal: () => void;
@@ -49,10 +51,6 @@ declare namespace InventoryController {
     processId: string;
   };
 
-  type InventoryList = Page & {
-    records: Records[];
-  };
-
   interface Records {
     calculateSuccessTime: string;
     loadName: string;
@@ -68,7 +66,7 @@ declare namespace InventoryController {
     productVersion: string;
     state: number;
   }
-
+  type InventoryList = Page<Records[]>;
   type InventoryDetail = {
     calculateSuccessTime: string;
     createTime?: string;
