@@ -7,6 +7,7 @@ export default {
   'menu.tools.inventory.result': '查看结果',
   'menu.tools.verify': '产品碳足迹验证管理',
   'menu.tags': '我的碳标签',
+  'menu.tags.tags': '我的碳标签',
   'menu.user': '用户管理',
   'menu.aicp': 'AICP',
 };

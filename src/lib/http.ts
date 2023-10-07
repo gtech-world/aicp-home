@@ -13,6 +13,7 @@ import {
 } from './@types/type';
 import { API_BASE } from './env';
 import { sleep } from './utils';
+import { InventoryController } from './@types/inventory';
 
 function creatUrl(path: `/${string}`) {
   return `${API_BASE}${path}`;
@@ -244,6 +245,11 @@ export async function exportLcaResultExcel(loadNumber: any) {
 
 export async function authGetResData<T>(path: Parameters<typeof creatUrl>[0], params: any = {}) {
   const res = await axios.get<Res<T>>(creatUrl(path), { ...authConfig(), params });
+  return getData(res);
+}
+
+export async function prodGetResData<T>(path: Parameters<typeof creatUrl>[0], params: any = {}) {
+  const res = await axios.get<Res<T>>(`https://api-v2.gtech.world${path}`, { params });
   return getData(res);
 }
 

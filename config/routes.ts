@@ -33,7 +33,7 @@ export default [
     path: '/main/tags',
     name: 'tags',
     routes: [
-      { path: '', component: './tags', hideInMenu: true },
+      { path: '', component: './tags', name: 'tags', hideInMenu: true },
       { path: 'label', component: './label', hideInMenu: true },
       { path: 'chain', component: './chain', hideInMenu: true },
     ],

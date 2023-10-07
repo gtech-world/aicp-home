@@ -4,12 +4,14 @@ declare namespace SbtTokenController {
       uuid: string;
       tokenId: number;
       loadName: string;
+      orgName: string;
+      orgType: string;
       proofTime: string;
       verifyUserName: string;
       tokenUrl: string;
     }[];
   };
-  interface TagList {
+  interface TagInfo {
     uuid: string; //标签编号
     productName: string; //产品型号
     loadNumber: string; //产品唯一标识符 productUuid(暂无后期会加)
@@ -21,5 +23,37 @@ declare namespace SbtTokenController {
     evaluationBoundary?: string; //评价边界
     evaluationBasis?: string; //评价依据
     evaluationExpireTime?: string; //评价有效期
+    pcfResult: string;
+  }
+
+  interface TransferEvent {
+    id: number;
+    chainId: number;
+    contractAddress: string;
+    blockNumber: number;
+    txHash: string;
+    logIndex: number;
+    fromAddress: string;
+    toAddress: string;
+    fromTokenId: number;
+    toTokenId: number;
+    eventType: number;
+    blockTimestamp: number;
+    createTime: string;
+    updateTime: string;
+  }
+
+  interface SbtNftList {
+    tokenId: number;
+    uuid: string;
+    loadNumber: string;
+    orgName: string;
+    ownerAddress: string;
+    productName: string;
+    productUuid: string;
+    labelCredential: string;
+    pcfResult: string;
+    proofTime: string;
+    transferEvents: TransferEvent[];
   }
 }
