@@ -135,7 +135,7 @@ export function Label() {
 
   return (
     <WrapPageContainer loading={isLoading}>
-      <div className="w-full max-w-[1480px] mx-auto ">
+      <div className="w-full max-w-[1300px] mx-auto ">
         {!tagInfo ? (
           noData()
         ) : (
