@@ -1,5 +1,4 @@
 import { Button } from '@/components/common/button';
-import { CarbonLayout } from '@/components/common/carbonLayout';
 import {
   CAssets as SvgCAssets,
   CEstimate as SvgCEstimate,

@@ -1,6 +1,5 @@
-import React, { Fragment, useMemo } from 'react';
 import { Button } from '@/components/common/button';
-import { CarbonLayout } from '@/components/common/carbonLayout';
+import { Fragment, useMemo } from 'react';
 
 function PartInfo(p: { label: string; text: string }) {
   return (

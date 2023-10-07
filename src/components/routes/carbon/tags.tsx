@@ -2,12 +2,10 @@ import WrapPageContainer from '@/components/ant/WrapPageContainer';
 import { ProductQrcode } from '@/components/common/productQrcode';
 import { Teacher as SvgTeacher } from '@/components/svgr';
 import { useTags } from '@/lib/hooks/useDatas';
-import { getCarbonTagList } from '@/lib/services/carbonTag';
 import { getCurrentDate } from '@/lib/utils';
-import { PageContainer } from '@ant-design/pro-components';
 import { Link } from '@umijs/max';
 import _ from 'lodash';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 function Card(p: {
   data: { title: string; icon: any; qrcodeDisable: boolean; by: string; id: string; link: any; qrCode: string };

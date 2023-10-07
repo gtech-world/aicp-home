@@ -1,5 +1,4 @@
 import { Button } from '@/components/common/button';
-import { CarbonLayout } from '@/components/common/carbonLayout';
 import {
   CTag as SvgCTag,
   Energy as SvgEnergy,

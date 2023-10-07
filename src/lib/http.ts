@@ -81,57 +81,6 @@ export async function getProductBomActivityTypes(product_bom_id: number | string
   return getData(res);
 }
 
-export async function getProductActivityDefination(product_id: number) {
-  const res = await axios.get<Res<ProductProcess[]>>(creatUrl(`/api/npi/product_process/query`), {
-    ...authConfig(),
-    params: {
-      product_id,
-      include_activity_types: true,
-    },
-  });
-  return getData(res);
-}
-
-export async function getVINCodes() {
-  const res = await axios.get<string[]>(creatUrl('/api/inventory/product/serial_number/list'), authConfig());
-  return res.data;
-}
-
-export async function getProductByVIN(vin: string | number) {
-  const res = await axios.get<Res<Product>>(creatUrl(`/api/npi/product/serial_number/${vin}/info`), authConfig());
-  return getData(res);
-}
-
-export async function getPCFInventory(vin: string | number) {
-  const res = await axios.get<Res<InventoryProductProcess[]>>(
-    creatUrl(`/api/inventory/product/${vin}/inventory`),
-    authConfig(),
-  );
-  return getData(res);
-}
-
-//
-export async function getSbtInfo(vin: string | number) {
-  const res = await axios.get<Res<SbtInfo>>(creatUrl(`/api/sbt/${vin}/info`));
-  return getData(res);
-}
-
-export async function getSbgEmissionInventory(vin: string | number) {
-  const res = await axios.get<Res<SbtEmissionInventory[]>>(creatUrl(`/api/sbt/${vin}/emission/inventory`));
-  return getData(res);
-}
-export async function getSbtDetail(tokenId: string | number) {
-  const res = await axios.get<Res<SbtDetail>>(creatUrl(`/api/sbt/token/${tokenId}/detail`));
-  return getData(res);
-}
-
-export async function getLcaModelList({ pgNum, productId }: any) {
-  const res = await axios.get(
-    creatUrl(`/api/product-lca/model/query?pageNum=${pgNum}&pageSize=10&productId=${productId > -1 ? productId : ''}`),
-    authConfig(),
-  );
-  return getData(res);
-}
 export async function getResultList(pgNum: number) {
   const res = await axios.get<Res<InventoryController.InventoryList>>(
     creatUrl(`/api/inventory/list/?pageNum=${pgNum}&pageSize=10`),
