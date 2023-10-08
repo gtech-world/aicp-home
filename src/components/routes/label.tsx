@@ -7,6 +7,7 @@ import { useSearchParams } from '@umijs/max';
 import { Fragment } from 'react';
 import WrapPageContainer from '../ant/WrapPageContainer';
 import DivText from '../common/DivText';
+import { HeaderLayout } from '../common/headerLayout';
 
 export function Label() {
   const [sq] = useSearchParams();
@@ -115,7 +116,7 @@ export function Label() {
                   'A Soul-bounded Token (a special type of NFT that is not allowed to transfer after created) has been generated on blockchain to make sure the information in this label is immutable and will be maintain for traceability forever. Check {{value}} to verify the SBT on blockchain explorer.',
                 ).replace(
                   '{{value}}',
-                  `<a class="text-green-2 cursor-pointer" target="_blank" href="/main/tags/chain?tokenId=${tokenId}" rel="noreferrer">${t(
+                  `<a class="text-green-2 cursor-pointer" href="/chain?tokenId=${tokenId}" rel="noreferrer">${t(
                     'here',
                   )}</a>`,
                 ),
@@ -134,20 +135,22 @@ export function Label() {
   };
 
   return (
-    <WrapPageContainer loading={isLoading}>
-      <div className="w-full max-w-[1300px] mx-auto ">
-        {!tagInfo ? (
-          noData()
-        ) : (
-          <Fragment>
-            <div className="text-2xl font-bold leading-normal">
-              {t('Product Carbon Footprint Certified')} <span className="text-base font-medium">{t('by AIAG')}</span>
-            </div>
-            {noHeader()}
-          </Fragment>
-        )}
-      </div>
-    </WrapPageContainer>
+    <HeaderLayout>
+      <WrapPageContainer loading={isLoading}>
+        <div className="w-full max-w-[1300px] mx-auto ">
+          {!tagInfo ? (
+            noData()
+          ) : (
+            <Fragment>
+              <div className="text-2xl font-bold leading-normal">
+                {t('Product Carbon Footprint Certified')} <span className="text-base font-medium">{t('by AIAG')}</span>
+              </div>
+              {noHeader()}
+            </Fragment>
+          )}
+        </div>
+      </WrapPageContainer>
+    </HeaderLayout>
   );
 }
 

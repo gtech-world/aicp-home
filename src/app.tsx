@@ -1,8 +1,8 @@
-import { AiOutlineUnorderedList, AiOutlineUser } from 'react-icons/ai';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig, RuntimeConfig } from '@umijs/max';
 import { Link, history } from '@umijs/max';
 import { ReactNode } from 'react';
+import { AiOutlineUnorderedList, AiOutlineUser } from 'react-icons/ai';
 import defaultSettings from '../config/defaultSettings';
 import MenuAction from './components/ant/MenuAction';
 import { useStore } from './components/common/context';
@@ -10,6 +10,7 @@ import { Aicp, Co2, Digital3 } from './components/svgr';
 import App from './layout/_app';
 import { UserData } from './lib/@types/type';
 import { errorConfig } from './requestErrorConfig';
+import { Header } from './components/common/header';
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
@@ -39,15 +40,7 @@ const menuicons: { [k: string]: ReactNode } = {
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
-    headerRender: () => (
-      <div className="px-5 w-full h-full flex justify-between items-center">
-        <Link to="/" className="flex gap-3 items-end text-white">
-          <Aicp height="24" fill="white" />
-          <Digital3 height="16" />
-        </Link>
-        <MenuAction key="menu" />
-      </div>
-    ),
+    headerRender: () => <Header />,
     footerRender: false,
     onPageChange: () => {},
     layoutBgImgList: [],
@@ -59,7 +52,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       return menuData;
     },
     menuHeaderRender: undefined,
-    childrenRender: (children) => {
+    childrenRender: (children: any) => {
       if (!useStore.getState().userData) {
         history.push('/login');
         return null;

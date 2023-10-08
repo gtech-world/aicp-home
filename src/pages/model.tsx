@@ -1,8 +1,4 @@
 import { Model } from '@/components/routes/model';
-import App from '@/layout/_app';
+import { withApp } from '@/layout/_app';
 
-export default () => (
-  <App>
-    <Model />
-  </App>
-);
+export default withApp(Model);

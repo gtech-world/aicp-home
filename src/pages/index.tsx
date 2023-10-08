@@ -1,8 +1,4 @@
 import Home from '@/components/routes/home';
-import App from '@/layout/_app';
+import { withApp } from '@/layout/_app';
 
-export default () => (
-  <App>
-    <Home />
-  </App>
-);
+export default withApp(Home);

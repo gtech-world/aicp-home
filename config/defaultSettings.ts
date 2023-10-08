@@ -1,6 +1,7 @@
 import { ProLayoutProps } from '@ant-design/pro-components';
 import { ThemeConfig } from 'antd';
 
+export const HEADER_HEIGHT = 56;
 export const DefTheme: ThemeConfig = {
   token: {
     // color
@@ -26,6 +27,7 @@ const Settings: ProLayoutProps & {
   layout: 'mix',
   contentWidth: 'Fluid',
   fixedHeader: false,
+
   fixSiderbar: true,
   siderWidth: 228,
   colorWeak: false,
@@ -43,6 +45,7 @@ const Settings: ProLayoutProps & {
       colorTextMenuSelected: DefTheme.token?.colorPrimary,
     },
     header: {
+      heightLayoutHeader: HEADER_HEIGHT,
       colorBgScrollHeader: DefTheme.token?.colorPrimary,
       colorBgHeader: DefTheme.token?.colorPrimary,
     },

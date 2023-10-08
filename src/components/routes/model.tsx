@@ -1,6 +1,4 @@
-import { useHeaderHeight } from '@/components/common/header';
 import { HeaderLayout } from '@/components/common/headerLayout';
-import { useHeaderTipHeight } from '@/components/common/headerTip';
 import { LoadingFull } from '@/components/common/loading';
 import { Nav } from '@/components/model/Nav';
 import { Tabs } from '@/components/model/Tabs';
@@ -141,11 +139,8 @@ export function Model() {
     console.info('root:', root);
     return root;
   }, [value]);
-  const hh = useHeaderHeight();
-  const hth = useHeaderTipHeight();
-  const h = hh + hth;
   return (
-    <HeaderLayout isManager={true} nopx className="h-0 flex !py-0 !px-0" style={{ maxHeight: `calc(100vh - ${h}px)` }}>
+    <HeaderLayout className="">
       {loading && <LoadingFull />}
       {!!node && (
         <SelectNavsContextProvider>

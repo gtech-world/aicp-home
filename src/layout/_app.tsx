@@ -3,7 +3,7 @@ import '@/lib/env';
 import classNames from 'classnames';
 
 import { authGetResData } from '@/lib/http';
-import React, { ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import 'react-tippy/dist/tippy.css';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
@@ -39,7 +39,8 @@ function InitToolTip() {
     />
   );
 }
-export default function App(p: { children?: ReactNode }) {
+
+function App(p: { children?: ReactNode }) {
   return (
     <div suppressHydrationWarning id="__app" className={classNames('App font-OpenSans relative')}>
       <InitProvider>
@@ -50,3 +51,15 @@ export default function App(p: { children?: ReactNode }) {
     </div>
   );
 }
+
+export function withApp(RN: FC) {
+  return function () {
+    return (
+      <App>
+        <RN />
+      </App>
+    );
+  };
+}
+
+export default App;

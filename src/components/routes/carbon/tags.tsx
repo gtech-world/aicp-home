@@ -70,11 +70,10 @@ export function Tag() {
         id: uuid,
         qrcodeDisable: false,
         link: [
-          { text: '标签信息', href: `/main/tags/label?vin=${uuid}` },
+          { text: '标签信息', href: `/label?vin=${uuid}` },
           {
             text: '在区块链浏览器查看',
-            target: '_blank',
-            href: `/main/tags/chain?tokenId=${tokenId}`,
+            href: `/chain?tokenId=${tokenId}`,
           },
         ],
         qrCode: `${window.origin}/main/tags/label?vin=${uuid}`,

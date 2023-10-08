@@ -3,17 +3,36 @@ import { useUser } from '../common/context';
 import { useNavigate } from '@umijs/max';
 import { useMemo } from 'react';
 import { MenuProps } from 'antd';
-import { FiLogOut } from 'react-icons/fi';
+import { FiHome, FiLogOut } from 'react-icons/fi';
 import HeaderDropdown from './HeaderDropdown';
 import { AiOutlineMenu } from 'react-icons/ai';
+import { VscAccount } from 'react-icons/vsc';
+import { Document } from '../svgr';
 
 export function MenuAction() {
   const { t } = useT();
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
   const push = useNavigate();
-  const menuActionItems: MenuProps['items'] = useMemo(
-    () => [
-      {
+  const menuActionItems: MenuProps['items'] = useMemo(() => {
+    const menus: MenuProps['items'] = [];
+    menus.push({ key: 'home', icon: <FiHome />, label: t('AICP Home'), onClick: () => push('/') });
+    user &&
+      menus.push({
+        key: 'main',
+        icon: <VscAccount />,
+        label: t('AICP Digital3 Carbon System'),
+        onClick: () => push('/main'),
+      });
+    menus.push({
+      key: 'doc',
+      icon: <Document />,
+      label: t('Document'),
+      onClick: () => {
+        open('https://docs.gtech.world/', '_blank');
+      },
+    });
+    user &&
+      menus.push({
         icon: <FiLogOut />,
         label: t('Log Out'),
         key: '1',
@@ -21,13 +40,12 @@ export function MenuAction() {
           setUser(undefined);
           push('/');
         },
-      },
-    ],
-    [t],
-  );
+      });
+    return menus;
+  }, [t, user]);
   return (
-    <HeaderDropdown menu={{ items: menuActionItems }}>
-      <AiOutlineMenu className="text-2xl text-white cursor-pointer" />
+    <HeaderDropdown menu={{ items: menuActionItems }} placement="bottomRight">
+      <AiOutlineMenu className="text-2xl cursor-pointer" />
     </HeaderDropdown>
   );
 }

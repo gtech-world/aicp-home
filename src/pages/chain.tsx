@@ -1,3 +1,4 @@
 import Chain from '@/components/routes/chain';
+import { withApp } from '@/layout/_app';
 
-export default Chain;
+export default withApp(Chain);

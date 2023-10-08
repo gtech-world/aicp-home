@@ -11,6 +11,7 @@ import { now } from 'lodash';
 import { useEffect, useState } from 'react';
 import { VscQuestion, VscVerified } from 'react-icons/vsc';
 import WrapPageContainer from '../ant/WrapPageContainer';
+import { HeaderLayout } from '../common/headerLayout';
 
 function ItemInfo(p: { label: string; text: string; link?: string; tip?: any; className?: string }) {
   return (
@@ -187,65 +188,70 @@ export function Blockchain() {
   console.log('sbtTagList', sbtTagList);
 
   return (
-    <WrapPageContainer loading={loading} className="flex flex-col flex-1 w-full text-black bg-gray-16 min-h-fit">
-      <div className="w-full max-w-[1480px] mx-auto">
-        <div className="flex mo:flex-col">
-          <div className="bg-white flex justify-center px-10 items-center rounded-lg mo:h-[21rem] mo:px-0">
-            <ProductQrcode className="" data={`${current || 'https://aicp.gtech.world'}/car?vin=${sbtTagList?.uuid}`} />
-          </div>
-          <div className="flex flex-col flex-1 ml-5 mo:ml-0 mo:mt-5">
-            <div className="flex mb-5">
-              <VscVerified className="text-3xl mr-2 mo:mt-[-0.45rem] mo:text-[2.8rem]" />
-              <div className="flex text-lg mo:flex-col">
-                <div className="flex flex-col">
-                  <span className="w-full font-bold">
-                    {t('Automotive Carbon Footprint Trust Label')}
-                    {isMobile && <span className="ml-3 font-medium">#{tokenId}</span>}
-                  </span>
-                  {!isMobile && <p>#{tokenId}</p>}
+    <HeaderLayout>
+      <WrapPageContainer loading={loading} className="flex flex-col flex-1 w-full text-black bg-gray-16 min-h-fit">
+        <div className="w-full max-w-[1480px] mx-auto">
+          <div className="flex mo:flex-col">
+            <div className="bg-white flex justify-center px-10 items-center rounded-lg mo:h-[21rem] mo:px-0">
+              <ProductQrcode
+                className=""
+                data={`${current || 'https://aicp.gtech.world'}/car?vin=${sbtTagList?.uuid}`}
+              />
+            </div>
+            <div className="flex flex-col flex-1 ml-5 mo:ml-0 mo:mt-5">
+              <div className="flex mb-5">
+                <VscVerified className="text-3xl mr-2 mo:mt-[-0.45rem] mo:text-[2.8rem]" />
+                <div className="flex text-lg mo:flex-col">
+                  <div className="flex flex-col">
+                    <span className="w-full font-bold">
+                      {t('Automotive Carbon Footprint Trust Label')}
+                      {isMobile && <span className="ml-3 font-medium">#{tokenId}</span>}
+                    </span>
+                    {!isMobile && <p>#{tokenId}</p>}
+                  </div>
+                  <span className="text-sm ml-3 mo:ml-0 mt-[0.3rem] mo:mt-2 mo:text-gray-6">{t('by AIAG')}</span>
                 </div>
-                <span className="text-sm ml-3 mo:ml-0 mt-[0.3rem] mo:mt-2 mo:text-gray-6">{t('by AIAG')}</span>
+              </div>
+              <div className="px-12 py-5 bg-white rounded-lg mo:pl-10 mo:pr-3">
+                <h5 className="text-xl mb-3.5 font-bold mo:text-lg">{t('Label Details')}</h5>
+                <CardInfo data={sbtTagList} />
               </div>
             </div>
-            <div className="px-12 py-5 bg-white rounded-lg mo:pl-10 mo:pr-3">
-              <h5 className="text-xl mb-3.5 font-bold mo:text-lg">{t('Label Details')}</h5>
-              <CardInfo data={sbtTagList} />
+          </div>
+
+          <div className="px-8 py-5 mt-5 bg-white rounded-lg mo:px-4">
+            <h3 className="font-bold">{t('Item Activity on Blockchain')}</h3>
+            <div className="w-full overflow-hidden overflow-x-auto mo:pb-5">
+              <Table className="mt-5 mo:w-[52rem]" columns={columns} data={sbtTagList?.transferEvents || []} />
             </div>
           </div>
-        </div>
-
-        <div className="px-8 py-5 mt-5 bg-white rounded-lg mo:px-4">
-          <h3 className="font-bold">{t('Item Activity on Blockchain')}</h3>
-          <div className="w-full overflow-hidden overflow-x-auto mo:pb-5">
-            <Table className="mt-5 mo:w-[52rem]" columns={columns} data={sbtTagList?.transferEvents || []} />
+          <div className="bg-white mt-5 px-8 py-5 rounded-lg leading-[1.8rem] mo:leading-[1.6875rem] mo:px-4 mo:text-[.9375rem]">
+            <SVGAICP fill="#29953A" className="w-[6.125rem] mb-5" />
+            <p className="font-bold">{t('Platform powered by:')}</p>
+            <p className="text-green-2">
+              <Link to="https://aicp.gtech-cn.co/" target="_blank">
+                {t('Automotive Industry Carbon Platform')}
+              </Link>
+            </p>
+            <p>
+              {t(
+                'AICP is the global, industry-level platform designed for long-term carbon emission performance traceability and visibility under the AIAG Carbon Initiative. AICP offers public view mode and supply chain view mode.',
+              )}
+            </p>
+          </div>
+          <div className="bg-white mt-5 px-8 py-5 rounded-lg leading-[1.8rem] mo:leading-[1.6875rem] mo:px-4 mo:text-[.9375rem]">
+            <SvgGgx className="mb-5" />
+            <p className="font-bold">{t('Blockchain powered by:')}</p>
+            <p className="text-green-2">
+              <Link to={`https://explorer.gtech.world`} target="_blank">
+                {t('GGX Blockchain')}
+              </Link>
+            </p>
+            <p dangerouslySetInnerHTML={{ __html: polygonscanDesc }}></p>
           </div>
         </div>
-        <div className="bg-white mt-5 px-8 py-5 rounded-lg leading-[1.8rem] mo:leading-[1.6875rem] mo:px-4 mo:text-[.9375rem]">
-          <SVGAICP fill="#29953A" className="w-[6.125rem] mb-5" />
-          <p className="font-bold">{t('Platform powered by:')}</p>
-          <p className="text-green-2">
-            <Link to="https://aicp.gtech-cn.co/" target="_blank">
-              {t('Automotive Industry Carbon Platform')}
-            </Link>
-          </p>
-          <p>
-            {t(
-              'AICP is the global, industry-level platform designed for long-term carbon emission performance traceability and visibility under the AIAG Carbon Initiative. AICP offers public view mode and supply chain view mode.',
-            )}
-          </p>
-        </div>
-        <div className="bg-white mt-5 px-8 py-5 rounded-lg leading-[1.8rem] mo:leading-[1.6875rem] mo:px-4 mo:text-[.9375rem]">
-          <SvgGgx className="mb-5" />
-          <p className="font-bold">{t('Blockchain powered by:')}</p>
-          <p className="text-green-2">
-            <Link to={`https://explorer.gtech.world`} target="_blank">
-              {t('GGX Blockchain')}
-            </Link>
-          </p>
-          <p dangerouslySetInnerHTML={{ __html: polygonscanDesc }}></p>
-        </div>
-      </div>
-    </WrapPageContainer>
+      </WrapPageContainer>
+    </HeaderLayout>
   );
 }
 

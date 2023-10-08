@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import { HTMLAttributes } from 'react';
 import { useIsMobile } from './context';
-import { Header, MobileHeader } from './header';
-import { useHeaderTipHeight } from './headerTip';
+import { Header, HomeHeader } from './header';
 
 export function HomeHeaderLayout(p: HTMLAttributes<HTMLDivElement>) {
   const { className, children, ...props } = p;
@@ -39,7 +38,7 @@ export function HomeHeaderLayout(p: HTMLAttributes<HTMLDivElement>) {
           />
         </div>
       )}
-      <Header className="h-[6.75rem] mo:h-[4.25rem] mo:sticky mo:bg-white mo:text-green-2 mo:p-4" />
+      <HomeHeader />
       <div
         className={classNames('z-[2] flex-1 relative w-full mx-auto mo:mx-0 mo:flex mo:flex-col', className)}
         {...props}
@@ -50,54 +49,12 @@ export function HomeHeaderLayout(p: HTMLAttributes<HTMLDivElement>) {
   );
 }
 
-export function HeaderLayout(
-  p: HTMLAttributes<HTMLDivElement> & {
-    tits?: string | null;
-    isManager?: boolean;
-    nopx?: boolean;
-  },
-) {
-  const { className, tits, isManager, nopx, children, ...props } = p;
-  const isMobile = useIsMobile();
-  const h = useHeaderTipHeight();
+export function HeaderLayout(p: HTMLAttributes<HTMLDivElement>) {
+  const { className, children, ...props } = p;
   return (
-    <div className="relative flex flex-col flex-1 w-full min-h-fit">
-      {isMobile ? (
-        <MobileHeader />
-      ) : (
-        <Header
-          nopx={nopx}
-          tits={tits}
-          isManager={isManager}
-          style={{ top: `${h}px` }}
-          className="!sticky px-[3.125rem] py-4 !max-w-none bg-green-2"
-        />
-      )}
-      <div
-        className={classNames('z-[2] flex-1 relative w-full py-6 px-[3.125rem] mx-auto mo:px-5', className)}
-        {...props}
-      >
-        {children}
-      </div>
-    </div>
-  );
-}
-
-export function MainHeaderLayout(p: { showQuery?: boolean; menus?: any[] } & HTMLAttributes<HTMLDivElement>) {
-  const { className, children, showQuery = true, menus = [], ...props } = p;
-  const h = useHeaderTipHeight();
-  return (
-    <div className="relative flex flex-col flex-1 w-full min-h-fit bg-gray-16">
-      <Header
-        menus={menus}
-        isManager={true}
-        showQuery={showQuery}
-        style={{ top: `${h}px` }}
-        className="!sticky px-[3.125rem] py-4 !max-w-none bg-green-2 mo:px-4 mo:h-[4.25rem]"
-      />
-      <div className={classNames('z-[2] flex-1 w-full', className)} {...props}>
-        {children}
-      </div>
+    <div {...props} className={classNames('relative flex flex-col flex-1 w-full min-h-fit', className)}>
+      <Header />
+      {children}
     </div>
   );
 }
