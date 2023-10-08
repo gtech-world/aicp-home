@@ -10,6 +10,7 @@ export const DefTheme: ThemeConfig = {
     colorHighlight: '#29953A',
     colorLink: '#29953A',
     colorLinkHover: '#4CAF50',
+    colorText: '#000000',
     // size
     borderRadius: 4,
 
@@ -46,6 +47,7 @@ const Settings: ProLayoutProps & {
 
     sider: {
       colorTextMenuSelected: DefTheme.token?.colorPrimary,
+      colorTextMenu: DefTheme.token?.colorText,
     },
     header: {
       heightLayoutHeader: HEADER_HEIGHT,

@@ -7,6 +7,8 @@ export function WrapPageContainer(p: PageContainerProps) {
   const pageCss = useEmotionCss(({ token }) => ({
     '.ant-page-header': {
       padding: '1rem 1.5rem',
+      paddingBlock: '1rem !important',
+      paddingInline: '1.5rem !important',
       backgroundColor: token.colorBgBase,
       '.ant-breadcrumb': {
         fontSize: '.875rem',

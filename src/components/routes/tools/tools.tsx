@@ -9,9 +9,9 @@ function ToolsContent(item: any) {
   const push = useNavigate();
   return (
     <li className={classNames('bg-white  rounded-xl w-full p-5 flex flex-col justify-between', {})}>
-      <div className="">
-        <div className="flex items-center h-20 md:m-5">
-          <Vicon width="64" height="64" className="mr-5" />
+      <div className=" flex-1 flex flex-col">
+        <div className="flex items-center h-[50px] md:m-5">
+          <Vicon width="50" height="50" className="mr-5" />
           <div className="">
             <div className="font-semibold lg:text-[20px] md:text-[18px] text-[18px]">
               {' '}
@@ -21,6 +21,7 @@ function ToolsContent(item: any) {
           </div>
         </div>
         <p className="mt-[40px] text-[#333333] leading-[21px] font-normal lg:text-[16px] md:text-[14px]">{v.text}</p>
+        <div className="flex-1" />
         <div className="mt-10 leading-[21px]   md:text-[14px] md:text-lg lg:text-[16px] ">
           <h5 className="font-semibold">
             {v.as && `\u201C${v.as}\u201D`} {v.secondText}
@@ -85,7 +86,7 @@ const data = [
 
 export function Tools() {
   return (
-    <WrapPageContainer title="AICP产品碳足迹工具集">
+    <WrapPageContainer title={false}>
       <ul className="grid grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-4">
         {data.map((v, i) => {
           return <ToolsContent key={`inProgress${i}`} data={v} i={i} />;

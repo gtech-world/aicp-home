@@ -32,7 +32,7 @@ export function SignIn() {
     login(account, pwd)
       .then((ud) => {
         setUser(ud, true);
-        return push('/main');
+        return push('/main/tools');
       })
       .catch(onError)
       .then(() => setLoading(false));

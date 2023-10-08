@@ -25,7 +25,7 @@ export function MenuAction() {
       menus.push({
         key: 'main',
         icon: <VscAccount />,
-        label: <WrapLink to="/main">{t('AICP Digital3 Carbon System')}</WrapLink>,
+        label: <WrapLink to="/main/tools">{t('AICP Digital3 Carbon System')}</WrapLink>,
       });
     menus.push({
       key: 'doc',

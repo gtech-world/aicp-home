@@ -5,6 +5,7 @@ const SvgVerifiedIcon = (props) => (
     xmlnsXlink="http://www.w3.org/1999/xlink"
     width={64}
     height={64}
+    viewBox="0 0 64 64"
     fill="none"
     {...props}
   >
