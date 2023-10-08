@@ -3,10 +3,11 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        lg: { min: '90rem' },
         ssm: { max: '460px' },
+        sm: { max: '750px' },
         mo: { max: '900px' },
-        md: [{ min: '900px', max: '1280px' }],
+        md: { max: '1280px' },
+        lg: { min: '1440px' },
       },
       fontFamily: {
         OpenSans: 'var(--open-sans)',

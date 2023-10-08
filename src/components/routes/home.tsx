@@ -1,25 +1,22 @@
 import { useIsMobile, useUser } from '@/components/common/context';
 import { HomeHeaderLayout } from '@/components/common/headerLayout';
 import { ProductQrcode } from '@/components/common/productQrcode';
-import { useT } from '@/lib/hooks/useT';
-import { scrollToAnchor } from '@/lib/utils';
 import {
   CTag as SvgCTag,
   Market as SvgMarket,
   Pentagon as SvgPentagon,
-  Query as SvgQuery,
   SignIn as SvgSignIn,
   Teacher as SvgTeacher,
 } from '@/components/svgr';
-import classNames from 'classnames';
-import React, { FC, Fragment, useEffect, useState } from 'react';
+import { useT } from '@/lib/hooks/useT';
+import { scrollToAnchor } from '@/lib/utils';
 import { Link } from '@umijs/max';
+import classNames from 'classnames';
+import { Fragment, useState } from 'react';
 
-const Card: FC<{ windowWidth: boolean }> = ({ windowWidth }) => {
+function Card() {
   const { user } = useUser();
-  const isMobile = useIsMobile();
   const { t, locale } = useT();
-
   const onClick = (item: string) => {
     return item && item.startsWith('/');
   };
@@ -68,7 +65,7 @@ const Card: FC<{ windowWidth: boolean }> = ({ windowWidth }) => {
   return (
     <Fragment>
       <div className="flex justify-center w-full bg-white">
-        <div className="flex text-lg mo:text-base flex-shrink-0 max-w-[90rem] px-[7.5rem] mo:px-5 mo:max-w-auto pt-10 pb-5  flex-col w-full mo:flex-col mo:mt-11 mo:mb-0">
+        <div className="flex text-lg mo:text-base flex-shrink-0 max-w-[75rem] px-5 mo:max-w-auto pt-10 pb-5  flex-col w-full mo:flex-col  mo:mb-0">
           <ul className="flex justify-between w-full pb-6 mo:flex-col mo:pb-0">
             {tabsList.map((v, i) => {
               return (
@@ -100,7 +97,7 @@ const Card: FC<{ windowWidth: boolean }> = ({ windowWidth }) => {
       </div>
 
       <div className="flex justify-center w-full bg-white ">
-        <div className="w-full px-[7.5rem] mo:px-5 max-w-[90rem] text-base  mo:pt-0 pb-11 mo:flex-col flex-shrink-0 mo:flex">
+        <div className="w-full px-5 max-w-[75rem] text-base  mo:pt-0 pb-11 mo:flex-col flex-shrink-0 mo:flex">
           <div className="flex mo:mb-10">
             <span>*</span>
             <span className="mo:ml-2">
@@ -148,7 +145,7 @@ const Card: FC<{ windowWidth: boolean }> = ({ windowWidth }) => {
     //   </div>
     // </div>
   );
-};
+}
 
 function CardTabsItem1() {
   const data = [
@@ -274,7 +271,7 @@ function CardTabsItem3() {
   );
 }
 
-const CardTabs: FC<{ windowWidth: boolean }> = ({ windowWidth }) => {
+function CardTabs() {
   const [selected, setSelected] = useState(-1);
   const tabsItemComponent = [
     <CardTabsItem1 key={`CardTabsItem1`} />,
@@ -308,17 +305,15 @@ const CardTabs: FC<{ windowWidth: boolean }> = ({ windowWidth }) => {
     <div className="flex justify-center w-full mo:px-5">
       <a href="#" id="secondView" />
       <div
-        className={` flex text-lg mo:text-base flex-shrink-0 max-w-[90rem] mo:max-w-auto pt-10 pb-5  flex-col
-        mo:px-0  ${windowWidth ? 'px-[3%]' : 'px-[7.5rem]'}
-       w-full mo:flex-col mo:mt-11 mo:mb-0`}
+        className={`flex text-lg mo:text-base flex-shrink-0 max-w-[75rem] mo:max-w-auto mo:px-0 pt-10 pb-5 px-5  flex-col w-full mo:flex-col mo:mt-11 mo:mb-0`}
       >
-        <ul className="flex justify-between w-full pb-8 mo:flex-col mo:pb-0">
+        <ul className="flex justify-between w-full pb-8 gap-5 mo:flex-col mo:pb-0">
           {tabsList.map((v, i) => {
             return (
-              <li key={`tabsList${i}`} className={classNames('  mr-3 flex last:mr-0 mo:mr-0 mo:flex-col')}>
+              <li key={`tabsList${i}`} className={classNames('w-0 flex-1 flex mo:w-full mo:flex-col')}>
                 <div
                   className={classNames(
-                    ' w-[22.5rem] mo:w-full relative flex flex-col justify-between bg-white p-5 rounded-2xl border-2 mo:mb-5',
+                    ' mo:w-full relative flex flex-col justify-between bg-white p-5 rounded-2xl border-2',
                     i === selected ? 'border-green-2' : 'border-transparent',
                   )}
                 >
@@ -363,27 +358,14 @@ const CardTabs: FC<{ windowWidth: boolean }> = ({ windowWidth }) => {
       </div>
     </div>
   );
-};
+}
 
 export function Home() {
   const { user } = useUser();
-  const [windowWidth, setWindowWidth] = useState(0);
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-  const width = windowWidth > 1200 && windowWidth <= 1280;
-
   return (
     <HomeHeaderLayout>
       <div className={`flex flex-col flex-shrink-0 mo:items-center mo:h-[37.25rem] w-full `}>
-        <div className={`max-w-[90rem] h-[42.875rem]  mo:px-10 w-full mx-auto  ${width ? 'px-[3%]' : 'px-[7.5rem]'}`}>
+        <div className={`max-w-[75rem] h-[42.875rem] px-5 w-full mx-auto`}>
           <div className="text-[2rem] text-white font-semibold w-[37.25rem] mt-36 mo:text-[1.75rem] mo:leading-normal mo:text-center mo:w-full mo:mt-[5.375rem]">
             {/*{t(*/}
             {/*  "AICP is the global, industry-level platform for OEMs and suppliers to manage, track and display their carbon footprint data under the AIAG Carbon Initiative."*/}
@@ -404,18 +386,8 @@ export function Home() {
           />
         </div>
       </div>
-      {/* <div
-        className="invisible
-         w-full rounded-2xl mt-[10.375rem] flex justify-around items-center py-[1.4375rem] bg-white mo:flex-col mo:mt-[4.375rem] mo:py-8"
-        style={{ boxShadow: "0px 0px 25px rgba(0, 0, 0, 0.15)" }}
-      >
-        <NumData num={5569} label="Reporting Sites" />
-        <NumData num={63} label="Collaborative Partners" />
-        <NumData num={277148} label="Labelled Vehicles" />
-        <NumData num={909128401} label="Piece of Data Collected" />
-      </div> */}
-      <CardTabs windowWidth={width} />
-      <Card windowWidth={width} />
+      <CardTabs />
+      <Card />
     </HomeHeaderLayout>
   );
 }

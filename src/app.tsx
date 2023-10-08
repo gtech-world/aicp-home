@@ -81,8 +81,8 @@ export const request = {
 
 export const locale: RuntimeConfig['locale'] = {
   textComponent: 'span',
-  onError: () => {
-    console.log('error handler...');
+  onError: (err) => {
+    console.log('error handler...', err);
   },
   // locale: string
   // formats: CustomFormats

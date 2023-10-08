@@ -5,6 +5,7 @@ import { useTitle } from 'react-use';
 import MenuAction from '../ant/MenuAction';
 import { HTMLAttributes } from 'react';
 import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 
 export function Header(p: HTMLAttributes<HTMLDivElement>) {
   const { className, ...props } = p;
