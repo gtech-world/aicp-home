@@ -1,9 +1,9 @@
 import { useAutoAnim } from '@/lib/hooks/useAutoAnim';
-import { Link } from '@umijs/max';
 import classNames from 'classnames';
 import React, { Fragment, HTMLAttributes } from 'react';
 import { RxTriangleUp } from 'react-icons/rx';
 import { useClickAway, useToggle } from 'react-use';
+import { WrapLink } from '../ant/Link';
 export interface MenuItem {
   topSplit?: boolean;
   icon?: any;
@@ -48,44 +48,23 @@ function _PoperMenu(p: HTMLAttributes<HTMLDivElement> & PoperMenuProps) {
             {menus.map((item, i) => (
               <Fragment key={`poper_menu_item${i}`}>
                 {item.topSplit && i > 0 && <div className="h-[1px] my-[.625rem] mo:my-[2px] mx-4 bg-[#eeeeee]" />}
-                {item.to && item.to.startsWith('/') ? (
-                  <Link
-                    to={item.to}
-                    className={classNames(
-                      'flex items-center py-[.625rem] mo:py-[.875rem] px-4 text-black hover:text-green-2 cursor-pointer',
-                      {
-                        'text-green-2': item.selected,
-                      },
-                    )}
-                    target={item.to && item.to.startsWith('/') ? '_self' : '_blank'}
-                    onClick={() => !item.to && onClickItem(item)}
-                  >
-                    {!!item.icon && <div className="text-xl mo:text-2xl">{item.icon}</div>}
-                    <div
-                      className="ml-3 text-sm font-medium mo:text-base"
-                      dangerouslySetInnerHTML={{ __html: item.text }}
-                    ></div>
-                  </Link>
-                ) : (
-                  <a
-                    href={item.to ? item.to : '#'}
-                    rel="noreferrer"
-                    className={classNames(
-                      'flex items-center py-[.625rem] mo:py-[.875rem] px-4 text-black hover:text-green-2 cursor-pointer',
-                      {
-                        'text-green-2': item.selected,
-                      },
-                    )}
-                    target={'_blank'}
-                    onClick={() => !item.to && onClickItem(item)}
-                  >
-                    {!!item.icon && <div className="text-xl mo:text-2xl">{item.icon}</div>}
-                    <div
-                      className="ml-3 text-sm font-medium mo:text-base"
-                      dangerouslySetInnerHTML={{ __html: item.text }}
-                    ></div>
-                  </a>
-                )}
+                <WrapLink
+                  to={item.to ? item.to : '#'}
+                  className={classNames(
+                    'flex items-center py-[.625rem] mo:py-[.875rem] px-4 text-black hover:text-green-2 cursor-pointer',
+                    {
+                      'text-green-2': item.selected,
+                    },
+                  )}
+                  target={item.to && item.to.startsWith('/') ? '_self' : '_blank'}
+                  onClick={() => !item.to && onClickItem(item)}
+                >
+                  {!!item.icon && <div className="text-xl mo:text-2xl">{item.icon}</div>}
+                  <div
+                    className="ml-3 text-sm font-medium mo:text-base"
+                    dangerouslySetInnerHTML={{ __html: item.text }}
+                  ></div>
+                </WrapLink>
               </Fragment>
             ))}
           </div>

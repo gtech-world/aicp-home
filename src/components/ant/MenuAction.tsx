@@ -1,14 +1,14 @@
 import { useT } from '@/lib/hooks/useT';
-import { useUser } from '../common/context';
 import { useNavigate } from '@umijs/max';
-import { useMemo } from 'react';
 import { MenuProps } from 'antd';
-import { FiHome, FiLogOut } from 'react-icons/fi';
-import HeaderDropdown from './HeaderDropdown';
+import { useMemo } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
+import { FiHome, FiLogOut } from 'react-icons/fi';
 import { VscAccount } from 'react-icons/vsc';
+import { useUser } from '../common/context';
 import { Document } from '../svgr';
-import { Link } from 'react-router-dom';
+import HeaderDropdown from './HeaderDropdown';
+import { WrapLink } from './Link';
 
 export function MenuAction() {
   const { t } = useT();
@@ -19,21 +19,22 @@ export function MenuAction() {
     menus.push({
       key: 'home',
       icon: <FiHome />,
-      label: <Link to="/">{t('AICP Home')}</Link>,
+      label: <WrapLink to="/">{t('AICP Home')}</WrapLink>,
     });
     user &&
       menus.push({
         key: 'main',
         icon: <VscAccount />,
-        label: <Link to="/main">{t('AICP Digital3 Carbon System')}</Link>,
+        label: <WrapLink to="/main">{t('AICP Digital3 Carbon System')}</WrapLink>,
       });
     menus.push({
       key: 'doc',
       icon: <Document />,
-      label: t('Document'),
-      onClick: () => {
-        open('https://docs.gtech.world/', '_blank');
-      },
+      label: (
+        <WrapLink to="https://docs.gtech.world/" target="_blank">
+          {t('Document')}
+        </WrapLink>
+      ),
     });
     user &&
       menus.push({

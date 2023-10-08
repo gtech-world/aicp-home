@@ -1,9 +1,8 @@
 import WrapPageContainer from '@/components/ant/WrapPageContainer';
 import { Btn } from '@/components/common/button';
 import { AinventoryIcon, AlcaIcon, AmodelIcon, VerifiedIcon } from '@/components/svgr';
-import { Link, useNavigate } from '@umijs/max';
+import { useNavigate } from '@umijs/max';
 import classNames from 'classnames';
-import {} from '@umijs/max';
 function ToolsContent(item: any) {
   const { data: v, i } = item;
   const Vicon = v.icon;

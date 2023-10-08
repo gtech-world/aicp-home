@@ -10,9 +10,9 @@ import {
 } from '@/components/svgr';
 import { useT } from '@/lib/hooks/useT';
 import { scrollToAnchor } from '@/lib/utils';
-import { Link } from '@umijs/max';
 import classNames from 'classnames';
 import { Fragment, useState } from 'react';
+import { WrapLink } from '../ant/Link';
 
 function Card() {
   const { user } = useUser();
@@ -82,7 +82,7 @@ function Card() {
                     </div>
                     <div className="flex-1 mo:hidden" />
 
-                    <Link
+                    <WrapLink
                       to={onClick(v.to) ? v.to : '#'}
                       onClick={() => !onClick(v.to) && window.open(v.to, '_blank')}
                       className="w-full bg-green-2 rounded-lg text-white text-2xl py-3 mo:mt-[3.75rem] mo:text-lg flex justify-center"
@@ -379,7 +379,7 @@ export function Home() {
             {/*{`${t("Learn More")} >`}*/}
             了解AICP服务
           </button>
-          <Link
+          <WrapLink
             to={user ? '/main' : '/login'}
             className=" inline-block ml-5 mo:ml-0 mt-[3.75rem] text-center w-[13.75rem] rounded-lg bg-white whitespace-nowrap text-green-2 text-2xl font-medium px-[1.9375rem] py-3 mo:mt-5 mo:text-lg mo:px-[3.125rem] mo:w-full"
             children={'登入AICP账户'}

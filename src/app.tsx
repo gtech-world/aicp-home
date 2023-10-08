@@ -1,16 +1,15 @@
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig, RuntimeConfig } from '@umijs/max';
-import { Link, history } from '@umijs/max';
+import { history } from '@umijs/max';
 import { ReactNode } from 'react';
 import { AiOutlineUnorderedList, AiOutlineUser } from 'react-icons/ai';
 import defaultSettings from '../config/defaultSettings';
-import MenuAction from './components/ant/MenuAction';
 import { useStore } from './components/common/context';
-import { Aicp, Co2, Digital3 } from './components/svgr';
+import { Header } from './components/common/header';
+import { Co2 } from './components/svgr';
 import App from './layout/_app';
 import { UserData } from './lib/@types/type';
 import { errorConfig } from './requestErrorConfig';
-import { Header } from './components/common/header';
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state

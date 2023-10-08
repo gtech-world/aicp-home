@@ -1,9 +1,9 @@
+import { WrapLink } from '@/components/ant/Link';
 import WrapPageContainer from '@/components/ant/WrapPageContainer';
 import { ProductQrcode } from '@/components/common/productQrcode';
 import { Teacher as SvgTeacher } from '@/components/svgr';
 import { useTags } from '@/lib/hooks/useDatas';
 import { getCurrentDate } from '@/lib/utils';
-import { Link } from '@umijs/max';
 import _ from 'lodash';
 import { useMemo } from 'react';
 
@@ -24,9 +24,9 @@ function Card(p: {
           console.log('href', v.href);
 
           return (
-            <Link key={`link${i}`} target={v.target} className="mt-2.5 mr-5" to={v.href}>
+            <WrapLink key={`link${i}`} target={v.target} className="mt-2.5 mr-5" to={v.href}>
               {v.text}
-            </Link>
+            </WrapLink>
           );
         })}
       </div>
