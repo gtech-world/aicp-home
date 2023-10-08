@@ -11,7 +11,7 @@ export function Tabs() {
         <div
           key={`tabs_${i}`}
           onClick={() => setActive(item)}
-          className={classNames('flex gap-1  text-sm w-min leading-[14px] p-[.625rem] cursor-pointer', {
+          className={classNames('flex gap-1 h-[36px] px-2.5  text-sm w-min leading-tight items-center cursor-pointer', {
             'bg-gray-bg border border-solid border-gray-14 border-b-0': item === active,
           })}
         >

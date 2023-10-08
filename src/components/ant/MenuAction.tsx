@@ -8,6 +8,7 @@ import HeaderDropdown from './HeaderDropdown';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { VscAccount } from 'react-icons/vsc';
 import { Document } from '../svgr';
+import { Link } from 'react-router-dom';
 
 export function MenuAction() {
   const { t } = useT();
@@ -15,21 +16,28 @@ export function MenuAction() {
   const push = useNavigate();
   const menuActionItems: MenuProps['items'] = useMemo(() => {
     const menus: MenuProps['items'] = [];
-    menus.push({ key: 'home', icon: <FiHome />, label: t('AICP Home'), onClick: () => push('/') });
+    menus.push({
+      key: 'home',
+      icon: <FiHome />,
+      label: <Link to="/">{t('AICP Home')}</Link>,
+    });
     user &&
       menus.push({
         key: 'main',
         icon: <VscAccount />,
-        label: t('AICP Digital3 Carbon System'),
-        onClick: () => push('/main'),
+        label: <Link to="/main">{t('AICP Digital3 Carbon System')}</Link>,
       });
     menus.push({
       key: 'doc',
       icon: <Document />,
-      label: t('Document'),
-      onClick: () => {
-        open('https://docs.gtech.world/', '_blank');
-      },
+      label: (
+        <Link relative="route" target="_blank" to="https://docs.gtech.world/">
+          {t('Document')}
+        </Link>
+      ),
+      // onClick: () => {
+      //   open('https://docs.gtech.world/', '_blank');
+      // },
     });
     user &&
       menus.push({
@@ -44,7 +52,7 @@ export function MenuAction() {
     return menus;
   }, [t, user]);
   return (
-    <HeaderDropdown menu={{ items: menuActionItems }} placement="bottomRight">
+    <HeaderDropdown menu={{ items: menuActionItems }} placement="bottomRight" trigger={['click']}>
       <AiOutlineMenu className="text-2xl cursor-pointer" />
     </HeaderDropdown>
   );

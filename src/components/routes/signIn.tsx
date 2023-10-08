@@ -39,9 +39,9 @@ export function SignIn() {
   };
   return (
     <HeaderLayout>
-      <div className="flex flex-col items-center ">
-        <button onClick={onBack} className="self-start mb-[5.625rem] mo:hidden">{`< ${t('Back')}`}</button>
-        <SvgSignIn className="h-[6.125rem] mo:mt-[5.125rem] mo:h-[5rem]" />
+      <div className="flex flex-col items-center mo:px-5">
+        {/* <button onClick={onBack} className="self-start mb-[5.625rem] mo:hidden">{`< ${t('Back')}`}</button> */}
+        <SvgSignIn className="h-[6.125rem] mt-[5.625rem] mo:mt-[5.125rem] mo:h-[5rem]" />
         <input
           value={account}
           type="text"

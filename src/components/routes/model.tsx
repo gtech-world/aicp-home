@@ -141,38 +141,40 @@ export function Model() {
   }, [value]);
   return (
     <HeaderLayout className="">
-      {loading && <LoadingFull />}
-      {!!node && (
-        <SelectNavsContextProvider>
-          <NavigationTreeContext.Provider value={{ descriptores: (value as any)[1] }}>
-            <Split
-              className="flex w-full split"
-              sizes={[1, 99]}
-              minSize={260}
-              snapOffset={1}
-              gutterSize={6}
-              gutterStyle={() => ({
-                backgroundColor: '#f3f3f3',
-                cursor: 'col-resize',
-              })}
-            >
-              <div className="flex flex-col overflow-hidden">
-                <div className="border-b border-solid border-b-gray-16">
-                  <div className="flex gap-[6px] text-sm w-min leading-[14px] p-[.625rem] bg-gray-bg border border-solid border-gray-14">
-                    <GrTree className="text-gray-9 fixGrColor" />
-                    <span className="text-black">Navigation</span>
+      <div className="flex-1 flex flex-col bg-white">
+        {loading && <LoadingFull />}
+        {!!node && (
+          <SelectNavsContextProvider>
+            <NavigationTreeContext.Provider value={{ descriptores: (value as any)[1] }}>
+              <Split
+                className="flex flex-1 w-full split"
+                sizes={[1, 99]}
+                minSize={260}
+                snapOffset={1}
+                gutterSize={6}
+                gutterStyle={() => ({
+                  backgroundColor: '#f3f3f3',
+                  cursor: 'col-resize',
+                })}
+              >
+                <div className="flex flex-col overflow-hidden bg-transparent">
+                  <div className="border-b border-solid border-b-gray-14">
+                    <div className="flex gap-[6px] text-sm w-min h-[36px] px-2.5 items-center bg-gray-bg border border-b-0 border-solid border-gray-14">
+                      <GrTree className="text-gray-9 fixGrColor" />
+                      <span className="text-black">Navigation</span>
+                    </div>
                   </div>
+                  <div className="flex-1">{!!node && <Nav node={node} />}</div>
                 </div>
-                <div className="flex-1">{!!node && <Nav node={node} />}</div>
-              </div>
-              <div className="flex flex-col">
-                <Tabs />
-                <TypeContent id={id} />
-              </div>
-            </Split>
-          </NavigationTreeContext.Provider>
-        </SelectNavsContextProvider>
-      )}
+                <div className="flex flex-col">
+                  <Tabs />
+                  <TypeContent id={id} />
+                </div>
+              </Split>
+            </NavigationTreeContext.Provider>
+          </SelectNavsContextProvider>
+        )}
+      </div>
     </HeaderLayout>
   );
 }

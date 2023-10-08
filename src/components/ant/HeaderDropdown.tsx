@@ -12,6 +12,9 @@ export type HeaderDropdownProps = {
 const HeaderDropdown: React.FC<HeaderDropdownProps> = ({ overlayClassName: cls, ...restProps }) => {
   const className = useEmotionCss(({ token }) => {
     return {
+      borderRadius: 4,
+      boxShadow:
+        '0px 9px 28px 8px rgba(0, 0, 0, 0.05), 0px 6px 16px 0px rgba(0, 0, 0, 0.08), 0px 3px 6px -4px rgba(0, 0, 0, 0.12)',
       [`@media screen and (max-width: ${token.screenXS})`]: {
         width: '100%',
       },
