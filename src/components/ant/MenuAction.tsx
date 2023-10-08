@@ -30,14 +30,10 @@ export function MenuAction() {
     menus.push({
       key: 'doc',
       icon: <Document />,
-      label: (
-        <Link relative="route" target="_blank" to="https://docs.gtech.world/">
-          {t('Document')}
-        </Link>
-      ),
-      // onClick: () => {
-      //   open('https://docs.gtech.world/', '_blank');
-      // },
+      label: t('Document'),
+      onClick: () => {
+        open('https://docs.gtech.world/', '_blank');
+      },
     });
     user &&
       menus.push({

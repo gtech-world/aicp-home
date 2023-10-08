@@ -5,7 +5,7 @@ import { Aicp as SVGAICP, GGX as SvgGgx } from '@/components/svgr';
 import { useSBT } from '@/lib/hooks/useDatas';
 import { useT } from '@/lib/hooks/useT';
 import { autoFormaterRealTime, genScanUrl, shortStr } from '@/lib/utils';
-import { Link, useSearchParams } from '@umijs/max';
+import { useSearchParams } from '@umijs/max';
 import classNames from 'classnames';
 import { now } from 'lodash';
 import { useEffect, useState } from 'react';
@@ -13,6 +13,8 @@ import { VscQuestion, VscVerified } from 'react-icons/vsc';
 import WrapPageContainer from '../ant/WrapPageContainer';
 import { HeaderLayout } from '../common/headerLayout';
 
+import { Typography } from 'antd';
+const { Link } = Typography;
 function ItemInfo(p: { label: string; text: string; link?: string; tip?: any; className?: string }) {
   return (
     <div
@@ -127,7 +129,7 @@ export function Blockchain() {
       ),
       render: (text: string) => {
         return (
-          <Link className="text-green-2" target="_blank" to={genScanUrl('tx', text)}>
+          <Link className="text-green-2" target="_blank" href={genScanUrl('tx', text)}>
             {shortStr(text)}
           </Link>
         );
@@ -163,7 +165,7 @@ export function Blockchain() {
       dataIndex: 'fromAddress',
       render: (text: string) => {
         return (
-          <Link className="text-green-2" target="_blank" to={genScanUrl('address', text)}>
+          <Link className="text-green-2" target="_blank" href={genScanUrl('address', text)}>
             {shortStr(text)}
           </Link>
         );
@@ -174,7 +176,7 @@ export function Blockchain() {
       dataIndex: 'toAddress',
       render: (text: string) => {
         return (
-          <Link className="text-green-2" target="_blank" to={genScanUrl('address', text)}>
+          <Link className="text-green-2" target="_blank" href={genScanUrl('address', text)}>
             {shortStr(text)}
           </Link>
         );
@@ -229,7 +231,7 @@ export function Blockchain() {
             <SVGAICP fill="#29953A" className="w-[6.125rem] mb-5" />
             <p className="font-bold">{t('Platform powered by:')}</p>
             <p className="text-green-2">
-              <Link to="https://aicp.gtech-cn.co/" target="_blank">
+              <Link href="https://aicp.gtech-cn.co/" target="_blank">
                 {t('Automotive Industry Carbon Platform')}
               </Link>
             </p>
@@ -243,7 +245,7 @@ export function Blockchain() {
             <SvgGgx className="mb-5" />
             <p className="font-bold">{t('Blockchain powered by:')}</p>
             <p className="text-green-2">
-              <Link to={`https://explorer.gtech.world`} target="_blank">
+              <Link href={`https://explorer.gtech.world`} target="_blank">
                 {t('GGX Blockchain')}
               </Link>
             </p>

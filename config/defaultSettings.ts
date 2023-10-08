@@ -7,13 +7,16 @@ export const DefTheme: ThemeConfig = {
     // color
     colorPrimary: '#29953A',
     colorPrimaryHover: '#4CAF50',
+    colorHighlight: '#29953A',
+    colorLink: '#29953A',
+    colorLinkHover: '#4CAF50',
     // size
     borderRadius: 4,
 
     // other
-    boxShadow: 'none',
-    boxShadowSecondary: 'none',
-    boxShadowTertiary: 'none',
+    // boxShadow: 'none',
+    // boxShadowSecondary: 'none',
+    // boxShadowTertiary: 'none',
   },
 };
 /**

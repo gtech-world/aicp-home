@@ -41,43 +41,6 @@ export function ModalFooter() {
   return <div></div>;
 }
 
-// function useModalAnim(el?: Element | null) {
-//   useEffect(() => {
-//     if (!el) return () => {};
-//     const modalEl = el;
-//     const modalParent = modalEl.parentElement;
-//     new Animation(
-//       new KeyframeEffect(modalEl as any, [{ opacity: 0 }, { opacity: 1 }], {
-//         duration: 300,
-//         fill: 'auto',
-//       }),
-//       document.timeline,
-//     ).play();
-//     let firstRemove = true;
-//     const ob = new MutationObserver((mutation) => {
-//       const muta = mutation.find((m) => m.type === 'childList');
-//       if (!muta || !muta.removedNodes) return;
-//       muta.removedNodes.forEach((item) => {
-//         if (item === modalEl && firstRemove) {
-//           ob.disconnect();
-//           modalParent?.appendChild(modalEl);
-//           const anim = new Animation(
-//             new KeyframeEffect(modalEl as any, [{ opacity: 1 }, { opacity: 0 }], {
-//               duration: 300,
-//               fill: 'auto',
-//             }),
-//             document.timeline,
-//           );
-//           anim.addEventListener('finish', () => modalParent?.removeChild(modalEl));
-//           anim.play();
-//         }
-//       });
-//     });
-//     ob.observe(modalParent as any, { childList: true });
-//     return () => {};
-//   }, [el]);
-// }
-
 export type ModalProps = {
   title?: string;
   onClose?: () => void;
