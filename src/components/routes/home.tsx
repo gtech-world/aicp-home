@@ -13,31 +13,20 @@ import { scrollToAnchor } from '@/lib/utils';
 import classNames from 'classnames';
 import { Fragment, useState } from 'react';
 import { WrapLink } from '../ant/Link';
+import { Btn } from '../common/button';
+import { useNavigate } from '@umijs/max';
 
 function Card() {
   const { user } = useUser();
   const { t, locale } = useT();
-  const onClick = (item: string) => {
-    return item && item.startsWith('/');
+  const push = useNavigate();
+  const onClick = (to: string) => {
+    if (!to) return;
+    if (to.startsWith('/')) push(to);
+    else open(to, '_blank');
   };
 
   const tabsList = [
-    // {
-    //   icon: <SvgQuery className="h-[6.125rem] " />,
-    //   to: '/openquery',
-    //   children: (
-    //     <div
-    //       dangerouslySetInnerHTML={{
-    //         __html: t('{{value}} for public accessible').replace(
-    //           '{{value}}',
-    //           `<span class="font-bold">${t('Open Query')}</span>`,
-    //         ),
-    //       }}
-    //     />
-    //   ),
-    //   btText: t('Enter'),
-    // },
-
     {
       icon: <SvgSignIn className="h-[5.875rem]" />,
       to: user ? '/main/tools' : '/login',
@@ -81,11 +70,10 @@ function Card() {
                       {v.children}
                     </div>
                     <div className="flex-1 mo:hidden" />
-
-                    <WrapLink
-                      to={onClick(v.to) ? v.to : '#'}
-                      onClick={() => !onClick(v.to) && window.open(v.to, '_blank')}
-                      className="w-full bg-green-2 rounded-lg text-white text-2xl py-3 mo:mt-[3.75rem] mo:text-lg flex justify-center"
+                    <Btn
+                      className="!text-2xl !h-[50px]"
+                      onClick={() => onClick(v.to)}
+                      size="large"
                       children={v.btText}
                     />
                   </div>
@@ -125,25 +113,6 @@ function Card() {
         </div>
       </div>
     </Fragment>
-
-    // <div className="flex justify-between w-full pb-8 mo:flex-col mo:pb-0 last:mr-0 mo:mr-0">
-    //   <div
-    //     className={classNames(
-    //       "   flex flex-col items-center md:mr-5 mr-[60px] p-5 pt-10 w-[22.5rem] h-[23.25rem] border-solid border-black border-[3px] rounded-2xl mo:mb-5 mo:w-full mo:pt-[3.125rem] mo:h-auto",
-    //       className
-    //     )}
-    //   >
-    //     {icon}
-    //     <div className="text-black mt-16 text-2xl text-center mo:text-lg mo:mt-[3.125rem]">{children}</div>
-    //     <div className="flex-1 mo:hidden" />
-    //     <AButton
-    //       href={onClick() ? to : '#'}
-    //       onClick={() => !onClick() && window.open(to, "_blank")}
-    //       className="w-full bg-green-2 rounded-lg text-white text-2xl py-3 mo:mt-[3.75rem] mo:text-lg flex justify-center"
-    //       text={mBt}
-    //     />
-    //   </div>
-    // </div>
   );
 }
 
@@ -336,15 +305,15 @@ function CardTabs() {
                     </div>
                   </div>
                   <a href="#" id={`item${i}`} />
-                  <button
-                    className="w-full mt-8 text-2xl text-white rounded-lg hover:bg-green-28 h-14 mo:h-12 bg-green-2 mo:text-lg"
+                  <Btn
+                    className="!text-2xl !h-[50px] mt-8"
                     onClick={() => {
                       setSelected(i);
                       setTimeout(() => scrollToAnchor(`item${i}`), 100);
                     }}
-                  >
-                    了解更多
-                  </button>
+                    size="large"
+                    children="了解更多"
+                  />
                   {i === selected && (
                     <div className="h-5 w-5 bg-white border-b-2 border-r-2 border-green-2 absolute bottom-[-0.71rem] left-[50%] ml-[-0.625rem] rotate-45"></div>
                   )}
