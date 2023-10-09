@@ -117,6 +117,9 @@ export default defineConfig({
     styleProvider: {
       hashPriority: 'hight',
     },
+    configProvider: {
+      autoInsertSpaceInButton: false,
+    },
   },
   /**
    * @name 网络请求配置

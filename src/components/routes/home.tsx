@@ -113,7 +113,7 @@ function Card() {
             <span
               onClick={() =>
                 window.open(
-                  locale === 'zh-CN' ? 'https://gtech-cn.co/zhstatement' : 'https://gtech-cn.co/enstatement',
+                  locale === 'zh-CN' ? 'https://gtech.world/zhstatement' : 'https://gtech.world/enstatement',
                   '_blank',
                 )
               }
