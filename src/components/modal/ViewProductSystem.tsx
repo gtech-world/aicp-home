@@ -1,10 +1,9 @@
 import { Modal, ModalProps } from '@/components/common/modal';
-import { ProduceSystemController } from '@/lib/@types/produceSystem';
 import { useToggle } from 'react-use';
 import { ActionBtn, LcaActionInfo, OrganizationInfo, PairInfo, PsStatus } from './EditorProductSystem';
 import { RealData } from './RealData';
 
-export function ViewProductSystem(p: ModalProps & { ps: ProduceSystemController.ListRecords }) {
+export function ViewProductSystem(p: ModalProps & { ps: ApiModel.ListRecords }) {
   const { ps, ...props } = p;
   const [realModal, toggleRealModal] = useToggle(false);
   return (

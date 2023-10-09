@@ -14,9 +14,9 @@ export function VerificationManagementList() {
   const [pgNum, setPgNum] = useState(1);
   const [openAddOrEditVerificationModal, setOpenAddOrEditVerificationModal] = useState<boolean>(false);
   const [openViewFileModal, setOpenViewFileModal] = useState<boolean>(false);
-  const viewFileRef = useRef<VerificationManagementController.AttachmentFileList[]>([]);
+  const viewFileRef = useRef<ApiModel.AttachmentFileList[]>([]);
   const editInfoDataRef = useRef<{
-    type: VerificationManagementController.VerificationManagementModal['type'];
+    type: ApiModel.VerificationManagementModal['type'];
     recordId?: number;
   }>();
 

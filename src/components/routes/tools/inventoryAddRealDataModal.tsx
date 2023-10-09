@@ -4,13 +4,13 @@ import { Table } from '@/components/common/table';
 import { formatDate } from '@/lib/utils';
 import { FC, useEffect, useState } from 'react';
 
-const InventoryAddRealDataModal: FC<InventoryController.InventoryAddRealDataModalProps> = ({
+const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = ({
   onOpenModal,
   realData,
   tableData,
   realArr,
 }) => {
-  const [allTableData, setAllTableData] = useState<InventoryController.InventoryRealDataList[]>(tableData);
+  const [allTableData, setAllTableData] = useState<ApiModel.InventoryRealDataList[]>(tableData);
   const onSubmit = () => {
     const table = document?.getElementById('realDataTable') as HTMLTableElement;
     const rows = table.getElementsByTagName('tr');
@@ -53,7 +53,7 @@ const InventoryAddRealDataModal: FC<InventoryController.InventoryAddRealDataModa
     setAllTableData(newTableData);
   }, [realArr, tableData]);
 
-  type columnsList = InventoryController.InventoryRealDataList;
+  type columnsList = ApiModel.InventoryRealDataList;
   const columns = [
     {
       title: '参数名',

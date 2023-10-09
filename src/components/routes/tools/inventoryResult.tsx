@@ -44,10 +44,10 @@ function InfoItem(p: { tit: string; value: string }) {
   return (
     <div className="flex justify-between">
       <div className="flex gap-2.5 items-center text-green-2 text-base">
-        <div className="w-1 h-1 shrink-0 rounded-sm bg-green-2 overflow-hidden" />
+        <div className="w-1 h-1 overflow-hidden rounded-sm shrink-0 bg-green-2" />
         <span className="whitespace-nowrap">{tit}</span>
       </div>
-      <div className="text-base text-gray-6 text-right">{value}</div>
+      <div className="text-base text-right text-gray-6">{value}</div>
     </div>
   );
 }
@@ -56,7 +56,7 @@ export function InventoryResult() {
   const [sq] = useSearchParams();
   const [exportLoading, setExportLoading] = useState(false);
   const [value, setValue] = useState<{
-    lca: InventoryController.InventoryDetail;
+    lca: ApiModel.InventoryDetail;
     bominfo: string;
   }>();
   const [loading, setLoading] = useState<any>(true);
@@ -263,9 +263,9 @@ export function InventoryResult() {
             <MCard tit="产品碳足迹">
               <div className="flex items-center flex-1 px-9 mb-9">
                 <CarbonFooter />
-                <div className="flex-1 flex flex-col justify-center items-center whitespace-nowrap">
-                  <span className="font-semibold text-green-2 text-4xl">{carbonResult[0]}</span>
-                  <span className="font-semibold text-black text-base">{carbonResult[1]}</span>
+                <div className="flex flex-col items-center justify-center flex-1 whitespace-nowrap">
+                  <span className="text-4xl font-semibold text-green-2">{carbonResult[0]}</span>
+                  <span className="text-base font-semibold text-black">{carbonResult[1]}</span>
                 </div>
               </div>
             </MCard>

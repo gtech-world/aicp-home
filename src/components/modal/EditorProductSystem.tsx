@@ -1,11 +1,8 @@
 import { useStore } from '@/components/common/context';
 import { Loading } from '@/components/common/loading';
 import { Modal, ModalProps } from '@/components/common/modal';
-import { ProduceSystemController } from '@/lib/@types/produceSystem';
-import { Organization } from '@/lib/@types/type';
 import { useProductSystem } from '@/lib/hooks/useDatas';
 import { useIsVerifier } from '@/lib/hooks/useUser';
-import { getProductDetailList } from '@/lib/http';
 import { shortStr } from '@/lib/utils';
 import classNames from 'classnames';
 import _ from 'lodash';
@@ -151,7 +148,7 @@ export function EditorText(p: InputHTMLAttributes<HTMLInputElement>) {
   );
 }
 
-export function OrganizationInfo(p: { organization?: Organization }) {
+export function OrganizationInfo(p: { organization?: ApiModel.Organization }) {
   const { userData } = useStore();
   const org = p.organization || userData?.organization;
   return (
@@ -184,7 +181,7 @@ export function EditorProductSystem(p: ModalProps & { psId: number; onSuccess?: 
   }, []);
 
   const [realModal, toggleRealModal] = useToggle(false);
-  const [oldPs, setOldPs] = useState<ProduceSystemController.ListRecords>();
+  const [oldPs, setOldPs] = useState<ApiModel.ListRecords>();
   const isVerifier = useIsVerifier();
 
   return (

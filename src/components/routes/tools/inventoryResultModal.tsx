@@ -7,19 +7,17 @@ import { FC, Fragment, useEffect, useMemo, useState } from 'react';
 import InventoryAddRealDataModal from './inventoryAddRealDataModal';
 
 type formDataType = { [key: string]: string };
-type realDataType = Pick<InventoryController.uploadResult, 'lcaParamList'>;
+type realDataType = Pick<ApiModel.uploadResult, 'lcaParamList'>;
 
 const init = {
   loadName: '',
   productId: '',
 };
-const InventoryResultModal: FC<InventoryController.InventoryResultModalProps> = ({ openResultModal, getList }) => {
+const InventoryResultModal: FC<ApiModel.InventoryResultModalProps> = ({ openResultModal, getList }) => {
   const [openAddInfoModal, setOpenAddInfoModal] = useState<boolean>(false);
-  const [productList, setProduceList] = useState<InventoryController.InventoryProductSystemList[]>([
-    { name: '', id: '' },
-  ]);
+  const [productList, setProduceList] = useState<ApiModel.InventoryProductSystemList[]>([{ name: '', id: '' }]);
   const [realData, setRealData] = useState<Partial<realDataType>>({ lcaParamList: [] });
-  const [tableData, setTableData] = useState<InventoryController.InventoryRealDataList[]>([]);
+  const [tableData, setTableData] = useState<ApiModel.InventoryRealDataList[]>([]);
   const [formData, setFormData] = useState<formDataType>(init);
   const productList_ = useMemo(() => productList.map((item) => ({ ...item, text: item.name })), [productList]);
   const productListSelectState = useSelectState(productList_, -1);

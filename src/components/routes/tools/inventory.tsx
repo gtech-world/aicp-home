@@ -16,12 +16,12 @@ const colorText: any = {
   2: { color: 'text-blue-600', text: '正在计算' },
 };
 
-type RealDataType = Pick<InventoryController.Records, 'param' | 'paramDetail'>;
+type RealDataType = Pick<ApiModel.InventoryInfo, 'param' | 'paramDetail'>;
 export function Inventory() {
   const [pgNum, setPgNum] = useState(1);
   const [openResultModal, setOpenResultModal] = useState<boolean>(false);
   const [openViewRealDataModal, setOpenViewRealDataModal] = useState<boolean>(false);
-  const paramDetailRef = useRef<InventoryController.ParamDetailType>({ inputData: '', data: '' });
+  const paramDetailRef = useRef<ApiModel.ParamDetailType>({ inputData: '', data: '' });
   const onViewRealDataModal = (data: RealDataType) => {
     const { param, paramDetail } = data;
     paramDetailRef.current = { inputData: param, data: paramDetail };

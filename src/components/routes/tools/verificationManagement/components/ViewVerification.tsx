@@ -4,10 +4,7 @@ import JSZip from 'jszip';
 import { useOnError } from '@/components/common/context';
 import axios from 'axios';
 
-const ViewVerification: FC<VerificationManagementController.ViewVerificationManagementModal> = ({
-  closeModal,
-  fileList,
-}) => {
+const ViewVerification: FC<ApiModel.ViewVerificationManagementModal> = ({ closeModal, fileList }) => {
   const [loading, setLoading] = useState(false);
   const onError = useOnError();
 

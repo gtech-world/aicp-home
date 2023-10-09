@@ -1,19 +1,8 @@
 import { getUserData } from '@/components/common/context';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import {
-  ActivityType,
-  InventoryProductProcess,
-  Product,
-  ProductBom,
-  ProductProcess,
-  SbtDetail,
-  SbtEmissionInventory,
-  SbtInfo,
-  UserData,
-} from './@types/type';
+
 import { API_BASE } from './env';
 import { sleep } from './utils';
-import { InventoryController } from './@types/inventory';
 
 function creatUrl(path: `/${string}`) {
   return `${API_BASE}${path}`;
@@ -45,7 +34,7 @@ export function noArgs<T>(fn: () => Promise<T>, deeps: any[]) {
 }
 
 export async function login(name: string, password: string) {
-  const res = await axios.post<Res<UserData>>(creatUrl('/api/base/login'), {
+  const res = await axios.post<Res<ApiModel.UserData>>(creatUrl('/api/base/login'), {
     name,
     password,
   });
@@ -59,7 +48,7 @@ function authConfig(): AxiosRequestConfig {
 }
 
 export async function getProductList() {
-  const res = await axios.get<Res<Product[]>>(creatUrl('/api/npi/product/list'), authConfig());
+  const res = await axios.get<Res<ApiModel.Product[]>>(creatUrl('/api/npi/product/list'), authConfig());
   return getData(res);
 }
 
@@ -69,12 +58,15 @@ export async function getProductPcfAccountable(product_id: number) {
 }
 
 export async function getProductBomList(product_id: number) {
-  const res = await axios.get<Res<ProductBom[]>>(creatUrl(`/api/npi/product/${product_id}/bom/list`), authConfig());
+  const res = await axios.get<Res<ApiModel.ProductBom[]>>(
+    creatUrl(`/api/npi/product/${product_id}/bom/list`),
+    authConfig(),
+  );
   return getData(res);
 }
 
 export async function getProductBomActivityTypes(product_bom_id: number | string) {
-  const res = await axios.get<Res<ActivityType[]>>(
+  const res = await axios.get<Res<ApiModel.ActivityType[]>>(
     creatUrl(`/api/npi/product_bom/${product_bom_id}/activity_types`),
     authConfig(),
   );
@@ -82,7 +74,7 @@ export async function getProductBomActivityTypes(product_bom_id: number | string
 }
 
 export async function getResultList(pgNum: number) {
-  const res = await axios.get<Res<InventoryController.InventoryList>>(
+  const res = await axios.get<Res<ApiModel.InventoryList>>(
     creatUrl(`/api/inventory/list/?pageNum=${pgNum}&pageSize=10`),
     authConfig(),
   );
@@ -91,7 +83,7 @@ export async function getResultList(pgNum: number) {
 export async function getLcaResultDetail(loadNumber: any) {
   if (!loadNumber) return;
 
-  const res = await axios.get<Res<InventoryController.InventoryDetail>>(
+  const res = await axios.get<Res<ApiModel.InventoryDetail>>(
     creatUrl(`/api/inventory/item/${loadNumber}/detail`),
     authConfig(),
   );
@@ -203,20 +195,20 @@ export async function prodGetResData<T>(path: Parameters<typeof creatUrl>[0], pa
 }
 
 export async function getProductSystemAllList() {
-  const res = await axios.get<Res<InventoryController.InventoryProductSystemList[]>>(
+  const res = await axios.get<Res<ApiModel.InventoryProductSystemList[]>>(
     creatUrl(`/api/product-system/all`),
     authConfig(),
   );
   return getData(res);
 }
 
-export async function uploadResult(obj: InventoryController.uploadResult) {
+export async function uploadResult(obj: ApiModel.uploadResult) {
   const res = await axios.post<Res<any>>(creatUrl('/api/inventory/item/upload'), obj, authConfig());
   return getData(res);
 }
 
 export async function getAddRealDataList<T>(id: T) {
-  const res = await axios.get<Res<InventoryController.InventoryRealDataAllList>>(
+  const res = await axios.get<Res<ApiModel.InventoryRealDataAllList>>(
     creatUrl(`/api/product-system/${id}/params`),
     authConfig(),
   );

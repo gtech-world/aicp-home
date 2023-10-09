@@ -26,11 +26,7 @@ const TextDiv = (p: { value?: string }) => {
   return <div className="font-normal leading-[21.79px] text-[16px] text-gray-9">{p.value}</div>;
 };
 
-const AddOrEditVerification: FC<VerificationManagementController.VerificationManagementModal> = ({
-  closeModal,
-  recordId,
-  type = 'new',
-}) => {
+const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ closeModal, recordId, type = 'new' }) => {
   const FileRef = useRef<HTMLInputElement>(null);
   const { userData } = useStore();
   const { isLoading: loadingVerifyRecode, data: verifyRecord } = useVerifyRecord(recordId);
