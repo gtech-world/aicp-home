@@ -22,6 +22,7 @@ import { useToggle } from 'react-use';
 import { RealData } from './RealData';
 import ViewBomInfoModal from './ViewBomInfoModal';
 import { ViewProductSystem } from './ViewProductSystem';
+import Descriptions, { DescriptionsItemProps } from '../common/Descriptions';
 
 export function PsStatus(p: { status?: number }) {
   const { status } = p;
@@ -52,12 +53,9 @@ export function ActionBtn(p: { action: string; onClick?: undefined | MouseEventH
   const { action, onClick, to } = p;
   if (to) {
     return (
-      <a
-        href={to}
-        className="w-min whitespace-nowrap h-6 px-2.5 py-1 bg-zinc-100 rounded text-black text-base font-normal leading-none"
-      >
-        {action}
-      </a>
+      <div className="w-min whitespace-nowrap h-6 px-2.5 py-1 bg-zinc-100 rounded justify-start items-center gap-2.5 inline-flex cursor-pointer">
+        <a href={to}>{action}</a>
+      </div>
     );
   }
   return (
@@ -184,10 +182,86 @@ export function EditorProductSystem(p: ModalProps & { psId: number; onSuccess?: 
   const [oldPs, setOldPs] = useState<ApiModel.ListRecords>();
   const isVerifier = useIsVerifier();
 
+  const { userData } = useStore();
+  //  const org = .organization || userData?.organization;
+
+  const org = ps?.org || userData?.organization;
+
+  const options: any[] = [
+    {
+      label: '产品系统ID',
+      dataIndex: 'uuid',
+    },
+    {
+      label: '描述',
+      dataIndex: 'inputDesc',
+    },
+    {
+      label: '操作人',
+      dataIndex: 'updateUser',
+    },
+    {
+      label: 'BOM信息',
+      dataIndex: 'bom',
+      render: () => <ActionBtn action="查看" onClick={() => setBomDataModal(true)} />,
+    },
+    {
+      label: '实景参数列表',
+      dataIndex: 'real',
+      render: () => <ActionBtn action="查看" onClick={() => toggleRealModal(true)} />,
+    },
+    {
+      label: '产品系统LCA文件',
+      dataIndex: 'lca',
+      render: () => (
+        <LcaActionInfo
+          modelId={ps?.model?.id}
+          disableSelectFile={busy}
+          modelStatus={ps?.model?.state}
+          hiddenUpdate={isVerifier}
+          file={file as any}
+          onFileChange={onFileChange}
+        />
+      ),
+    },
+    {
+      label: '组织名称',
+      dataIndex: 'name',
+    },
+    {
+      label: '组织编号',
+      dataIndex: 'serialNumber',
+    },
+  ];
+
+  const data = {
+    uuid: ps?.uuid,
+    inputDesc: ps?.description,
+    updateUser: ps?.updateUser.name,
+    name: org.name,
+    serialNumber: org?.serialNumber,
+  };
+
+  console.log('ddataatadata', data, ps);
+
   return (
     <Modal {...props}>
       {isLoading && !ps && <Loading className="min-h-[100px]" />}
+
       {ps && (
+        <div className="flex flex-col gap-5  w-10 min-w-[20rem] px-5 py-[1px] max-h-mc overflow-y-auto ">
+          <Descriptions
+            options={options}
+            data={data}
+            optionEmptyText="-"
+            layout="vertical"
+            column={1}
+            contentStyle={{ color: '#999999', fontWeight: '400' }}
+            labelStyle={{ color: '#000000', fontWeight: '400' }}
+          />
+        </div>
+      )}
+      {/* {ps && (
         <>
           <div className="flex flex-col gap-5  w-full min-w-[40rem] px-5 py-[1px] max-h-mc overflow-y-auto">
             <PairInfo tit="产品系统ID" value={ps.uuid || '-'} />
@@ -219,7 +293,7 @@ export function EditorProductSystem(p: ModalProps & { psId: number; onSuccess?: 
             <OrganizationInfo organization={ps?.org} />
           </div>
         </>
-      )}
+      )} */}
       {realModal && (
         <RealData
           header={['参数名', '过程名称', '参考值']}

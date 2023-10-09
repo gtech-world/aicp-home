@@ -93,7 +93,7 @@ export function Model() {
         render: (_dom, entity) => [
           <div
             key={'key_look'}
-            className="text-green-2 cursor-pointer"
+            className="cursor-pointer text-green-2"
             onClick={() => {
               setEditorProductSystem(entity);
             }}

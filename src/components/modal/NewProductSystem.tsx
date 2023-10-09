@@ -164,7 +164,8 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
             {!isProgress && (
               <Fragment>
                 <Btn
-                  defStyle="btn-primary-1"
+                  type="default"
+                  size="large"
                   className="flex-1"
                   onClick={() => {
                     onClose();
@@ -173,7 +174,8 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
                 >
                   取消
                 </Btn>
-                <Btn className="flex-1" onClick={onOk} disabled={disabledOk}>
+
+                <Btn size="large" type="primary" className="flex-1" onClick={onOk} disabled={disabledOk}>
                   {type === 'upload' ? '上传' : '确定'}
                 </Btn>
               </Fragment>

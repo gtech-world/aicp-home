@@ -13,7 +13,6 @@ export const DefTheme: ThemeConfig = {
     colorText: '#000000',
     // size
     borderRadius: 4,
-
     // other
     // boxShadow: 'none',
     // boxShadowSecondary: 'none',
