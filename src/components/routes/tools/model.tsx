@@ -127,6 +127,7 @@ export function Model() {
           pagination={{
             pageSize: 10,
             total: data?.total || 0,
+            current: pgNum,
             onChange: (page) => {
               setPgNum(page);
             },
