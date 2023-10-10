@@ -5,20 +5,22 @@ import { HTMLAttributes } from 'react';
 import { useTitle } from 'react-use';
 import { WrapLink } from '../ant/Link';
 import MenuAction from '../ant/MenuAction';
+import { useIsMobile } from './context';
 
 export function Header(p: HTMLAttributes<HTMLDivElement>) {
   const { className, ...props } = p;
   useTitle('AICP');
+  const isMobile = useIsMobile();
   return (
     <div
       {...props}
       className={classNames('h-[56px] px-5 w-full flex justify-between items-center text-white bg-green-2')}
     >
-      <WrapLink to="/" className="flex gap-3 items-end !text-white">
+      <WrapLink to={isMobile ? '#' : '/'} className="flex gap-3 items-end !text-white">
         <Aicp height="24" />
         <Digital3 height="16" />
       </WrapLink>
-      <MenuAction key="menu" />
+      {!isMobile && <MenuAction key="menu" />}
     </div>
   );
 }
