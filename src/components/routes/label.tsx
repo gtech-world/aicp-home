@@ -81,16 +81,16 @@ export function Label() {
           </div>
         </div>
         <div className="flex gap-5 mt-5 mo:flex-none mo:flex-col ">
-          <div className="w-[640px] mo:h-[340px] h-[18.125rem] mo:w-full bg-[#FFFFFF] flex mo:flex-none justify-center mo:justify-start flex-col items-center rounded-lg mo:flex-shrink-1 ">
-            <SVGCarbon3 className="text-[5.375rem] w-[5.375rem]  mb-5 mo:mt-[30px] " />
+          <div className="w-[640px] py-5 mo:pt-[1.875rem] mo:w-full bg-[#FFFFFF] flex flex-col items-center rounded-lg gap-5 mo:gap-[.9375rem]">
+            <SVGCarbon3 className="text-[5.375rem] w-[5.375rem]" />
             <div
-              className="text-lg font-bold mb-[.9375rem] mo:mx-5 "
+              className="text-lg font-bold mo:mx-5 "
               dangerouslySetInnerHTML={{
                 __html: handleCarbonStr(t('What is AIAG Digital3 Carbon Trust Label?')),
               }}
             ></div>
             <div
-              className="text-[.9375rem] font-normal text-center mx-5 mo:mb-5 "
+              className="text-[.9375rem] font-normal text-center mx-5"
               dangerouslySetInnerHTML={{
                 __html: handleCarbonStr(
                   t(
@@ -106,11 +106,11 @@ export function Label() {
             />
           </div>
 
-          <div className="w-[640px] mo:h-[320px] h-[18.125rem] mo:w-full bg-[#FFFFFF] flex mo:flex-none justify-center mo:justify-start flex-col items-center rounded-lg  ">
-            <img src="/nft.png" className="text-[5.375rem] w-[5.375rem] mt-[.625rem] mb-5 mo:mt-[30px]" />
-            <div className="text-lg font-bold mb-[.9375rem]"> {t('Immutability and Traceability')}</div>
+          <div className="w-[640px] py-5 mo:pt-[1.875rem] mo:w-full bg-[#FFFFFF] flex flex-col items-center rounded-lg gap-5 mo:gap-[.9375rem]">
+            <img src="/nft.png" className="text-[5.375rem] w-[5.375rem] h-[5.375rem]" />
+            <div className="text-lg font-bold"> {t('Immutability and Traceability')}</div>
             <div
-              className="text-[.9375rem] font-normal text-center mx-5 md:mb-2 mmd:mb-7 mb-7 mo:mb-0 lg:mb-2  "
+              className="text-[.9375rem] font-normal text-center mx-5"
               dangerouslySetInnerHTML={{
                 __html: t(
                   'A Soul-bounded Token (a special type of NFT that is not allowed to transfer after created) has been generated on blockchain to make sure the information in this label is immutable and will be maintain for traceability forever. Check {{value}} to verify the SBT on blockchain explorer.',
