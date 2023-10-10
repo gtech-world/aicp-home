@@ -8,7 +8,7 @@ function ToolsContent(item: any) {
   const Vicon = v.icon;
   const push = useNavigate();
   return (
-    <li className={classNames('bg-white  rounded-xl w-full p-5 flex flex-col justify-between', {})}>
+    <li className={classNames('bg-white w-full p-5 flex flex-col justify-between', {})}>
       <div className=" flex-1 flex flex-col">
         <div className="flex items-center h-[50px] md:m-5">
           <Vicon width="50" height="50" className="mr-5" />

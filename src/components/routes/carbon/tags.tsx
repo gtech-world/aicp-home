@@ -21,18 +21,18 @@ function Card(p: {
 }) {
   const { title, icon, qrcodeDisable, by, id, link, qrCode, name } = p.data;
   return (
-    <div className="bg-white mr-5 w-[23.25rem] flex flex-col mo:w-full p-5 rounded-lg mb-5 text-base mo:mr-0">
+    <div className="bg-white mr-5 w-[23.25rem] flex flex-col mo:w-full p-5 mb-5 text-sm mo:mr-0">
       <ProductQrcode qrcodeDisable={qrcodeDisable} data={qrCode} name={name} />
       <div className="flex flex-col mt-5">
-        <h3 className="text-xl font-semibold">完成[{title}]产品碳足迹测算</h3>
+        <h3 className="font-semibold">完成[{title}]产品碳足迹测算</h3>
         <span>{by}</span>
         <span>标签ID : {id}</span>
       </div>
       <div className="flex-1" />
-      <div className="flex flex-row text-blue-0 underline mt-2.5 font-semibold">
+      <div className="flex flex-row  mt-2.5 font-semibold">
         {link.map((v: { href: string; text: string; target: string }, i: number) => {
           return (
-            <WrapLink key={`link${i}`} target={v.target} className="mt-2.5 mr-5" to={v.href}>
+            <WrapLink key={`link${i}`} target={v.target} className="mt-2.5 mr-5 !underline" to={v.href}>
               {v.text}
             </WrapLink>
           );
@@ -93,7 +93,7 @@ export function Tag() {
   }, [data]);
 
   return (
-    <WrapPageContainer>
+    <WrapPageContainer title={false}>
       <div className="flex flex-wrap">
         {tagList.map((v: any, i) => {
           return <Card key={`tagData${i}`} data={v} />;
