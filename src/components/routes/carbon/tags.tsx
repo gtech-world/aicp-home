@@ -60,6 +60,16 @@ export function Tag() {
           verifyUserName: 'v1',
         },
         {
+          loadName: '碳足迹谈批次-某某型号车辆LCA示例模型',
+          orgName: '测试机构',
+          orgType: 'org',
+          proofTime: '2023-09-28 16:14:14',
+          tokenId: 6000000,
+          tokenUrl: 'ipfs://QmfK9UpZkdiNDzwomrwLgpT4TScBWWv6Q8orpo78kvdbza/0.json',
+          uuid: '0938ba31-abcd-455c-a687-e772009e5a26-1695889014',
+          verifyUserName: 'v1',
+        },
+        {
           loadName: '3',
           orgName: '测试机构',
           orgType: 'org',
