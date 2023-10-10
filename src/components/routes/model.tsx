@@ -141,13 +141,13 @@ export function Model() {
   }, [value]);
   return (
     <HeaderLayout className="">
-      <div className="flex-1 flex flex-col bg-white">
+      <div className="flex flex-col bg-white" style={{ height: 'calc(100vh - 56px)' }}>
         {loading && <LoadingFull />}
         {!!node && (
           <SelectNavsContextProvider>
             <NavigationTreeContext.Provider value={{ descriptores: (value as any)[1] }}>
               <Split
-                className="flex flex-1 w-full split"
+                className="flex flex-1 w-full h-full split"
                 sizes={[1, 99]}
                 minSize={260}
                 snapOffset={1}
