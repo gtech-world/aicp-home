@@ -76,7 +76,7 @@ export function Tag() {
             href: `/chain?tokenId=${tokenId}`,
           },
         ],
-        qrCode: `${window.origin}/main/tags/label?vin=${uuid}`,
+        qrCode: `${window.origin}/label?vin=${uuid}`,
       };
     });
   }, [data]);
