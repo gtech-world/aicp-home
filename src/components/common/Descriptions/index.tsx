@@ -7,29 +7,11 @@ export type { DescriptionsProps, DescriptionsItemProps };
 const { Item } = DescriptionsComp;
 
 const Descriptions = <T extends Record<string, any>>(props: DescriptionsProps<T>) => {
-  const { options, data, optionEmptyText, hideIfEmpty, defaultColumn, minColumn, ...rest } = props;
-  const [column, setColumn] = useState<2 | 4 | 3 | undefined>(window.innerWidth > 1024 ? defaultColumn : minColumn);
-  const timerRef = useRef<NodeJS.Timeout | null>();
-
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-      timerRef.current = setTimeout(() => {
-        setColumn(window.innerWidth > 1024 ? defaultColumn : minColumn);
-      }, 50);
-    });
-    return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-    };
-  }, []);
+  const { options, data, optionEmptyText, hideIfEmpty, ...rest } = props;
 
   return useMemo(() => {
     return (
-      <DescriptionsComp column={column || 4} {...rest}>
+      <DescriptionsComp {...rest}>
         {options.map((option) => {
           const { render, dataIndex, show, ...optionRest } = option;
           let renderText: any = '';
@@ -71,7 +53,7 @@ const Descriptions = <T extends Record<string, any>>(props: DescriptionsProps<T>
         })}
       </DescriptionsComp>
     );
-  }, [props, column]);
+  }, [props]);
 };
 
 export default Descriptions;

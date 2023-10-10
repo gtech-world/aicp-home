@@ -1,5 +1,5 @@
 import { Modal, ModalProps } from '@/components/common/modal';
-import { ChangeEvent, Fragment, useCallback, useRef, useState } from 'react';
+import { ChangeEvent, Fragment, useCallback, useMemo, useRef, useState } from 'react';
 import { ActionBtn, EditorText, LcaActionInfo, PairInfo } from './EditorProductSystem';
 import { Btn } from '@/components/common/button';
 import { useOn } from '@/lib/hooks/useOn';
@@ -7,9 +7,11 @@ import { upsertLcaProduct, uploadLcaModel, getLcaProductDetailList } from '@/lib
 import { Progress } from '@/components/common/progress';
 import ViewBomInfoModal from './ViewBomInfoModal';
 import { RealData } from './RealData';
-import { sleep } from '@/lib/utils';
+import { sleep, tryParse } from '@/lib/utils';
 import { useSafe } from '@/lib/hooks/useSafe';
 import classNames from 'classnames';
+import Descriptions from '../common/Descriptions';
+import { ProTableColumns } from '../ant/WrapProTable';
 
 export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
   const { onSuccess, onClose: _onClose, ...props } = p;
@@ -99,6 +101,108 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
     }
   });
 
+  // <Fragment>
+  //   <PairInfo tit="产品系统名称" value={resultList?.modelName} />
+  //   <PairInfo tit="BOM信息" value={<ActionBtn action="查看" onClick={() => setViewBomInfo(true)} />} />
+  //   <PairInfo
+  //     tit="实景参数列表"
+  //     value={<ActionBtn action="查看" onClick={() => setViewRealDataList(true)} />}
+  //   />
+
+  //   <PairInfo
+  //     tit="产品系统LCA文件"
+  //     value={
+  //       <LcaActionInfo
+  //         modelStatus={!isProgress ? 1 : 0}
+  //         modelId={resultList.id}
+  //         openNewTab={true}
+  //         onFileChange={onFileChange}
+  //       />
+  //     }
+  //   />
+  //   <PairInfo
+  //     tit="描述"
+  //     value={<EditorText maxLength={100} value={desc} onChange={(e) => setDesc(e.target.value)} />}
+  //   />
+  // </Fragment>
+
+  const data = {
+    modelName: resultList?.modelName,
+    bom: '',
+    realData: '',
+    lca: '',
+    desc: '',
+  };
+
+  const options: any[] = [
+    {
+      label: '产品系统名称',
+      dataIndex: 'modelName',
+    },
+    {
+      label: 'BOM信息',
+      dataIndex: 'bom',
+      render: () => <ActionBtn action="查看" onClick={() => setViewBomInfo(true)} />,
+    },
+    {
+      label: '实景参数列表',
+      dataIndex: 'realData',
+      render: () => <ActionBtn action="查看" onClick={() => setViewRealDataList(true)} />,
+    },
+    {
+      label: '产品系统LCA文件',
+      dataIndex: 'lca',
+      render: () => (
+        <LcaActionInfo
+          modelStatus={!isProgress ? 1 : 0}
+          modelId={resultList.id}
+          openNewTab={true}
+          onFileChange={onFileChange}
+        />
+      ),
+    },
+    {
+      label: '描述',
+      dataIndex: 'desc',
+      render: () => <EditorText maxLength={100} value={desc} onChange={(e) => setDesc(e.target.value)} />,
+    },
+  ];
+
+  const columns = useMemo<ProTableColumns>(
+    () => [
+      {
+        title: '参数名',
+        dataIndex: 'name',
+        ellipsis: true,
+        width: 200,
+      },
+      {
+        title: '过程名称',
+        dataIndex: 'uuid',
+        width: 170,
+      },
+      {
+        title: '参考值',
+        dataIndex: 'optName',
+        width: 100,
+      },
+    ],
+    [],
+  );
+
+  const tableData = useMemo(() => {
+    if (!data) return [];
+    const params = tryParse<any[]>(resultList?.paramDetail) || [];
+    const bases = (params[0]?.parameters || []) as any[];
+    return bases
+      .map((item) => [item.name, item.context.name, item.value])
+      .map(([name, uuid, optName]) => ({
+        name,
+        uuid,
+        optName: optName.toString(),
+      }));
+  }, [data]);
+
   return (
     <Fragment>
       <Modal
@@ -134,30 +238,17 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
                 }
               />
             ) : (
-              <Fragment>
-                <PairInfo tit="产品系统名称" value={resultList?.modelName} />
-                <PairInfo tit="BOM信息" value={<ActionBtn action="查看" onClick={() => setViewBomInfo(true)} />} />
-                <PairInfo
-                  tit="实景参数列表"
-                  value={<ActionBtn action="查看" onClick={() => setViewRealDataList(true)} />}
+              <div className="flex flex-col gap-5  w-[600px] min-w-[20rem] py-[1px] max-h-mc overflow-y-auto ">
+                <Descriptions
+                  options={options}
+                  data={data}
+                  optionEmptyText="-"
+                  layout="vertical"
+                  column={1}
+                  contentStyle={{ color: '#999999', fontWeight: '400' }}
+                  labelStyle={{ color: '#000000', fontWeight: '400' }}
                 />
-
-                <PairInfo
-                  tit="产品系统LCA文件"
-                  value={
-                    <LcaActionInfo
-                      modelStatus={!isProgress ? 1 : 0}
-                      modelId={resultList.id}
-                      openNewTab={true}
-                      onFileChange={onFileChange}
-                    />
-                  }
-                />
-                <PairInfo
-                  tit="描述"
-                  value={<EditorText maxLength={100} value={desc} onChange={(e) => setDesc(e.target.value)} />}
-                />
-              </Fragment>
+              </div>
             )}
           </div>
           <div className="flex flex-shrink-0 w-full gap-5 px-5">
@@ -184,11 +275,7 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
         </div>
       </Modal>
       {viewRealDataList && (
-        <RealData
-          header={['参数名', '过程名称', '参考值']}
-          data={resultList?.paramDetail}
-          onClose={() => setViewRealDataList(false)}
-        />
+        <RealData isShow header={columns} data={tableData} onClose={() => setViewRealDataList(false)} />
       )}
       {viewBomInfo && <ViewBomInfoModal {...resultList} onClose={() => setViewBomInfo(false)} />}
     </Fragment>

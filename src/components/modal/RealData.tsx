@@ -1,11 +1,13 @@
 import { Modal, ModalProps } from '@/components/common/modal';
-import STable from '@/components/common/simpleTable';
 import { tryParse } from '@/lib/utils';
 import _ from 'lodash';
 import { useMemo } from 'react';
+import WrapProTable from '../ant/WrapProTable';
 
-export function RealData(p: ModalProps & { data: any; header?: any; inputData?: ApiModel.LcaParamList[] | string }) {
-  const { data, inputData, header = ['参数名', '过程名称', '参考值', '输入值'], ...props } = p;
+export function RealData(
+  p: ModalProps & { data: any; isShow?: boolean; header?: any; inputData?: ApiModel.LcaParamList[] | string },
+) {
+  const { data, inputData, isShow, header = ['参数名', '过程名称', '参考值', '输入值'], ...props } = p;
   const tableData = useMemo(() => {
     if (!data) return [];
     const inputMap = inputData
@@ -22,8 +24,8 @@ export function RealData(p: ModalProps & { data: any; header?: any; inputData?: 
 
   return (
     <Modal title="实景数据" {...props}>
-      <div className="w-[40rem] px-5 max-h-mc overflow-y-auto">
-        <STable data={tableData} header={header} />
+      <div className="w-[40rem] px-5 max-h-mc overflow-y-auto ">
+        <WrapProTable columns={header} dataSource={isShow ? data : tableData} pagination={false} rootClassName="" />
       </div>
     </Modal>
   );

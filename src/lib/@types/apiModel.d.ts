@@ -263,6 +263,7 @@ declare namespace ApiModel {
     evaluationBasis?: string; //评价依据
     evaluationExpireTime?: string; //评价有效期
     pcfResult: string;
+    certificateNumber?: string; //证书编号
   }
 
   interface TransferEvent {

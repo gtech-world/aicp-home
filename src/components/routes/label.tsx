@@ -26,6 +26,7 @@ export function Label() {
     evaluationBoundary = '-',
     evaluationBasis = '-',
     pcfResult = '-',
+    certificateNumber = '当前无证书',
   } = tagInfo || {};
   const productInfo = [
     { text: '标签编号', value: uuid },
@@ -36,6 +37,7 @@ export function Label() {
 
   const productTagInfo = [
     { text: '评价类型', value: evaluationType !== 'aicp' ? '第三方认证' : 'AICP平台审核' },
+    { text: '证书编号', value: certificateNumber },
     { text: '功能单位', value: functionalUnit },
     { text: '评价边界', value: evaluationBoundary },
     { text: '评价依据', value: evaluationBasis },
@@ -142,7 +144,7 @@ export function Label() {
             noData()
           ) : (
             <Fragment>
-              <div className="text-2xl font-bold leading-normal mb-5">
+              <div className="mb-5 text-2xl font-bold leading-normal">
                 {t('Product Carbon Footprint Certified')} <span className="text-base font-medium">{t('by AIAG')}</span>
               </div>
               {noHeader()}
