@@ -21,7 +21,7 @@ function Card(p: {
 }) {
   const { title, icon, qrcodeDisable, by, id, link, qrCode, name } = p.data;
   return (
-    <div className="bg-white mr-5 w-[23.25rem] flex flex-col mo:w-full p-5 mb-5 text-sm mo:mr-0">
+    <div className="bg-white flex flex-col p-5 text-sm">
       <ProductQrcode qrcodeDisable={qrcodeDisable} data={qrCode} name={name} />
       <div className="flex flex-col mt-5">
         <h3 className="font-semibold">完成[{title}]产品碳足迹测算</h3>
@@ -104,7 +104,7 @@ export function Tag() {
 
   return (
     <WrapPageContainer title={false}>
-      <div className="flex flex-wrap">
+      <div className="grid gap-5 grid-cols-[repeat(auto-fill,minmax(368px,1fr))] ssm:grid-cols-1">
         {tagList.map((v: any, i) => {
           return <Card key={`tagData${i}`} data={v} />;
         })}
