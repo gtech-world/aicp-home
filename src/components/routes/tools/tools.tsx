@@ -15,7 +15,7 @@ function ToolsContent(item: any) {
           <div className="">
             <div className="font-semibold lg:text-[20px] md:text-[18px] text-[18px]">
               {' '}
-              {i !== 3 && `\u201C${v.as}\u201D`}
+              {v.as && `\u201C${v.as}\u201D`}
             </div>
             <h4 className="font-semibold lg:text-[20px] md:text-[18px] text-[18px]">{v.title}</h4>
           </div>
@@ -45,27 +45,27 @@ function ToolsContent(item: any) {
 const data = [
   {
     icon: AlcaIcon,
-    as: 'A-LCA',
+    // as: 'A-LCA',
     secondText: '工具提供以下功能 :',
-    title: '产品生命周期评价工具',
+    title: '\u201CA-LCA\u201D产品生命周期评价工具',
     text: '产品生命周期评价工具“A-LCA”是专门为汽车行业定制的产品生命周期分析与建模工具，帮助用户评估汽车供应链的产品与服务在其生命周期内对环境的影响，为计算产品碳足迹和其他环境声明提供基础。',
     list: ['LCA参考流程数据库、LCIA方法数据库', '建立产品生命周期评价模型', '进行环境影响的分析和评估'],
     link: '/main/tools/lca',
   },
   {
     icon: AmodelIcon,
-    as: 'A-Model',
+    // as: 'A-Model',
     secondText: '工具提供以下功能 :',
-    title: '产品碳足迹模型管理工具',
+    title: '\u201CA-Model\u201D产品碳足迹模型管理工具',
     text: '碳足迹模型是一个结构化的电子文档，用于帮助汽车供应链的企业计算和跟踪其产品的碳足迹，这些模型通常包含用于收集和计算排放数据的流程、公式、参数和指导说明。',
     list: ['可信存储用户建立的模型', '变更与版本管理', '对模型进行自动化验证', '查看和管理实景数据输入项目'],
     link: '/main/tools/model',
   },
   {
     icon: AinventoryIcon,
-    as: 'A-Inventory',
+    // as: 'A-Inventory',
     secondText: '工具提供以下功能 :',
-    title: '产品碳足迹实景清单工具',
+    title: '\u201CA-Inventory\u201D产品碳足迹实景清单工具',
     text: '碳足迹清单是一个记录和追踪碳排放源的清单，它一般基于事先设立的碳足迹模型以及实际生产过程中获取的实景数据进行计算得到。“A-Inventory”帮助用户获取面向具体产品批次及其真实生产信息的碳足迹结果。',
     list: ['管理实景数据输入项', '基于模型和输入项计算碳足迹结果', '可信隐私计算过程的自动化验证'],
     link: '/main/tools/inventory',
@@ -87,7 +87,7 @@ const data = [
 export function Tools() {
   return (
     <WrapPageContainer title={false}>
-      <ul className="grid grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-4">
+      <ul className="grid grid-cols-[repeat(auto-fill,minmax(450px,1fr))] sm:grid-cols-1 gap-4">
         {data.map((v, i) => {
           return <ToolsContent key={`inProgress${i}`} data={v} i={i} />;
         })}
