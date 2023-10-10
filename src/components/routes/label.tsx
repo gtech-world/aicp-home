@@ -142,7 +142,7 @@ export function Label() {
             noData()
           ) : (
             <Fragment>
-              <div className="text-2xl font-bold leading-normal">
+              <div className="text-2xl font-bold leading-normal mb-5">
                 {t('Product Carbon Footprint Certified')} <span className="text-base font-medium">{t('by AIAG')}</span>
               </div>
               {noHeader()}
