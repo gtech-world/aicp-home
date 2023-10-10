@@ -31,7 +31,7 @@ export const User = () => {
             );
           })}
         </Fragment>
-        <div className="flex flex-row items-center ml-5">
+        <div className="flex flex-row items-center mb-2 ml-5">
           <Detail fill="#29953A" className="w-[6.125rem] mb-5" />
           <span className="text-[#BFBFBF] ml-2 mo:text-[11px]">
             请确认用户信息真实、准确。如有组织机构信息更新，请及时联系AICP平台运营管理人员。
