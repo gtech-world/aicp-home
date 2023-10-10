@@ -8,21 +8,29 @@ import _ from 'lodash';
 import { useMemo } from 'react';
 
 function Card(p: {
-  data: { title: string; icon: any; qrcodeDisable: boolean; by: string; id: string; link: any; qrCode: string };
+  data: {
+    title: string;
+    icon: any;
+    qrcodeDisable: boolean;
+    by: string;
+    id: string;
+    link: any;
+    qrCode: string;
+    name: string;
+  };
 }) {
-  const { title, icon, qrcodeDisable, by, id, link, qrCode } = p.data;
+  const { title, icon, qrcodeDisable, by, id, link, qrCode, name } = p.data;
   return (
-    <div className="bg-white mr-5 w-[23.25rem] mo:w-full p-5 rounded-lg mb-5 text-base mo:mr-0 clac">
-      <ProductQrcode qrcodeDisable={qrcodeDisable} data={qrCode} />
+    <div className="bg-white mr-5 w-[23.25rem] flex flex-col mo:w-full p-5 rounded-lg mb-5 text-base mo:mr-0">
+      <ProductQrcode qrcodeDisable={qrcodeDisable} data={qrCode} name={name} />
       <div className="flex flex-col mt-5">
-        <h3 className="text-xl font-semibold">{title}</h3>
+        <h3 className="text-xl font-semibold">完成[{title}]产品碳足迹测算</h3>
         <span>{by}</span>
         <span>标签ID : {id}</span>
       </div>
+      <div className="flex-1" />
       <div className="flex flex-row text-blue-0 underline mt-2.5 font-semibold">
         {link.map((v: { href: string; text: string; target: string }, i: number) => {
-          console.log('href', v.href);
-
           return (
             <WrapLink key={`link${i}`} target={v.target} className="mt-2.5 mr-5" to={v.href}>
               {v.text}
@@ -62,11 +70,11 @@ export function Tag() {
           verifyUserName: 'v1',
         },
       ];
-    return records.map(({ loadName, proofTime, tokenId, tokenUrl, uuid, verifyUserName }) => {
+    return records.map(({ loadName, proofTime, tokenId, tokenUrl, uuid, verifyUserName, orgName, orgType }) => {
       return {
         title: loadName,
         icon: <SvgTeacher className="w-[2.75rem]" />,
-        by: `${getCurrentDate(proofTime, 'YYYY年MM月DD日')}签发 by AIAG`,
+        by: `${getCurrentDate(proofTime, 'YYYY年MM月DD日')}签发 by ${orgName}`,
         id: uuid,
         qrcodeDisable: false,
         link: [
@@ -76,6 +84,9 @@ export function Tag() {
             href: `/chain?tokenId=${tokenId}`,
           },
         ],
+        tokenId,
+        name: orgType !== 'aicp' ? 'Certified' : 'Verified',
+        orgName,
         qrCode: `${window.origin}/label?vin=${uuid}`,
       };
     });
