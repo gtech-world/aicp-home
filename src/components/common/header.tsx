@@ -34,8 +34,8 @@ export function HomeHeader(p: HTMLAttributes<HTMLDivElement>) {
       )}
     >
       <WrapLink to="/" className="flex gap-3 items-end">
-        <Aicp height="24" />
-        <Digital3 height="16" />
+        <Aicp height="32" />
+        {/* <Digital3 height="16" /> */}
       </WrapLink>
       <MenuAction key="menu" />
     </div>
