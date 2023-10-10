@@ -21,9 +21,10 @@ export function WrapProTable<
       borderStartStartRadius: '0 !important',
       borderStartEndRadius: '0 !important',
     },
+
     '.ant-pro-card-body': {
-      paddingInline: 0,
-      paddingBlock: 0,
+      paddingInline: '0 !important',
+      paddingBlock: '0 !important',
     },
     '.ant-table-wrapper .ant-table-container table>thead>tr:first-child >*:first-child': {
       borderStartStartRadius: '0 !important',
