@@ -3,7 +3,7 @@ import { useNavigate } from '@umijs/max';
 import { MenuProps } from 'antd';
 import { useMemo } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
-import { FiHome, FiLogOut } from 'react-icons/fi';
+import { FiHome, FiLogIn, FiLogOut } from 'react-icons/fi';
 import { VscAccount } from 'react-icons/vsc';
 import { useUser } from '../common/context';
 import { Document } from '../svgr';
@@ -36,15 +36,21 @@ export function MenuAction() {
         </WrapLink>
       ),
     });
-    user &&
+    if (user)
       menus.push({
         icon: <FiLogOut />,
         label: t('Log Out'),
-        key: '1',
+        key: 'logout',
         onClick: () => {
           setUser(undefined);
           push('/');
         },
+      });
+    else
+      menus.push({
+        icon: <FiLogIn />,
+        label: <WrapLink to="/login">{t('Log In')}</WrapLink>,
+        key: 'login',
       });
     return menus;
   }, [t, user]);

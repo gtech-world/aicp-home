@@ -8,21 +8,18 @@ function ToolsContent(item: any) {
   const Vicon = v.icon;
   const push = useNavigate();
   return (
-    <li className={classNames('bg-white w-full p-5 flex flex-col justify-between', {})}>
+    <li className={classNames('bg-white w-full p-5 flex text-sm flex-col justify-between', {})}>
       <div className=" flex-1 flex flex-col">
-        <div className="flex items-center h-[50px] md:m-5">
+        <div className="flex items-center h-[50px]">
           <Vicon width="50" height="50" className="mr-5" />
-          <div className="">
-            <div className="font-semibold lg:text-[20px] md:text-[18px] text-[18px]">
-              {' '}
-              {v.as && `\u201C${v.as}\u201D`}
-            </div>
-            <h4 className="font-semibold lg:text-[20px] md:text-[18px] text-[18px]">{v.title}</h4>
+          <div className="text-lg">
+            <div className="font-semibold"> {v.as && `\u201C${v.as}\u201D`}</div>
+            <h4 className="font-semibold">{v.title}</h4>
           </div>
         </div>
-        <p className="mt-[40px] text-[#333333] leading-[21px] font-normal lg:text-[16px] md:text-[14px]">{v.text}</p>
+        <p className="mt-5 text-[#333333] leading-[21px] font-normal">{v.text}</p>
         <div className="flex-1" />
-        <div className="mt-10 leading-[21px]   md:text-[14px] md:text-lg lg:text-[16px] ">
+        <div className="mt-5">
           <h5 className="font-semibold">
             {v.as && `\u201C${v.as}\u201D`} {v.secondText}
           </h5>
