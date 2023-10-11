@@ -51,6 +51,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       menuData.forEach((item) => {
         item.path && (item.icon = menuicons[item.path]);
       });
+      if (useStore.getState().userData?.role === 'verify') return menuData.filter((item) => item.path !== '/main/tags');
       return menuData;
     },
     menuHeaderRender: false,
