@@ -317,7 +317,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
             width: '100%',
           }}
           onChange={(e) => setState({ carbonNum: e })}
-          options={convertArr(inventoryLiteAll, 'loadName', 'loadNumber')}
+          options={convertArr('loadName', 'loadNumber', inventoryLiteAll)}
         />
       ),
     },
@@ -346,7 +346,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
             width: '100%',
           }}
           onChange={(e) => setState({ verifyName: e })}
-          options={convertArr(verifiers, 'name', 'id')}
+          options={convertArr('name', 'id', verifiers)}
         />
       ),
     },

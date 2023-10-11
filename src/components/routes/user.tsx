@@ -3,16 +3,15 @@ import { useStore } from '../common/context';
 import { Fragment } from 'react';
 import { Detail } from '@/components/svgr';
 export const User = () => {
-  const {
-    userData: { name, id, organization, role },
-  } = useStore();
+  const { userData } = useStore();
+  const { name, id, organization, role } = userData || {};
 
-  const type = role === 'admin' ? '用户' : role === 'verify' && organization.type === 'aicp' ? 'AICP' : '第三方验证人';
+  const type = role === 'admin' ? '用户' : role === 'verify' && organization?.type === 'aicp' ? 'AICP' : '第三方验证人';
   const label = [
     { label: '用户名', name: name },
     { label: '用户UID', name: id },
-    { label: '所属组织机构', name: organization.name },
-    { label: '组织机构编码', name: organization.serialNumber },
+    { label: '所属组织机构', name: organization?.name || '-' },
+    { label: '组织机构编码', name: organization?.serialNumber || 'N/A' },
     { label: '组织机构角色类型', name: type },
   ];
 

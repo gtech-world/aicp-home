@@ -228,7 +228,7 @@ export const getCurrentDate = (date = '', dateType = 'YYYY-MM-DD HH:mm:ss') => {
  * @param value value 转换成以下格式
  * @returns [{label:xx,value:xx}]
  */
-export const convertArr = (arr?: any[], label: string | number, value: string | number) => {
+export const convertArr = (label: string | number, value: string | number, arr?: any[]) => {
   if (!arr || (arr && !arr.length)) return;
   return arr.map((item) => {
     return { label: item[label], value: item[value] };

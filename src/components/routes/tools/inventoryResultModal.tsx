@@ -1,7 +1,7 @@
 import { Btn } from '@/components/common/button';
 import { Modal } from '@/components/common/modal';
 import { getAddRealDataList, getProductSystemAllList, uploadResult } from '@/lib/http';
-import { formatDate } from '@/lib/utils';
+import { convertArr, formatDate } from '@/lib/utils';
 import { FC, Fragment, useEffect, useMemo, useState } from 'react';
 import InventoryAddRealDataModal from './inventoryAddRealDataModal';
 import Descriptions from '@/components/common/Descriptions';
@@ -20,7 +20,6 @@ const InventoryResultModal: FC<ApiModel.InventoryResultModalProps> = ({ openResu
   const [realData, setRealData] = useState<Partial<realDataType>>({ lcaParamList: [] });
   const [tableData, setTableData] = useState<ApiModel.InventoryRealDataList[]>([]);
   const [formData, setFormData] = useState<formDataType>(init);
-  const productList_ = useMemo(() => productList.map((item) => ({ value: item.id, label: item.name })), [productList]);
   const [loading, setLoading] = useState<boolean>(true);
   const getProductSystemList = () => {
     getProductSystemAllList()
@@ -127,7 +126,7 @@ const InventoryResultModal: FC<ApiModel.InventoryResultModalProps> = ({ openResu
             width: '100%',
           }}
           onChange={(e) => handleChange(e, 'productId')}
-          options={productList_}
+          options={convertArr('name', 'id', productList)}
         />
       ),
     },

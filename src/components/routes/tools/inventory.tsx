@@ -8,6 +8,7 @@ import { history } from '@umijs/max';
 import classNames from 'classnames';
 import { useMemo, useRef, useState } from 'react';
 import InventoryResultModal from './inventoryResultModal';
+import { tryParse } from '@/lib/utils';
 
 const colorText: any = {
   [-1]: { color: 'text-[red]', text: '计算失败' },
@@ -125,6 +126,49 @@ export function Inventory() {
   );
   const unVerifier = useUnVerifier();
 
+  const realDataColumns = useMemo<ProTableColumns>(
+    () => [
+      {
+        title: '参数名',
+        dataIndex: 'name',
+        ellipsis: true,
+        width: 200,
+      },
+      {
+        title: '过程名称',
+        dataIndex: 'uuid',
+        width: 170,
+      },
+      {
+        title: '参考值',
+        dataIndex: 'optName',
+        width: 100,
+      },
+    ],
+    [],
+  );
+  const tableData = useMemo(() => {
+    if (!paramDetailRef.current) return [];
+
+    const params = tryParse<any[]>(paramDetailRef.current.data) || [];
+
+    const inputData = paramDetailRef.current.inputData;
+    const inputMap = paramDetailRef.current.inputData
+      ? _.mapKeys(
+          typeof inputData === 'string' ? tryParse<ApiModel.LcaParamList[]>(inputData) || [] : inputData,
+          (item) => item.paramName,
+        )
+      : ({} as _.Dictionary<ApiModel.LcaParamList>);
+    const bases = (params[0]?.parameters || []) as any[];
+    return bases
+      .map((item) => [item.name, item.context.name, item.value, inputMap[item.name]?.paramValue || ''])
+      .map(([name, uuid, optName, inputData]) => ({
+        name,
+        uuid,
+        optName: inputData || optName.toString(),
+      }));
+  }, [paramDetailRef.current]);
+
   return (
     <WrapPageContainer
       title="我的产品碳足迹结果"
@@ -165,7 +209,7 @@ export function Inventory() {
         />
       )}
       {openViewRealDataModal && (
-        <RealData {...paramDetailRef.current} onClose={() => setOpenViewRealDataModal(false)} />
+        <RealData isShow header={realDataColumns} data={tableData} onClose={() => setOpenViewRealDataModal(false)} />
       )}
     </WrapPageContainer>
   );
