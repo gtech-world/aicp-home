@@ -1,3 +1,4 @@
+import Descriptions from '@/components/common/Descriptions';
 import { Btn } from '@/components/common/button';
 import { useStore } from '@/components/common/context';
 import { Loading } from '@/components/common/loading';
@@ -7,20 +8,13 @@ import { VectorIcon } from '@/components/svgr';
 import { useInventoryLiteAll, useVerifiers, useVerifyRecord } from '@/lib/hooks/useDatas';
 import { useUpFiles } from '@/lib/hooks/useUpFiles';
 import { createVerifyRecord, updateVerifyRecord, verifyVerifyRecord } from '@/lib/http';
-import { shortStr } from '@/lib/utils';
+import { convertArr, shortStr } from '@/lib/utils';
+import { DatePicker, Input, InputNumber, Select } from 'antd';
 import classNames from 'classnames';
+import dayjs from 'dayjs';
 import _ from 'lodash';
 import { FC, Fragment, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { useSetState } from 'react-use';
-
-const ItemDiv = (p: { children: ReactNode; title: string }) => {
-  return (
-    <div className="w-full flex flex-col gap-2.5">
-      <span className="font-normal leading-6 text-[16px]">{p.title}：</span>
-      {p.children}
-    </div>
-  );
-};
 
 const TextDiv = (p: { value?: string }) => {
   return <div className="font-normal leading-[21.79px] text-[16px] text-gray-9">{p.value}</div>;
@@ -35,22 +29,6 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
   );
   const { isLoading: loadingVerifiers, data: verifiers } = useVerifiers(type === 'new' || type === 'editor');
   const isLoading = loadingVerifyRecode || loadingInvetoryLiteAll || loadingVerifiers;
-  const invertoryArgs = useMemo<[any[], number]>(
-    () => [
-      (inventoryLiteAll || []).map((item) => ({ ...item, text: item.loadName })),
-      _.findIndex(inventoryLiteAll, (item) => item.loadNumber === verifyRecord?.loadNumber),
-    ],
-    [inventoryLiteAll, verifyRecord],
-  );
-  const invertorySS = useSelectState(...invertoryArgs);
-  const verifiersArgs = useMemo<[any[], number]>(
-    () => [
-      (verifiers || []).map((item) => ({ ...item, text: item.name })),
-      _.findIndex(verifiers, (item) => item.id === verifyRecord?.verifyUser?.id),
-    ],
-    [verifiers, verifyRecord],
-  );
-  const verifiersSS = useSelectState(...verifiersArgs);
   const [state, setState] = useSetState<{
     name?: string;
     desc?: string;
@@ -58,12 +36,13 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
     verifierId?: number;
     files?: FileList;
     verifyState: boolean;
-
+    carbonNum: string;
     functionalUnit?: string;
     evaluationBoundary?: string;
     evaluationBasis?: string;
     evaluationExpireTime?: string;
-  }>({ verifyState: true });
+    verifyName?: number;
+  }>({ verifyState: true, carbonNum: '' });
   const [upFiles, upAbort] = useUpFiles();
   useEffect(() => upAbort, []);
   const disableFiles =
@@ -75,12 +54,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
       (item) => item.size >= 1024 * 1024 * 1024 * 2 || item.name.length >= 128,
     ) >= 0;
   const disableCreate =
-    !inventoryLiteAll ||
-    !verifiers ||
-    !state.name ||
-    invertorySS.current < 0 ||
-    verifiersSS.current < 0 ||
-    disableFiles;
+    !inventoryLiteAll || !verifiers || !state.name || !state.carbonNum || !state.verifyName || disableFiles;
   const [busy, setBusy] = useState(false);
   const onCreate = () => {
     if (disableCreate || busy) return;
@@ -88,10 +62,10 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
     upFiles(state.files as any).then((ids) =>
       createVerifyRecord({
         name: state.name as string,
-        loadNumber: inventoryLiteAll[invertorySS.current].loadNumber,
+        loadNumber: state.carbonNum || verifyRecord.loadNumber,
         description: state.desc || '',
         fileList: ids,
-        verifyUserId: verifiers[verifiersSS.current].id,
+        verifyUserId: state.verifyName || verifyRecord?.verifyUser?.id,
       })
         .then(() => closeModal(true))
         .catch(console.error)
@@ -106,8 +80,8 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
     !verifiers ||
     ((state.name || verifyRecord.name) === verifyRecord.name &&
       (state.desc || verifyRecord.description) === verifyRecord.description &&
-      inventoryLiteAll[invertorySS.current]?.loadNumber === verifyRecord.loadNumber &&
-      verifiers[verifiersSS.current]?.id === verifyRecord.verifyUserId &&
+      state.loadNumber === verifyRecord.loadNumber &&
+      state.verifyName === verifyRecord.verifyUserId &&
       disableFiles);
   const doUpdate = () => {
     if (disableUpdate || busy) return;
@@ -117,18 +91,18 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
       task = upFiles(state.files).then((ids) =>
         updateVerifyRecord(verifyRecord.id, {
           name: state.name || verifyRecord.name,
-          loadNumber: inventoryLiteAll[invertorySS.current].loadNumber,
+          loadNumber: state.carbonNum || verifyRecord.loadNumber,
           description: state.desc || verifyRecord.description,
           fileList: ids,
-          verifyUserId: verifiers[verifiersSS.current].id,
+          verifyUserId: state.verifyName || verifyRecord?.verifyUser?.id,
         }),
       );
     } else {
       task = updateVerifyRecord(verifyRecord.id, {
         name: state.name,
-        loadNumber: inventoryLiteAll[invertorySS.current].loadNumber,
+        loadNumber: state.carbonNum || verifyRecord.loadNumber,
         description: state.desc,
-        verifyUserId: verifiers[verifiersSS.current].id,
+        verifyUserId: state.verifyName || verifyRecord?.verifyUser?.id,
       });
     }
     task
@@ -174,9 +148,11 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
     return shortStr(name, 10, 10);
   }, [state.files, disableFiles]);
 
-  const renderInputVerifyFiles = () => {
-    return (
-      <ItemDiv title={isVerify ? '验证文档' : '附件'}>
+  const renderInputVerifyFiles = {
+    label: isVerify ? '验证文档' : '附件',
+    dataIndex: 'verifyDoc',
+    render: () => (
+      <Fragment>
         <div className="flex flex-row items-center gap-2">
           <input
             {...otherAtt}
@@ -197,9 +173,194 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
             选择文件夹
           </div>
         </div>
-      </ItemDiv>
-    );
+      </Fragment>
+    ),
   };
+
+  const verifyData = {
+    verifyName: verifyRecord?.name,
+    verifyId: verifyRecord?.id,
+    createUser: verifyRecord?.createUser?.name,
+    organizationName: verifyRecord?.organization?.name,
+    description: verifyRecord?.description,
+    loadName: verifyRecord?.inventory?.loadName,
+    loadNumber: verifyRecord?.loadNumber,
+    verifyUser: verifyRecord?.verifyUser?.name,
+    verifyDoc: '',
+    functionalUnit: state.functionalUnit || verifyRecord?.functionalUnit,
+    evaluationBoundary: state.evaluationBoundary || verifyRecord?.evaluationBoundary,
+    evaluationBasis: state.evaluationBasis || verifyRecord?.evaluationBasis,
+    evaluationExpireTime: state.evaluationExpireTime || verifyRecord?.evaluationExpireTime,
+  };
+
+  const data = {
+    verifyRecord: verifyRecord?.name,
+    carbonNum: verifyRecord?.loadNumber,
+    description: state.desc || verifyRecord?.description,
+    verifyName: 'verifyName',
+    createName: userData?.name,
+    organizationName: userData?.organization?.name,
+  };
+
+  const verifyOptions: any[] = [
+    {
+      label: '验证记录',
+      dataIndex: 'verifyName',
+    },
+    {
+      label: '验证记录ID',
+      dataIndex: 'verifyId',
+    },
+    {
+      label: '发起人',
+      dataIndex: 'createUser',
+    },
+    {
+      label: '组织机构',
+      dataIndex: 'organizationName',
+    },
+    {
+      label: '描述',
+      dataIndex: 'description',
+    },
+    {
+      label: '碳足迹批次',
+      dataIndex: 'loadName',
+    },
+    {
+      label: '碳足迹批次ID',
+      dataIndex: 'loadNumber',
+    },
+    {
+      label: '验证人',
+      dataIndex: 'verifyUser',
+    },
+    renderInputVerifyFiles,
+    {
+      label: '功能单位',
+      dataIndex: 'functionalUnit',
+      render: () => (
+        <Input
+          value={state.functionalUnit || verifyRecord?.functionalUnit}
+          onChange={(e) => setState({ functionalUnit: e.target.value })}
+          maxLength={30}
+          className={inputClassName}
+        />
+      ),
+    },
+    {
+      label: '评价边界',
+      dataIndex: 'evaluationBoundary',
+      render: () => (
+        <Input
+          value={state.evaluationBoundary || verifyRecord?.evaluationBoundary}
+          onChange={(e) => setState({ evaluationBoundary: e.target.value })}
+          maxLength={30}
+          className={inputClassName}
+        />
+      ),
+    },
+    {
+      label: '评价依据',
+      dataIndex: 'evaluationBasis',
+      render: () => (
+        <Input
+          value={state.evaluationBasis || verifyRecord?.evaluationBasis}
+          onChange={(e) => setState({ evaluationBasis: e.target.value })}
+          maxLength={30}
+          className={inputClassName}
+        />
+      ),
+    },
+    {
+      label: '评价有效期',
+      dataIndex: 'evaluationExpireTime',
+      render: () => (
+        <DatePicker
+          defaultValue={
+            state.evaluationExpireTime ||
+            (verifyRecord?.evaluationExpireTime &&
+              dayjs(state.evaluationExpireTime || verifyRecord?.evaluationExpireTime))
+          }
+          onChange={(e, dateString) => {
+            setState({ evaluationExpireTime: dateString });
+          }}
+          className={inputClassName}
+        />
+      ),
+    },
+  ];
+
+  const options: any[] = [
+    {
+      label: '验证记录',
+      dataIndex: 'verifyRecord',
+      render: () => (
+        <Input
+          value={state.name || verifyRecord?.name}
+          onChange={(e) => setState({ name: e.target.value })}
+          maxLength={30}
+          className={inputClassName}
+        />
+      ),
+    },
+    {
+      label: '碳足迹批次',
+      dataIndex: 'carbonNum',
+      render: () => (
+        <Select
+          value={state.carbonNum || verifyRecord?.loadNumber}
+          style={{
+            height: '50px',
+            borderColor: '#DDDDDD',
+            backgroundColor: '#F8F8F8',
+            width: '100%',
+          }}
+          onChange={(e) => setState({ carbonNum: e })}
+          options={convertArr(inventoryLiteAll, 'loadName', 'loadNumber')}
+        />
+      ),
+    },
+    {
+      label: '描述',
+      dataIndex: 'description',
+      render: () => (
+        <Input
+          value={state.desc || verifyRecord?.description}
+          onChange={(e) => setState({ desc: e.target.value })}
+          maxLength={100}
+          className={inputClassName}
+        />
+      ),
+    },
+    {
+      label: '选择验证人',
+      dataIndex: 'verifyName',
+      render: () => (
+        <Select
+          value={state.verifyName || verifyRecord?.verifyUser?.id}
+          style={{
+            height: '50px',
+            borderColor: '#DDDDDD',
+            backgroundColor: '#F8F8F8',
+            width: '100%',
+          }}
+          onChange={(e) => setState({ verifyName: e })}
+          options={convertArr(verifiers, 'name', 'id')}
+        />
+      ),
+    },
+    {
+      label: '发起人',
+      dataIndex: 'createName',
+    },
+    {
+      label: '组织机构',
+      dataIndex: 'organizationName',
+    },
+    renderInputVerifyFiles,
+  ];
+
   return (
     <Fragment>
       <Modal
@@ -215,99 +376,27 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
             <>
               {isVerify ? (
                 <>
-                  <ItemDiv title="验证记录">
-                    <TextDiv value={verifyRecord?.name} />
-                  </ItemDiv>
-                  <ItemDiv title="验证记录ID">
-                    <TextDiv value={verifyRecord?.id} />
-                  </ItemDiv>
-                  <ItemDiv title="发起人">
-                    <TextDiv value={verifyRecord?.createUser?.name} />
-                  </ItemDiv>
-                  <ItemDiv title="组织机构">
-                    <TextDiv value={verifyRecord?.organization?.name} />
-                  </ItemDiv>
-                  <ItemDiv title="描述">
-                    <TextDiv value={verifyRecord?.description} />
-                  </ItemDiv>
-                  <ItemDiv title="碳足迹批次">
-                    <TextDiv value={verifyRecord?.inventory?.loadName} />
-                  </ItemDiv>
-                  <ItemDiv title="碳足迹批次ID">
-                    <TextDiv value={verifyRecord?.loadNumber} />
-                  </ItemDiv>
-                  <ItemDiv title="验证人">
-                    <TextDiv value={verifyRecord?.verifyUser?.name} />
-                  </ItemDiv>
-                  {renderInputVerifyFiles()}
-                  <ItemDiv title="功能单位">
-                    <input
-                      value={state.functionalUnit || verifyRecord?.functionalUnit}
-                      onChange={(e) => setState({ functionalUnit: e.target.value })}
-                      maxLength={30}
-                      className={inputClassName}
-                    />
-                  </ItemDiv>
-                  <ItemDiv title="评价边界">
-                    <input
-                      value={state.evaluationBoundary || verifyRecord?.evaluationBoundary}
-                      onChange={(e) => setState({ evaluationBoundary: e.target.value })}
-                      maxLength={30}
-                      className={inputClassName}
-                    />
-                  </ItemDiv>
-                  <ItemDiv title="评价依据">
-                    <input
-                      value={state.evaluationBasis || verifyRecord?.evaluationBasis}
-                      onChange={(e) => setState({ evaluationBasis: e.target.value })}
-                      maxLength={30}
-                      className={inputClassName}
-                    />
-                  </ItemDiv>
-                  <ItemDiv title="评价有效期">
-                    <input
-                      value={state.evaluationExpireTime || verifyRecord?.evaluationExpireTime}
-                      type="date"
-                      onChange={(e) => {
-                        console.info('inputTime:', e.target.value);
-                        setState({ evaluationExpireTime: e.target.value });
-                      }}
-                      maxLength={30}
-                      className={inputClassName}
-                    />
-                  </ItemDiv>
+                  <Descriptions
+                    options={verifyOptions}
+                    data={verifyData}
+                    optionEmptyText="-"
+                    layout="vertical"
+                    column={1}
+                    contentStyle={{ color: '#999999', fontWeight: '400', fontSize: '16px' }}
+                    labelStyle={{ color: '#000000', fontWeight: '400', fontSize: '16px' }}
+                  />
                 </>
               ) : (
                 <>
-                  <ItemDiv title="验证记录">
-                    <input
-                      value={state.name || verifyRecord?.name}
-                      onChange={(e) => setState({ name: e.target.value })}
-                      maxLength={30}
-                      className={inputClassName}
-                    />
-                  </ItemDiv>
-                  <ItemDiv title="碳足迹批次">
-                    <Select2 {...invertorySS} />
-                  </ItemDiv>
-                  <ItemDiv title="描述">
-                    <input
-                      value={state.desc || verifyRecord?.description}
-                      onChange={(e) => setState({ desc: e.target.value })}
-                      maxLength={100}
-                      className={inputClassName}
-                    />
-                  </ItemDiv>
-                  <ItemDiv title="选择验证人">
-                    <Select2 {...verifiersSS} />
-                  </ItemDiv>
-                  <ItemDiv title="发起人">
-                    <TextDiv value={userData?.name} />
-                  </ItemDiv>
-                  <ItemDiv title="组织机构">
-                    <TextDiv value={userData?.organization?.name} />
-                  </ItemDiv>
-                  {renderInputVerifyFiles()}
+                  <Descriptions
+                    options={options}
+                    data={data}
+                    optionEmptyText="-"
+                    layout="vertical"
+                    column={1}
+                    contentStyle={{ color: '#999999', fontWeight: '400', fontSize: '16px' }}
+                    labelStyle={{ color: '#000000', fontWeight: '400', fontSize: '16px' }}
+                  />
                 </>
               )}
             </>

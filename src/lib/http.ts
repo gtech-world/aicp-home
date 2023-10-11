@@ -228,7 +228,7 @@ export type CreateVerifyRecordConfig = {
   loadNumber: string;
   description: string;
   fileList: number[];
-  verifyUserId: number;
+  verifyUserId?: number;
 };
 export async function createVerifyRecord(config: CreateVerifyRecordConfig) {
   const res = await axios.post<Res<any>>(creatUrl('/api/verifyRecord/create'), config, authConfig());

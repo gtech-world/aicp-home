@@ -242,14 +242,12 @@ export function EditorProductSystem(p: ModalProps & { psId: number; onSuccess?: 
     serialNumber: org?.serialNumber,
   };
 
-  console.log('ddataatadata', data, ps);
-
   return (
     <Modal {...props}>
       {isLoading && !ps && <Loading className="min-h-[100px]" />}
 
       {ps && (
-        <div className="flex flex-col gap-5  w-10 min-w-[20rem] px-5 py-[1px] max-h-mc overflow-y-auto ">
+        <div className="flex flex-col gap-5 w-[600px] min-w-[20rem] px-5 py-[1px] max-h-mc overflow-y-auto ">
           <Descriptions
             options={options}
             data={data}

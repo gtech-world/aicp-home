@@ -220,3 +220,17 @@ export const getCurrentDate = (date = '', dateType = 'YYYY-MM-DD HH:mm:ss') => {
   const formattedTime = currentTime.format(dateType);
   return formattedTime;
 };
+
+/**
+ *
+ * @param arr 数组
+ * @param label key 转换成以下格式
+ * @param value value 转换成以下格式
+ * @returns [{label:xx,value:xx}]
+ */
+export const convertArr = (arr?: any[], label: string | number, value: string | number) => {
+  if (!arr || (arr && !arr.length)) return;
+  return arr.map((item) => {
+    return { label: item[label], value: item[value] };
+  });
+};
