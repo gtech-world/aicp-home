@@ -3,7 +3,7 @@ import { Loading } from '@/components/common/loading';
 import { Modal, ModalProps } from '@/components/common/modal';
 import { useProductSystem } from '@/lib/hooks/useDatas';
 import { useIsVerifier } from '@/lib/hooks/useUser';
-import { shortStr } from '@/lib/utils';
+import { shortStr, tryParse } from '@/lib/utils';
 import classNames from 'classnames';
 import _ from 'lodash';
 import {
@@ -15,6 +15,7 @@ import {
   ReactNode,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -23,6 +24,7 @@ import { RealData } from './RealData';
 import ViewBomInfoModal from './ViewBomInfoModal';
 import { ViewProductSystem } from './ViewProductSystem';
 import Descriptions, { DescriptionsItemProps } from '../common/Descriptions';
+import { ProTableColumns } from '../ant/WrapProTable';
 
 export function PsStatus(p: { status?: number }) {
   const { status } = p;
@@ -238,9 +240,45 @@ export function EditorProductSystem(p: ModalProps & { psId: number; onSuccess?: 
     uuid: ps?.uuid,
     inputDesc: ps?.description,
     updateUser: ps?.updateUser.name,
-    name: org.name,
+    name: org?.name,
     serialNumber: org?.serialNumber,
   };
+
+  const columns = useMemo<ProTableColumns>(
+    () => [
+      {
+        title: '参数名',
+        dataIndex: 'name',
+        ellipsis: true,
+        width: 200,
+      },
+      {
+        title: '过程名称',
+        dataIndex: 'uuid',
+        width: 170,
+      },
+      {
+        title: '参考值',
+        dataIndex: 'optName',
+        width: 100,
+      },
+    ],
+    [],
+  );
+
+  const tableData = useMemo(() => {
+    if (!data) return [];
+    const params = tryParse<any[]>(ps?.model?.paramDetail) || [];
+    const bases = (params[0]?.parameters || []) as any[];
+    return bases
+      .map((item) => [item.name, item.context.name, item.value])
+      .map(([name, uuid, optName]) => ({
+        name,
+        uuid,
+        optName: optName.toString(),
+      }));
+  }, [data]);
+  console.log('ps?.model?.modelBomInfo', tableData);
 
   return (
     <Modal {...props}>
@@ -292,13 +330,7 @@ export function EditorProductSystem(p: ModalProps & { psId: number; onSuccess?: 
           </div>
         </>
       )} */}
-      {realModal && (
-        <RealData
-          header={['参数名', '过程名称', '参考值']}
-          data={ps?.model?.paramDetail}
-          onClose={() => toggleRealModal(false)}
-        />
-      )}
+      {realModal && <RealData isShow header={columns} data={tableData} onClose={() => toggleRealModal(false)} />}
       {oldPs && <ViewProductSystem onClose={() => setOldPs(undefined)} ps={oldPs} />}
       {bomDataModal && (
         <ViewBomInfoModal modelBomInfo={ps?.model?.modelBomInfo} onClose={() => setBomDataModal(false)} />
