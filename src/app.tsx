@@ -40,7 +40,11 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
     headerRender: () => <Header />,
     footerRender: false,
-    onPageChange: () => {},
+    onPageChange: () => {
+      if (!useStore.getState().userData) {
+        history.push('/login');
+      }
+    },
     layoutBgImgList: [],
     links: [],
     menuDataRender: (menuData) => {
@@ -49,12 +53,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       });
       return menuData;
     },
-    menuHeaderRender: undefined,
+    menuHeaderRender: false,
     childrenRender: (children: any) => {
-      if (!useStore.getState().userData) {
-        history.push('/login');
-        return null;
-      }
       return <App>{children}</App>;
     },
     ...initialState?.settings,

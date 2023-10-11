@@ -18,7 +18,12 @@ export function HeaderTitle() {
       </div>
     );
   }
-  return <div></div>;
+  return (
+    <div className="flex flex-col text-sm">
+      <span>Automotive Industry</span>
+      <span>Carbon Platform</span>
+    </div>
+  );
 }
 
 export function Header(p: HTMLAttributes<HTMLDivElement>) {
