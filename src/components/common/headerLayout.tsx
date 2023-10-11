@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { HTMLAttributes } from 'react';
 import { useIsMobile } from './context';
 import { Header, HomeHeader } from './header';
+import { useTitle } from 'react-use';
 
 export function HomeHeaderLayout(p: HTMLAttributes<HTMLDivElement>) {
   const { className, children, ...props } = p;
@@ -51,6 +52,7 @@ export function HomeHeaderLayout(p: HTMLAttributes<HTMLDivElement>) {
 
 export function HeaderLayout(p: HTMLAttributes<HTMLDivElement>) {
   const { className, children, ...props } = p;
+  useTitle('AICP', { restoreOnUnmount: true });
   return (
     <div {...props} className={classNames('relative flex flex-col flex-1 w-full min-h-fit', className)}>
       <Header />

@@ -8,7 +8,6 @@ import { useStore } from './components/common/context';
 import { Header } from './components/common/header';
 import { Co2 } from './components/svgr';
 import App from './layout/_app';
-import { UserData } from './lib/@types/type';
 import { errorConfig } from './requestErrorConfig';
 
 /**
@@ -16,9 +15,9 @@ import { errorConfig } from './requestErrorConfig';
  * */
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
-  currentUser?: UserData;
+  currentUser?: ApiModel.UserData;
   loading?: boolean;
-  fetchUserInfo?: () => Promise<UserData | undefined>;
+  fetchUserInfo?: () => Promise<ApiModel.UserData | undefined>;
 }> {
   const fetchUserInfo = async () => {
     return useStore.getState().userData;

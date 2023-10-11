@@ -9,6 +9,7 @@ import { useAsyncM } from '@/lib/hooks/useAsyncM';
 import { getLcaModelNavData } from '@/lib/http';
 import { ModelTypeName } from '@/lib/lca';
 import { parseRefJson } from '@/lib/utils';
+import { HEADER_HEIGHT } from '../../../config/defaultSettings';
 import _ from 'lodash';
 import { useMemo } from 'react';
 import { GrTree } from 'react-icons/gr';
@@ -141,7 +142,7 @@ export function Model() {
   }, [value]);
   return (
     <HeaderLayout className="">
-      <div className="flex flex-col bg-white" style={{ height: 'calc(100vh - 56px)' }}>
+      <div className="flex flex-col bg-white" style={{ height: `calc(100vh - ${HEADER_HEIGHT}px)` }}>
         {loading && <LoadingFull />}
         {!!node && (
           <SelectNavsContextProvider>
