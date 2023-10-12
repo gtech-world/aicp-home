@@ -117,7 +117,7 @@ export const Table: FC<Table.ITable> = ({
             )}
             style={headerClassName}
           >
-            <tr className="px-3">
+            <tr className="px-3 ">
               {columns &&
                 columns.map((v, i) => {
                   return (
@@ -126,7 +126,7 @@ export const Table: FC<Table.ITable> = ({
                       key={`columns${i}`}
                       className={classNames(
                         'px-3 relative break-keep',
-                        i === 0 && ` ${(!isSetBorder && 'rounded-l') || ''} overflow-hidden`,
+                        'overflow-hidden',
                         i === columns.length - 1 && `${(!isSetBorder && 'rounded-r') || ''} overflow-hidden`,
                         (SIZE as any)[size] || 'py-2',
                       )}

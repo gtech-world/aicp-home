@@ -27,7 +27,12 @@ export function ModalHeader(p: {
   const { title, onClose, titleClassName, containerClassName } = p;
   return (
     <>
-      <div className={classNames('flex items-center justify-between mt-5 text-xl font-bold mx-5', containerClassName)}>
+      <div
+        className={classNames(
+          'flex items-center justify-between mt-5  text-base font-semibold mx-5',
+          containerClassName,
+        )}
+      >
         <div className={classNames('max-w-[70%] overflow-hidden text-ellipsis whitespace-nowrap', titleClassName)}>
           {title}
         </div>

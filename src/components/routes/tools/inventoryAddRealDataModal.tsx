@@ -97,7 +97,7 @@ const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = (
     <Modal
       title="实景数据填报"
       containerClassName={'mx-5 max-w-[640px]'}
-      titleClassName={'text-[20px] leading-5 font-bold'}
+      titleClassName={'text-[16px] leading-5 font-bold'}
       onClose={(typeof onOpenModal === 'function' && onOpenModal) || undefined}
       line={true}
       bottomBtn={
@@ -124,11 +124,11 @@ const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = (
           tableId="realDataTable"
           data={allTableData || []}
           isSetBorder={true}
-          maxHeight="calc(100vh - 260px)"
+          maxHeight="calc(100vh - 270px)"
           headerClassName={{
             background: '#FAFAFA',
             position: 'sticky',
-            top: '-1px',
+            top: 0,
             fontWeight: '700',
             fontSize: '18px',
             lineHeight: '30px',

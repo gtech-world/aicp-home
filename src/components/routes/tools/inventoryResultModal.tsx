@@ -136,7 +136,7 @@ const InventoryResultModal: FC<ApiModel.InventoryResultModalProps> = ({ openResu
       render: () => (
         <div
           onClick={() => onAddInfo()}
-          className=" flex cursor-pointer rounded-[4px] leading-4 text-[16px] mt-[10px] bg-[#F1F1F1] w-[84px] h-[24px]  text-center items-center justify-center "
+          className=" flex cursor-pointer rounded-[4px] leading-4 text-[14px] mt-[10px] bg-[#F1F1F1] w-[84px] h-[24px]  text-center items-center justify-center "
         >
           前往填写
         </div>

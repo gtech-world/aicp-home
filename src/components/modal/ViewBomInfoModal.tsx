@@ -51,8 +51,8 @@ const ViewBomInfoModal: FC<ViewBomInfoModalProps> = ({ onClose, ...props }) => {
   const src = `${mermaidDiagram}\n${data}`;
 
   return (
-    <Modal {...props} title="查看BOM信息" onClose={onClose}>
-      <div className="flex flex-col gap-5 w-full min-w-[40rem] overflow-hidden">
+    <Modal {...props} title="查看BOM信息" titleClassName={'text-[16px]'} onClose={onClose}>
+      <div className="flex flex-col gap-5 w-full min-w-[40rem] overflow-hidden mb-5">
         <div className="flex flex-col gap-5 w-full flex-1 max-h-mc px-5 py-[1px] overflow-y-auto">
           <PairInfo
             tit="BOM结构"
@@ -62,7 +62,7 @@ const ViewBomInfoModal: FC<ViewBomInfoModalProps> = ({ onClose, ...props }) => {
           {(result || []).map((e: any, i: number) => {
             return (
               <div key={`info_${i}`} className="flex flex-row gap-10 p-0">
-                <div className="w-[200px] text-base text-[#666666] ">{e.flowName}</div>
+                <div className="w-[200px] text-sm text-[#666666] ">{e.flowName}</div>
                 <div className="flex flex-wrap flex-shrink w-[30rem] items-center">
                   {(e?.partNumbers || []).map((item: any, index: number) => {
                     return (
@@ -71,7 +71,7 @@ const ViewBomInfoModal: FC<ViewBomInfoModalProps> = ({ onClose, ...props }) => {
                         className="flex max-w-lg items-center bg-[#F1F1F1] h-6 mb-[10px] rounded ml-5"
                       >
                         <div
-                          className=" w-full mx-[10px] items-center font-normal"
+                          className=" w-full text-sm mx-[10px] items-center font-normal"
                           data-tooltip-id="tooltip"
                           data-tooltip-content={handleContentRender(item, 10)}
                         >

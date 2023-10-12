@@ -23,7 +23,7 @@ export const User = () => {
           <Fragment>
             {label.map((e, i) => {
               return (
-                <div className="content-start mt-5 ml-5" key={`user_${i}`}>
+                <div className="content-start mx-5 mt-5" key={`user_${i}`}>
                   <div className="w-40 ">{e.label}</div>
                   <div className="mt-3">
                     <Input value={e.name} disabled />

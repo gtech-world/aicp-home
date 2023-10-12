@@ -55,7 +55,7 @@ const ViewVerification: FC<ApiModel.ViewVerificationManagementModal> = ({ closeM
             const parts = e.fileName.split('/');
             return (
               <div key={`file_${i}`} id="view" className="w-[640px] h-[34px] flex items-center ">
-                <span className="ml-[10px] leading-5 text-[16px] font-normal">{parts[parts.length - 1]}</span>
+                <span className="ml-[10px] leading-5 text-[14px] font-normal">{parts[parts.length - 1]}</span>
               </div>
             );
           })}

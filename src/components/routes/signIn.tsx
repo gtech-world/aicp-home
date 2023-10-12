@@ -64,7 +64,7 @@ export function SignIn() {
         />
         <Button
           onClick={onSign}
-          className="w-full max-w-[420px] min-h-[40px] h-10 mb-40 text-center text-2xl text-white bg-green-2 rounded-lg mo:text-lg hover:bg-green-28"
+          className="w-full max-w-[420px] min-h-[40px] h-10 mb-40 text-center text-base text-white bg-green-2 rounded-lg mo:text-lg hover:bg-green-28"
         >
           {t('Sign in')}
         </Button>

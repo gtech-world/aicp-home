@@ -65,7 +65,7 @@ export function ActionBtn(p: { action: string; onClick?: undefined | MouseEventH
       className="w-min whitespace-nowrap h-6 px-2.5 py-1 bg-zinc-100 rounded justify-start items-center gap-2.5 inline-flex cursor-pointer"
       onClick={onClick}
     >
-      <div className="text-base font-normal leading-none text-black">{action}</div>
+      <div className="text-sm font-normal leading-none text-black ">{action}</div>
     </div>
   );
 }
@@ -131,7 +131,7 @@ export function PairInfo(p: { tit: string; value: ReactNode }) {
   const isStr = typeof p.value === 'string' || typeof p.value === 'number';
   return (
     <div className="flex flex-col gap-2.5">
-      <div className="text-base font-normal leading-normal text-black">{p.tit}: </div>
+      <div className="text-sm font-normal leading-normal text-black ">{p.tit}: </div>
       {isStr ? <div className="text-base font-normal leading-none text-neutral-400">{p.value}</div> : p.value}
     </div>
   );
@@ -217,6 +217,7 @@ export function EditorProductSystem(p: ModalProps & { psId: number; onSuccess?: 
       dataIndex: 'lca',
       render: () => (
         <LcaActionInfo
+          openNewTab={true}
           modelId={ps?.model?.id}
           disableSelectFile={busy}
           modelStatus={ps?.model?.state}
@@ -280,10 +281,10 @@ export function EditorProductSystem(p: ModalProps & { psId: number; onSuccess?: 
   }, [data]);
 
   return (
-    <Modal {...props} line={false} containerClassName=" w-[600px] ">
+    <Modal {...props} line={false} containerClassName=" w-[600px] bf ">
       {isLoading && !ps && <Loading className="min-h-[100px]" />}
       {ps && (
-        <div className="flex flex-col gap-5  w-[600px] min-w-[20rem] ml-5 max-h-mc overflow-y-auto ">
+        <div className="flex flex-col gap-5  w-[600px] min-w-[20rem] ml-5 max-h-mc overflow-y-auto mb-5 ">
           <Descriptions
             options={options}
             data={data}
