@@ -249,6 +249,7 @@ export async function verifyVerifyRecord(
     evaluationExpireTime?: string;
     fileList: number[];
     state: boolean;
+    certificateNumber?: string;
   },
 ) {
   const res = await axios.post<Res<any>>(creatUrl(`/api/verifyRecord/${id}/verify`), { ...params }, authConfig());

@@ -1,6 +1,15 @@
 import { useOn } from '@/lib/hooks/useOn';
 import classNames from 'classnames';
-import { HTMLAttributes, MouseEvent, MutableRefObject, useEffect, useRef, useState } from 'react';
+import React, {
+  Fragment,
+  HTMLAttributes,
+  MouseEvent,
+  MutableRefObject,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { FiX } from 'react-icons/fi';
 
@@ -17,23 +26,21 @@ export function ModalHeader(p: {
 }) {
   const { title, onClose, titleClassName, containerClassName } = p;
   return (
-    <div
-      className={classNames(
-        'flex items-center justify-between pb-6 mb-6 text-xl font-bold border-b mt-2.5 mx-5',
-        containerClassName,
-      )}
-    >
-      <span className={classNames('max-w-[70%] overflow-hidden text-ellipsis whitespace-nowrap', titleClassName)}>
-        {title}
-      </span>
-      <FiX
-        onClick={(e) => {
-          e.stopPropagation();
-          onClose && onClose();
-        }}
-        className="text-2xl cursor-pointer"
-      />
-    </div>
+    <>
+      <div className={classNames('flex items-center justify-between mt-5 text-xl font-bold mx-5', containerClassName)}>
+        <div className={classNames('max-w-[70%] overflow-hidden text-ellipsis whitespace-nowrap', titleClassName)}>
+          {title}
+        </div>
+        <FiX
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose && onClose();
+          }}
+          className="text-2xl cursor-pointer"
+        />
+      </div>
+      <div className="mt-5 border-b "></div>
+    </>
   );
 }
 
@@ -47,10 +54,25 @@ export type ModalProps = {
   outClose?: boolean;
   titleClassName?: string;
   containerClassName?: string;
+  bottomBtn?: ReactNode;
+  line?: boolean;
+  chilrenClassName?: string;
 } & HTMLAttributes<HTMLDivElement>;
 
 export function Modal(p: ModalProps) {
-  const { className, title, onClose, outClose = false, titleClassName, containerClassName, children, ...other } = p;
+  const {
+    className,
+    title,
+    onClose,
+    outClose = false,
+    titleClassName,
+    containerClassName,
+    chilrenClassName,
+    bottomBtn,
+    children,
+    line = false,
+    ...other
+  } = p;
   const ref = useRef<HTMLDivElement>(null);
   const [start, setStart] = useState(true);
   const wrapClose = () => {
@@ -84,7 +106,7 @@ export function Modal(p: ModalProps) {
     >
       <div
         id="mo"
-        className={classNames('bg-white rounded p-5 min-w-[20rem] min-h-[150]', {
+        className={classNames('bg-white rounded min-w-[20rem]  min-h-[150]', {
           'transition-[all_ease_300ms]': true,
           'scale-0': start,
           'scale-100': !start,
@@ -96,7 +118,8 @@ export function Modal(p: ModalProps) {
           titleClassName={titleClassName}
           onClose={wrapClose}
         />
-        {children}
+        <div className={classNames('mt-5', chilrenClassName)}>{children}</div>
+        {line && <div className={`p-6 border-t mt-5`}>{bottomBtn}</div>}
       </div>
     </div>,
     modalRootRef.current,

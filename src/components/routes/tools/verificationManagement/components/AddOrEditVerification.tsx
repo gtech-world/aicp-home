@@ -42,6 +42,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
     evaluationBasis?: string;
     evaluationExpireTime?: string;
     verifyName?: number;
+    certificateNumber?: string;
   }>({ verifyState: true, carbonNum: '' });
   const [upFiles, upAbort] = useUpFiles();
   useEffect(() => upAbort, []);
@@ -130,6 +131,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
           functionalUnit: state.functionalUnit,
           evaluationBoundary: state.evaluationBoundary,
           evaluationBasis: state.evaluationBasis,
+          certificateNumber: state.certificateNumber,
           evaluationExpireTime: state.evaluationExpireTime + ' 00:00:00',
         }),
       )
@@ -243,6 +245,18 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
         <Input
           value={state.functionalUnit || verifyRecord?.functionalUnit}
           onChange={(e) => setState({ functionalUnit: e.target.value })}
+          maxLength={30}
+          className={inputClassName}
+        />
+      ),
+    },
+    {
+      label: '证书编号',
+      dataIndex: 'certificateNumber',
+      render: () => (
+        <Input
+          value={state.certificateNumber || verifyRecord?.certificateNumber}
+          onChange={(e) => setState({ certificateNumber: e.target.value })}
           maxLength={30}
           className={inputClassName}
         />
@@ -368,6 +382,40 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
         containerClassName={'mx-5 max-w-[640px]'}
         titleClassName={'text-[20px] leading-5 font-bold'}
         title={type === 'new' ? '新建验证记录' : '编辑验证记录'}
+        line={true}
+        bottomBtn={
+          !isLoading && (
+            <div className={`flex flex-row justify-between gap-5  w-full `}>
+              {type === 'new' && (
+                <>
+                  <Btn size="large" defStyle="btn-primary-1" className="flex-1" onClick={() => closeModal(false)}>
+                    取消
+                  </Btn>
+                  <Btn
+                    size="large"
+                    busy={busy}
+                    disabled={disableCreate}
+                    defStyle="btn-primary"
+                    className="flex-1"
+                    onClick={onCreate}
+                  >
+                    确定
+                  </Btn>
+                </>
+              )}
+              {type === 'editor' && (
+                <Btn busy={busy} size="large" disabled={disableUpdate} className="flex-1" onClick={doUpdate}>
+                  提交更新
+                </Btn>
+              )}
+              {type === 'verify' && (
+                <Btn busy={busy} size="large" disabled={disableVerify} className="flex-1" onClick={doVerify}>
+                  提交验证
+                </Btn>
+              )}
+            </div>
+          )
+        }
         onClose={() => closeModal(false)}
       >
         <div className="flex flex-col py-[1px] gap-5 px-5 w-[640px] min-h-[6.25rem] max-h-mc overflow-y-auto">
@@ -402,30 +450,6 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
             </>
           )}
         </div>
-        {!isLoading && (
-          <div className={`flex flex-row justify-between gap-5 mt-5 w-full px-5`}>
-            {type === 'new' && (
-              <>
-                <Btn defStyle="btn-primary-1" className="flex-1" onClick={() => closeModal(false)}>
-                  取消
-                </Btn>
-                <Btn busy={busy} disabled={disableCreate} defStyle="btn-primary" className="flex-1" onClick={onCreate}>
-                  确定
-                </Btn>
-              </>
-            )}
-            {type === 'editor' && (
-              <Btn busy={busy} disabled={disableUpdate} className="flex-1" onClick={doUpdate}>
-                提交更新
-              </Btn>
-            )}
-            {type === 'verify' && (
-              <Btn busy={busy} disabled={disableVerify} className="flex-1" onClick={doVerify}>
-                提交验证
-              </Btn>
-            )}
-          </div>
-        )}
       </Modal>
     </Fragment>
   );

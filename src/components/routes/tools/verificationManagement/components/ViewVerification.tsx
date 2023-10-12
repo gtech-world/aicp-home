@@ -3,6 +3,7 @@ import { FC, Fragment, useState } from 'react';
 import JSZip from 'jszip';
 import { useOnError } from '@/components/common/context';
 import axios from 'axios';
+import { Btn, Button } from '@/components/common/button';
 
 const ViewVerification: FC<ApiModel.ViewVerificationManagementModal> = ({ closeModal, fileList }) => {
   const [loading, setLoading] = useState(false);
@@ -34,7 +35,21 @@ const ViewVerification: FC<ApiModel.ViewVerificationManagementModal> = ({ closeM
 
   return (
     <Fragment>
-      <Modal onClose={closeModal} title="查看文件夹">
+      <Modal
+        onClose={closeModal}
+        title="查看文件夹"
+        line={true}
+        bottomBtn={
+          <Btn
+            size="large"
+            disabled={loading}
+            className="bg-[#29953A] w-full h-[50px] rounded-lg text-[#FFFFFF] "
+            onClick={handleDownloadClick}
+          >
+            下载
+          </Btn>
+        }
+      >
         <div className="px-5 overflow-y-auto  max-h-[260px]">
           {fileList.map((e, i) => {
             const parts = e.fileName.split('/');
@@ -45,13 +60,6 @@ const ViewVerification: FC<ApiModel.ViewVerificationManagementModal> = ({ closeM
             );
           })}
         </div>
-        <button
-          disabled={loading}
-          className="bg-[#29953A] w-full h-[50px] rounded-lg text-[#FFFFFF] mt-5"
-          onClick={handleDownloadClick}
-        >
-          下载
-        </button>
       </Modal>
     </Fragment>
   );

@@ -152,9 +152,31 @@ const InventoryResultModal: FC<ApiModel.InventoryResultModalProps> = ({ openResu
         titleClassName={'text-[20px] leading-5 font-bold'}
         title={'新建碳足迹结果'}
         onClose={openResultModal}
+        line={true}
+        bottomBtn={
+          <div className="flex flex-row justify-between gap-5 ">
+            <Btn
+              size="large"
+              onClick={openResultModal}
+              defStyle="btn-primary-1"
+              className="flex-1  font-normal  h-[50px] border-2 text-[18px]"
+            >
+              取消
+            </Btn>
+            <Btn
+              size="large"
+              className="flex-1 h-[50px]  font-normal  text-[18px]"
+              onClick={onCalculate}
+              disabled={!formData.productId || !formData.loadName}
+            >
+              计算碳结果
+            </Btn>
+          </div>
+        }
       >
         <div className="mx-5 w-[640px] ">
           <Descriptions
+            size="small"
             options={options}
             data={data}
             optionEmptyText="-"
@@ -163,25 +185,6 @@ const InventoryResultModal: FC<ApiModel.InventoryResultModalProps> = ({ openResu
             contentStyle={{ color: '#999999', fontWeight: '400' }}
             labelStyle={{ color: '#000000', fontWeight: '400' }}
           />
-        </div>
-
-        <div className="flex flex-row justify-between gap-5 px-5 mt-5">
-          <Btn
-            size="large"
-            onClick={openResultModal}
-            defStyle="btn-primary-1"
-            className="flex-1  font-normal  h-[50px] border-2 text-[18px]"
-          >
-            取消
-          </Btn>
-          <Btn
-            size="large"
-            className="flex-1 h-[50px]  font-normal  text-[18px]"
-            onClick={onCalculate}
-            disabled={!formData.productId || !formData.loadName}
-          >
-            计算碳结果
-          </Btn>
         </div>
       </Modal>
       {openAddInfoModal && (

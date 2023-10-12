@@ -237,11 +237,11 @@ export function EditorProductSystem(p: ModalProps & { psId: number; onSuccess?: 
   ];
 
   const data = {
-    uuid: ps?.uuid,
-    inputDesc: ps?.description,
-    updateUser: ps?.updateUser.name,
-    name: org?.name,
-    serialNumber: org?.serialNumber,
+    uuid: ps?.uuid || '-',
+    inputDesc: ps?.description || '-',
+    updateUser: ps?.updateUser.name || '-',
+    name: org?.name || '-',
+    serialNumber: org?.serialNumber || '-',
   };
 
   const columns = useMemo<ProTableColumns>(
@@ -281,7 +281,7 @@ export function EditorProductSystem(p: ModalProps & { psId: number; onSuccess?: 
   console.log('ps?.model?.modelBomInfo', tableData);
 
   return (
-    <Modal {...props}>
+    <Modal {...props} line={false}>
       {isLoading && !ps && <Loading className="min-h-[100px]" />}
 
       {ps && (
@@ -292,44 +292,12 @@ export function EditorProductSystem(p: ModalProps & { psId: number; onSuccess?: 
             optionEmptyText="-"
             layout="vertical"
             column={1}
+            size="small"
             contentStyle={{ color: '#999999', fontWeight: '400' }}
             labelStyle={{ color: '#000000', fontWeight: '400' }}
           />
         </div>
       )}
-      {/* {ps && (
-        <>
-          <div className="flex flex-col gap-5  w-full min-w-[40rem] px-5 py-[1px] max-h-mc overflow-y-auto">
-            <PairInfo tit="产品系统ID" value={ps.uuid || '-'} />
-            <PairInfo
-              tit="描述"
-              value={
-                <div className=" break-words max-w-[40rem] flex-wrap text-[16px] font-normal text-[#999999]">
-                  {inputDesc || '-'}
-                </div>
-              }
-            />
-            <PairInfo tit="操作人" value={ps.updateUser.name || '-'} />
-            <PairInfo tit="BOM信息" value={<ActionBtn action="查看" onClick={() => setBomDataModal(true)} />} />
-            <PairInfo tit="实景参数列表" value={<ActionBtn action="查看" onClick={() => toggleRealModal(true)} />} />
-
-            <PairInfo
-              tit="产品系统LCA文件"
-              value={
-                <LcaActionInfo
-                  modelId={ps.model?.id}
-                  disableSelectFile={busy}
-                  modelStatus={ps.model?.state}
-                  hiddenUpdate={isVerifier}
-                  file={file as any}
-                  onFileChange={onFileChange}
-                />
-              }
-            />
-            <OrganizationInfo organization={ps?.org} />
-          </div>
-        </>
-      )} */}
       {realModal && <RealData isShow header={columns} data={tableData} onClose={() => toggleRealModal(false)} />}
       {oldPs && <ViewProductSystem onClose={() => setOldPs(undefined)} ps={oldPs} />}
       {bomDataModal && (

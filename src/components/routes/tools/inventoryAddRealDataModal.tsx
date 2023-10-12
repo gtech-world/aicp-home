@@ -99,6 +99,24 @@ const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = (
       containerClassName={'mx-5 max-w-[640px]'}
       titleClassName={'text-[20px] leading-5 font-bold'}
       onClose={(typeof onOpenModal === 'function' && onOpenModal) || undefined}
+      line={true}
+      bottomBtn={
+        <div className="mx-5 ">
+          <div className="flex flex-row justify-between gap-5 ">
+            <Btn
+              size="large"
+              onClick={(typeof onOpenModal === 'function' && onOpenModal) || undefined}
+              defStyle="btn-primary-1"
+              className="flex-1  font-normal  h-[50px] border-2 text-[18px]"
+            >
+              取消
+            </Btn>
+            <Btn size="large" className="flex-1 h-[50px]  font-normal  text-[18px]" onClick={onSubmit}>
+              确定
+            </Btn>
+          </div>
+        </div>
+      }
     >
       <div className=" mx-5 w-[640px] max-h-[400px] overflow-y-auto ">
         <Table
@@ -117,20 +135,6 @@ const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = (
             height: '50px',
           }}
         />
-      </div>
-      <div className="mx-5 ">
-        <div className="flex flex-row justify-between gap-5 mt-5">
-          <Btn
-            onClick={(typeof onOpenModal === 'function' && onOpenModal) || undefined}
-            defStyle="btn-primary-1"
-            className="flex-1  font-normal  h-[50px] border-2 text-[18px]"
-          >
-            取消
-          </Btn>
-          <Btn className="flex-1 h-[50px]  font-normal  text-[18px]" onClick={onSubmit}>
-            确定
-          </Btn>
-        </div>
       </div>
     </Modal>
   );

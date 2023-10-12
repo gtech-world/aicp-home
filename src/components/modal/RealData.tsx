@@ -23,8 +23,8 @@ export function RealData(
   }, [data, inputData]);
 
   return (
-    <Modal title="实景数据" {...props}>
-      <div className="w-[40rem] px-5 max-h-mc overflow-y-auto ">
+    <Modal title="实景数据" {...props} chilrenClassName={'mt-0'}>
+      <div className="w-[40rem]  max-h-mc overflow-y-auto ">
         <WrapProTable columns={header} dataSource={isShow ? data : tableData} pagination={false} rootClassName="" />
       </div>
     </Modal>

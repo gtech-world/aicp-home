@@ -12,6 +12,7 @@ import { useSafe } from '@/lib/hooks/useSafe';
 import classNames from 'classnames';
 import Descriptions from '../common/Descriptions';
 import { ProTableColumns } from '../ant/WrapProTable';
+import { Input } from 'antd';
 
 export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
   const { onSuccess, onClose: _onClose, ...props } = p;
@@ -101,31 +102,6 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
     }
   });
 
-  // <Fragment>
-  //   <PairInfo tit="产品系统名称" value={resultList?.modelName} />
-  //   <PairInfo tit="BOM信息" value={<ActionBtn action="查看" onClick={() => setViewBomInfo(true)} />} />
-  //   <PairInfo
-  //     tit="实景参数列表"
-  //     value={<ActionBtn action="查看" onClick={() => setViewRealDataList(true)} />}
-  //   />
-
-  //   <PairInfo
-  //     tit="产品系统LCA文件"
-  //     value={
-  //       <LcaActionInfo
-  //         modelStatus={!isProgress ? 1 : 0}
-  //         modelId={resultList.id}
-  //         openNewTab={true}
-  //         onFileChange={onFileChange}
-  //       />
-  //     }
-  //   />
-  //   <PairInfo
-  //     tit="描述"
-  //     value={<EditorText maxLength={100} value={desc} onChange={(e) => setDesc(e.target.value)} />}
-  //   />
-  // </Fragment>
-
   const data = {
     modelName: resultList?.modelName,
     bom: '',
@@ -164,7 +140,9 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
     {
       label: '描述',
       dataIndex: 'desc',
-      render: () => <EditorText maxLength={100} value={desc} onChange={(e) => setDesc(e.target.value)} />,
+      render: () => (
+        <Input maxLength={100} value={desc} onChange={(e) => setDesc(e.target.value)} className="h-[40px]" />
+      ),
     },
   ];
 
@@ -212,6 +190,30 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
           onClose();
           resetState();
         }}
+        line={!uploadingText}
+        bottomBtn={
+          <div className="flex flex-shrink-0 w-full gap-5 px-5">
+            {!isProgress && (
+              <Fragment>
+                <Btn
+                  type="default"
+                  size="large"
+                  className="flex-1"
+                  onClick={() => {
+                    onClose();
+                    resetState();
+                  }}
+                >
+                  取消
+                </Btn>
+
+                <Btn size="large" type="primary" className="flex-1" onClick={onOk} disabled={disabledOk}>
+                  {type === 'upload' ? '上传' : '确定'}
+                </Btn>
+              </Fragment>
+            )}
+          </div>
+        }
       >
         <div className="flex flex-col gap-5 w-full min-w-[40rem] overflow-hidden">
           <div
@@ -245,31 +247,11 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
                   optionEmptyText="-"
                   layout="vertical"
                   column={1}
+                  size="small"
                   contentStyle={{ color: '#999999', fontWeight: '400' }}
                   labelStyle={{ color: '#000000', fontWeight: '400' }}
                 />
               </div>
-            )}
-          </div>
-          <div className="flex flex-shrink-0 w-full gap-5 px-5">
-            {!isProgress && (
-              <Fragment>
-                <Btn
-                  type="default"
-                  size="large"
-                  className="flex-1"
-                  onClick={() => {
-                    onClose();
-                    resetState();
-                  }}
-                >
-                  取消
-                </Btn>
-
-                <Btn size="large" type="primary" className="flex-1" onClick={onOk} disabled={disabledOk}>
-                  {type === 'upload' ? '上传' : '确定'}
-                </Btn>
-              </Fragment>
             )}
           </div>
         </div>
