@@ -81,7 +81,7 @@ export function VerificationManagementList() {
               onClick={() => onViewFile(record.attachmentFileList)}
               className="w-[112px] flex flex-row items-center bg-[#F1F1F1] justify-center rounded cursor-pointer"
             >
-              <VectorIcon />
+              <VectorIcon width="14" />
               <div className="ml-2 ">文件夹</div>
             </div>
           );
@@ -108,7 +108,7 @@ export function VerificationManagementList() {
               onClick={() => onViewFile(record.verifyFileList)}
               className="w-[112px] flex flex-row items-center bg-[#F1F1F1] justify-center rounded cursor-pointer"
             >
-              <VectorIcon />
+              <VectorIcon width="14" />
               <div className="ml-2 ">文件夹</div>
             </div>
           ) : null;

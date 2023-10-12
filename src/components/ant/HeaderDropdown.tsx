@@ -20,7 +20,7 @@ const HeaderDropdown: React.FC<HeaderDropdownProps> = ({ overlayClassName: cls, 
       },
 
       '.ant-dropdown-menu-item-icon': {
-        fontSize: '20px !important',
+        fontSize: '16px !important',
       },
     };
   });
