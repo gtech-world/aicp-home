@@ -192,7 +192,7 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
         }}
         line={!uploadingText}
         bottomBtn={
-          <div className="flex flex-shrink-0 w-full gap-5 px-5">
+          <div className="flex flex-shrink-0 w-full gap-5">
             {!isProgress && (
               <Fragment>
                 <Btn
@@ -247,7 +247,7 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
                   optionEmptyText="-"
                   layout="vertical"
                   column={1}
-                  size="small"
+                  size="middle"
                   contentStyle={{ color: '#999999', fontWeight: '400' }}
                   labelStyle={{ color: '#000000', fontWeight: '400' }}
                 />

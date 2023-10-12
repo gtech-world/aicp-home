@@ -21,7 +21,7 @@ function Card(p: {
 }) {
   const { title, icon, qrcodeDisable, by, id, link, qrCode, name } = p.data;
   return (
-    <div className="bg-white flex flex-col p-5 text-sm">
+    <div className="flex flex-col p-5 text-sm bg-white">
       <ProductQrcode qrcodeDisable={qrcodeDisable} data={qrCode} name={name} />
       <div className="flex flex-col mt-5">
         <h3 className="font-semibold">完成[{title}]产品碳足迹测算</h3>

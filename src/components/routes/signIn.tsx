@@ -49,7 +49,7 @@ export function SignIn() {
           onChange={onAccountChange}
           onKeyDown={(e) => e.code === 'Enter' && onSign()}
           placeholder={t('Account') || ''}
-          className="outline-none w-full mt-[5.75rem] mb-5 max-w-[420px] min-h-[40px] h-[3.125rem] px-4 whitespace-nowrap rounded-lg mo:text-sm mo:px-5 mo:py-4"
+          className="outline-none w-full mt-[5.75rem] mb-5 max-w-[420px] min-h-[40px] h-10 px-4 whitespace-nowrap rounded-lg mo:text-sm mo:px-5 mo:py-4"
           style={{ border: '1px solid #DDDDDD', background: '#F8F8F8' }}
         />
         <input
@@ -59,12 +59,12 @@ export function SignIn() {
           onChange={onPwdChange}
           onKeyDown={(e) => e.code === 'Enter' && onSign()}
           placeholder={t('Password') || ''}
-          className="outline-none w-full mb-5 max-w-[420px] min-h-[40px] h-[3.125rem] px-4 whitespace-nowrap rounded-lg mo:text-sm mo:px-5 mo:py-4"
+          className="outline-none w-full mb-5 max-w-[420px] min-h-[40px] h-10 px-4 whitespace-nowrap rounded-lg mo:text-sm mo:px-5 mo:py-4"
           style={{ border: '1px solid #DDDDDD', background: '#F8F8F8' }}
         />
         <Button
           onClick={onSign}
-          className="w-full max-w-[420px] min-h-[40px] h-[3.125rem] mb-40 text-center text-2xl text-white bg-green-2 rounded-lg mo:text-lg hover:bg-green-28"
+          className="w-full max-w-[420px] min-h-[40px] h-10 mb-40 text-center text-2xl text-white bg-green-2 rounded-lg mo:text-lg hover:bg-green-28"
         >
           {t('Sign in')}
         </Button>

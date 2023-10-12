@@ -109,7 +109,7 @@ const InventoryResultModal: FC<ApiModel.InventoryResultModalProps> = ({ openResu
           id="loadName"
           name="loadName"
           maxLength={30}
-          className="w-full mb-[20px] mt-[10px] px-5 border border-[#DDDDDD]  h-[50px]  bg-[#F8F8F8] rounded-lg"
+          className="w-full mb-[20px] mt-[10px] px-5 border border-[#DDDDDD]  h-[40px]  bg-[#F8F8F8] rounded-lg"
         />
       ),
     },
@@ -120,7 +120,7 @@ const InventoryResultModal: FC<ApiModel.InventoryResultModalProps> = ({ openResu
         <Select
           value={formData.productId}
           style={{
-            height: '50px',
+            height: '40px',
             borderColor: '#DDDDDD',
             backgroundColor: '#F8F8F8',
             width: '100%',

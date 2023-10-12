@@ -142,7 +142,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
       });
   };
   const otherAtt = { directory: '', webkitdirectory: '' };
-  const inputClassName = 'w-full shrink-0 px-5 border border-[#DDDDDD]  h-[50px]  bg-[#F8F8F8] rounded-lg';
+  const inputClassName = 'w-full shrink-0 px-5 border border-[#DDDDDD]  h-[40px]  bg-[#F8F8F8] rounded-lg';
   const isVerify = type === 'verify';
   const folderName = useMemo(() => {
     if (disableFiles || !state.files) return '验证文件';
@@ -239,24 +239,24 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
     },
     renderInputVerifyFiles,
     {
-      label: '功能单位',
-      dataIndex: 'functionalUnit',
-      render: () => (
-        <Input
-          value={state.functionalUnit || verifyRecord?.functionalUnit}
-          onChange={(e) => setState({ functionalUnit: e.target.value })}
-          maxLength={30}
-          className={inputClassName}
-        />
-      ),
-    },
-    {
       label: '证书编号',
       dataIndex: 'certificateNumber',
       render: () => (
         <Input
           value={state.certificateNumber || verifyRecord?.certificateNumber}
           onChange={(e) => setState({ certificateNumber: e.target.value })}
+          maxLength={30}
+          className={inputClassName}
+        />
+      ),
+    },
+    {
+      label: '功能单位',
+      dataIndex: 'functionalUnit',
+      render: () => (
+        <Input
+          value={state.functionalUnit || verifyRecord?.functionalUnit}
+          onChange={(e) => setState({ functionalUnit: e.target.value })}
           maxLength={30}
           className={inputClassName}
         />
@@ -325,7 +325,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
         <Select
           value={state.carbonNum || verifyRecord?.loadNumber}
           style={{
-            height: '50px',
+            height: '40px',
             borderColor: '#DDDDDD',
             backgroundColor: '#F8F8F8',
             width: '100%',
@@ -354,7 +354,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
         <Select
           value={state.verifyName || verifyRecord?.verifyUser?.id}
           style={{
-            height: '50px',
+            height: '40px',
             borderColor: '#DDDDDD',
             backgroundColor: '#F8F8F8',
             width: '100%',

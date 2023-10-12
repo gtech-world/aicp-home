@@ -278,14 +278,12 @@ export function EditorProductSystem(p: ModalProps & { psId: number; onSuccess?: 
         optName: optName.toString(),
       }));
   }, [data]);
-  console.log('ps?.model?.modelBomInfo', tableData);
 
   return (
-    <Modal {...props} line={false}>
+    <Modal {...props} line={false} containerClassName=" w-[600px] ">
       {isLoading && !ps && <Loading className="min-h-[100px]" />}
-
       {ps && (
-        <div className="flex flex-col gap-5 w-[600px] min-w-[20rem] px-5 py-[1px] max-h-mc overflow-y-auto ">
+        <div className="flex flex-col gap-5  w-[600px] min-w-[20rem] ml-5 max-h-mc overflow-y-auto ">
           <Descriptions
             options={options}
             data={data}

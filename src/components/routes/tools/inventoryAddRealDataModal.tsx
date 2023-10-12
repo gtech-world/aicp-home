@@ -46,7 +46,7 @@ const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = (
 
   useEffect(() => {
     const newTableData = tableData?.map((item, index) => {
-      return realArr?.length && realArr[index].paramName === item.name
+      return realArr?.length && realArr[index]?.paramName === item.name
         ? { ...item, inputValue: realArr[index].paramValue }
         : { ...item };
     });
@@ -126,7 +126,7 @@ const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = (
           isSetBorder={true}
           maxHeight="calc(100vh - 260px)"
           headerClassName={{
-            background: '#DDDDDD',
+            background: '#FAFAFA',
             position: 'sticky',
             top: '-1px',
             fontWeight: '700',
