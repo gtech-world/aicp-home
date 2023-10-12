@@ -103,7 +103,7 @@ export function Tag() {
   }, [data]);
 
   return (
-    <WrapPageContainer title={false}>
+    <WrapPageContainer>
       <div className="grid gap-5 grid-cols-[repeat(auto-fill,minmax(368px,1fr))] ssm:grid-cols-1">
         {tagList.map((v: any, i) => {
           return <Card key={`tagData${i}`} data={v} />;

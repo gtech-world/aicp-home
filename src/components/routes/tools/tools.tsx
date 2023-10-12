@@ -83,7 +83,7 @@ const data = [
 
 export function Tools() {
   return (
-    <WrapPageContainer title={false}>
+    <WrapPageContainer>
       <ul className="grid grid-cols-[repeat(auto-fill,minmax(450px,1fr))] sm:grid-cols-1 gap-4">
         {data.map((v, i) => {
           return <ToolsContent key={`inProgress${i}`} data={v} i={i} />;
