@@ -92,7 +92,7 @@ const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = (
           <input
             defaultValue={record.inputValue}
             type="number"
-            className="font-normal  leading-[21px] text-[14px] w-[10rem] h-[33px] "
+            className="font-normal  leading-[21px] text-[14px]  h-[33px] "
           />
         ),
       },
@@ -108,7 +108,7 @@ const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = (
       onClose={(typeof onOpenModal === 'function' && onOpenModal) || undefined}
       line={true}
       bottomBtn={
-        <div className="mx-5 ">
+        <div className="">
           <div className="flex flex-row justify-between gap-5 ">
             <Btn
               size="large"
