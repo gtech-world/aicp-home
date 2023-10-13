@@ -125,30 +125,15 @@ const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = (
         </div>
       }
     >
-      <div className=" mx-5 w-[640px] max-h-[400px] ">
+      <div className=" w-[640px] max-h-[400px] ">
         <WrapProTable
           scroll={{ y: 330 }}
           columns={columns}
           id="realDataTable"
           dataSource={allTableData || []}
           pagination={false}
+          className="h-full !p-0 mx-5 mt-5 "
         />
-        {/* <Table
-          columns={columns}
-          tableId="realDataTable"
-          data={allTableData || []}
-          isSetBorder={true}
-          maxHeight="calc(100vh - 270px)"
-          headerClassName={{
-            background: '#FAFAFA',
-            position: 'sticky',
-            top: 0,
-            fontWeight: '700',
-            fontSize: '18px',
-            lineHeight: '30px',
-            height: '50px',
-          }}
-        /> */}
       </div>
     </Modal>
   );

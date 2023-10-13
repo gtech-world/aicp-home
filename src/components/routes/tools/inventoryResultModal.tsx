@@ -161,6 +161,7 @@ const InventoryResultModal: FC<ApiModel.InventoryResultModalProps> = ({ openResu
             </Btn>
             <Btn
               size="large"
+              type="primary"
               className="flex-1 h-[50px]  font-normal  text-[18px]"
               onClick={onCalculate}
               disabled={!formData.productId || !formData.loadName}

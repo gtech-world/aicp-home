@@ -21,11 +21,9 @@ export function Btn(p: BtnProps) {
   const { busy, disabled, type = 'primary', className, defStyle = 'btn-primary', children, ...props } = p;
   return (
     <AntBtn
+      disabled={disabled}
       type={defStyle === 'btn-primary-1' ? 'default' : type}
-      className={classNames(className, 'leading-none !shadow-none', {
-        // [defStyle]: !disabled,
-        // 'btn-disable': disabled,
-      })}
+      className={classNames(className, 'leading-none !shadow-none', {})}
       {...props}
     >
       {busy ? <FaSpinner className="mx-auto animate-spin" /> : children}
