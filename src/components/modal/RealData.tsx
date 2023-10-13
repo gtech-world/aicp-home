@@ -24,13 +24,14 @@ export function RealData(
 
   return (
     <Modal title="实景数据" {...props} chilrenClassName={'mt-0'}>
-      <div className="w-[40rem]  max-h-mc overflow-y-auto mb-5 ">
+      <div className="w-[40rem] mo:w-full  mb-5 ">
         <WrapProTable
           scroll={{ y: 440 }}
           columns={header}
           dataSource={isShow ? data : tableData}
           pagination={false}
           rootClassName=""
+          className="w-full h-full "
         />
       </div>
     </Modal>
