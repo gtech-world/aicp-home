@@ -114,6 +114,7 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
     {
       label: '产品系统名称',
       dataIndex: 'modelName',
+      render: () => <div className="mt-[-10px]">{resultList?.modelName}</div>,
     },
     {
       label: 'BOM信息',
@@ -247,7 +248,7 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
                   optionEmptyText="-"
                   layout="vertical"
                   column={1}
-                  size="middle"
+                  size="small"
                   contentStyle={{ color: '#999999', fontWeight: '400' }}
                   labelStyle={{ color: '#000000', fontWeight: '400' }}
                 />

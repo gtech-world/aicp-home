@@ -6,6 +6,7 @@ import { FC, Fragment, useEffect, useMemo, useState } from 'react';
 import InventoryAddRealDataModal from './inventoryAddRealDataModal';
 import Descriptions from '@/components/common/Descriptions';
 import { Input, Select } from 'antd';
+import AButton from '@/components/common/AButton';
 
 type formDataType = { [key: string]: string };
 type realDataType = Pick<ApiModel.uploadResult, 'lcaParamList'>;
@@ -135,14 +136,7 @@ const InventoryResultModal: FC<ApiModel.InventoryResultModalProps> = ({ openResu
     {
       label: '实景数据填报',
       dataIndex: 'realDataInput',
-      render: () => (
-        <div
-          onClick={() => onAddInfo()}
-          className=" flex cursor-pointer rounded-[4px] leading-4 text-[14px]  mt-[-5px] bg-[#F1F1F1] w-[84px] h-[24px]  text-center items-center justify-center "
-        >
-          前往填写
-        </div>
-      ),
+      render: () => <AButton onClick={() => onAddInfo()} btnText={'前往填写'} prohibit={!formData.productId} />,
     },
   ];
 

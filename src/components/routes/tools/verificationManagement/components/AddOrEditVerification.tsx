@@ -320,8 +320,6 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
           value={state.carbonNum || verifyRecord?.loadNumber}
           style={{
             height: '40px',
-            borderColor: '#DDDDDD',
-            backgroundColor: '#F8F8F8',
             width: '100%',
             marginTop: '-15px',
           }}

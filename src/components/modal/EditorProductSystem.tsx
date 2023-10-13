@@ -55,17 +55,17 @@ export function ActionBtn(p: { action: string; onClick?: undefined | MouseEventH
   const { action, onClick, to } = p;
   if (to) {
     return (
-      <div className="w-min whitespace-nowrap h-6 px-2.5 py-1 bg-zinc-100 rounded justify-start items-center gap-2.5 inline-flex cursor-pointer">
+      <div className="w-min hover:border-[#29953A] mt-[-10px] hover:text-[#29953A] border text-[#000000] whitespace-nowrap h-6 px-2.5 py-1 bg-zinc-100 rounded-sm justify-start items-center gap-2.5 inline-flex cursor-pointer">
         <a href={to}>{action}</a>
       </div>
     );
   }
   return (
     <div
-      className="w-min whitespace-nowrap h-6 px-2.5 py-1 bg-zinc-100 rounded justify-start items-center gap-2.5 inline-flex cursor-pointer"
+      className="   w-min whitespace-nowrap mt-[-10px] hover:border-[#29953A] border text-[#000000]  h-6 px-2.5 py-1  rounded-sm justify-start items-center gap-2.5 inline-flex cursor-pointer"
       onClick={onClick}
     >
-      <div className="text-sm font-normal leading-none text-black ">{action}</div>
+      <div className="text-sm font-normal leading-none hover:text-[#29953A]   text-[#000000]">{action}</div>
     </div>
   );
 }
