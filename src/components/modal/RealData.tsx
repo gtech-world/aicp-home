@@ -31,7 +31,7 @@ export function RealData(
           dataSource={isShow ? data : tableData}
           pagination={false}
           rootClassName=""
-          className="w-full h-full "
+          className="h-full !p-0 mx-5 mt-5 "
         />
       </div>
     </Modal>
