@@ -4,7 +4,7 @@ import { Table } from '@/components/common/table';
 import { Aicp as SVGAICP, GGX as SvgGgx } from '@/components/svgr';
 import { useSBT } from '@/lib/hooks/useDatas';
 import { useT } from '@/lib/hooks/useT';
-import { autoFormaterRealTime, genScanUrl, shortStr } from '@/lib/utils';
+import { autoFormaterRealTime, genScanUrl, shortStr, wrapPath } from '@/lib/utils';
 import { useSearchParams } from '@umijs/max';
 import classNames from 'classnames';
 import { now } from 'lodash';
@@ -13,6 +13,7 @@ import { VscQuestion, VscVerified } from 'react-icons/vsc';
 import { WrapLink } from '../ant/Link';
 import WrapPageContainer from '../ant/WrapPageContainer';
 import { HeaderLayout } from '../common/headerLayout';
+import { Tooltip } from 'antd';
 
 function ItemInfo(p: { label: string; text: string; link?: string; tip?: any; className?: string }) {
   return (
@@ -27,11 +28,9 @@ function ItemInfo(p: { label: string; text: string; link?: string; tip?: any; cl
       )}
     >
       {!!p.tip && (
-        <VscQuestion
-          data-tooltip-id="tooltip"
-          data-tooltip-content={p.tip}
-          className="absolute text-black left-[-1.6rem] text-xl top-[0.29rem]"
-        />
+        <Tooltip title={p.tip}>
+          <VscQuestion className="absolute text-black left-[-1.6rem] text-xl top-[0.29rem]" />
+        </Tooltip>
       )}
       <span className="font-bold text-black">{p.label}:</span>{' '}
       {p.link ? (
@@ -128,7 +127,7 @@ export function Blockchain() {
       ),
       render: (text: string) => {
         return (
-          <WrapLink className="text-green-2" target="_blank" to={genScanUrl('tx', text)}>
+          <WrapLink className="text-green-2 !text-base" target="_blank" to={genScanUrl('tx', text)}>
             {shortStr(text)}
           </WrapLink>
         );
@@ -164,7 +163,7 @@ export function Blockchain() {
       dataIndex: 'fromAddress',
       render: (text: string) => {
         return (
-          <WrapLink className="text-green-2" target="_blank" to={genScanUrl('address', text)}>
+          <WrapLink className="text-green-2 !text-base" target="_blank" to={genScanUrl('address', text)}>
             {shortStr(text)}
           </WrapLink>
         );
@@ -175,7 +174,7 @@ export function Blockchain() {
       dataIndex: 'toAddress',
       render: (text: string) => {
         return (
-          <WrapLink className="text-green-2" target="_blank" to={genScanUrl('address', text)}>
+          <WrapLink className="text-green-2 !text-base" target="_blank" to={genScanUrl('address', text)}>
             {shortStr(text)}
           </WrapLink>
         );
@@ -196,7 +195,7 @@ export function Blockchain() {
             <div className="bg-white flex justify-center px-10 items-center rounded-lg mo:h-[21rem] mo:px-0">
               <ProductQrcode
                 className=""
-                data={`${current || 'https://aicp.gtech.world'}/car?vin=${sbtTagList?.uuid}`}
+                data={`${current || 'https://aicp.gtech.world'}${wrapPath('/label')}?vin=${sbtTagList?.uuid}`}
               />
             </div>
             <div className="flex flex-col flex-1 ml-5 mo:ml-0 mo:mt-5">
@@ -214,14 +213,14 @@ export function Blockchain() {
                 </div>
               </div>
               <div className="px-12 py-5 bg-white rounded-lg mo:pl-10 mo:pr-3">
-                <h5 className="text-xl mb-3.5 font-bold mo:text-lg">{t('Label Details')}</h5>
+                <h5 className="mb-3.5 font-bold text-lg">{t('Label Details')}</h5>
                 <CardInfo data={sbtTagList} />
               </div>
             </div>
           </div>
 
           <div className="px-8 py-5 mt-5 bg-white rounded-lg mo:px-4">
-            <h3 className="font-bold">{t('Item Activity on Blockchain')}</h3>
+            <h3 className="font-bold text-lg">{t('Item Activity on Blockchain')}</h3>
             <div className="w-full overflow-hidden overflow-x-auto mo:pb-5">
               <Table className="mt-5 mo:w-[52rem]" columns={columns} data={sbtTagList?.transferEvents || []} />
             </div>

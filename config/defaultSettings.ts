@@ -1,6 +1,8 @@
 import { ProLayoutProps } from '@ant-design/pro-components';
 import { ThemeConfig } from 'antd';
 
+export const historyType: 'hash' | 'browser' | 'memory' = 'hash';
+
 export const HEADER_HEIGHT = 56;
 export const DefTheme: ThemeConfig = {
   token: {

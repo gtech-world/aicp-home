@@ -3,7 +3,7 @@ import WrapPageContainer from '@/components/ant/WrapPageContainer';
 import { ProductQrcode } from '@/components/common/productQrcode';
 import { Teacher as SvgTeacher } from '@/components/svgr';
 import { useTags } from '@/lib/hooks/useDatas';
-import { getCurrentDate } from '@/lib/utils';
+import { getCurrentDate, wrapPath } from '@/lib/utils';
 import _ from 'lodash';
 import { useMemo } from 'react';
 
@@ -97,7 +97,7 @@ export function Tag() {
         tokenId,
         name: orgType !== 'aicp' ? 'Certified' : 'Verified',
         orgName,
-        qrCode: `${window.origin}/label?vin=${uuid}`,
+        qrCode: `${window.origin}${wrapPath('/label')}?vin=${uuid}`,
       };
     });
   }, [data]);

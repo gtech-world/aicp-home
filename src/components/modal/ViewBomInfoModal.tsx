@@ -5,6 +5,7 @@ import { PairInfo } from './EditorProductSystem';
 import { shortStr } from '@/lib/utils';
 import { handleContentRender } from '@/lib/utils';
 import { isTagType } from '@/lib/tagtools';
+import { Tooltip } from 'antd';
 
 interface ViewBomInfoModalProps {
   onClose: () => void;
@@ -70,13 +71,11 @@ const ViewBomInfoModal: FC<ViewBomInfoModalProps> = ({ onClose, ...props }) => {
                         key={`value_${index}`}
                         className="flex max-w-lg items-center bg-[#F1F1F1] h-6 mb-[10px] rounded ml-5"
                       >
-                        <div
-                          className=" w-full text-sm mx-[10px] items-center font-normal"
-                          data-tooltip-id="tooltip"
-                          data-tooltip-content={handleContentRender(item, 10)}
-                        >
-                          PN : {shortStr(item, 8, 8)}
-                        </div>
+                        <Tooltip title={handleContentRender(item, 10)}>
+                          <div className=" w-full text-sm mx-[10px] items-center font-normal">
+                            PN : {shortStr(item, 8, 8)}
+                          </div>
+                        </Tooltip>
                       </div>
                     );
                   })}

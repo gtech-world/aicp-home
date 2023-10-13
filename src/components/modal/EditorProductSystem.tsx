@@ -3,7 +3,7 @@ import { Loading } from '@/components/common/loading';
 import { Modal, ModalProps } from '@/components/common/modal';
 import { useProductSystem } from '@/lib/hooks/useDatas';
 import { useIsVerifier } from '@/lib/hooks/useUser';
-import { shortStr, tryParse } from '@/lib/utils';
+import { shortStr, tryParse, wrapPath } from '@/lib/utils';
 import classNames from 'classnames';
 import _ from 'lodash';
 import {
@@ -116,8 +116,8 @@ export function LcaActionInfo(p: {
     if (modelStatus !== 1) return <div className="text-base font-normal leading-none text-amber-500">等待解析</div>;
     return (
       <ActionBtn
-        onClick={() => (openNewTab ? window.open(`/model?id=${modelId}`, '_blank') : undefined)}
-        to={!openNewTab ? `/model?id=${modelId}` : undefined}
+        onClick={() => (openNewTab ? window.open(`${wrapPath('/model')}?id=${modelId}`, '_blank') : undefined)}
+        to={!openNewTab ? `${wrapPath('/model')}?id=${modelId}` : undefined}
         action="在线查看"
       />
     );
