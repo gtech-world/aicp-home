@@ -18,7 +18,7 @@ export type BtnProps = {
 } & ButtonProps;
 
 export function Btn(p: BtnProps) {
-  const { busy, type = 'primary', className, defStyle = 'btn-primary', children, ...props } = p;
+  const { busy, disabled, type = 'primary', className, defStyle = 'btn-primary', children, ...props } = p;
   return (
     <AntBtn
       type={defStyle === 'btn-primary-1' ? 'default' : type}
@@ -28,7 +28,7 @@ export function Btn(p: BtnProps) {
       })}
       {...props}
     >
-      {busy ? <FaSpinner className="animate-spin mx-auto" /> : children}
+      {busy ? <FaSpinner className="mx-auto animate-spin" /> : children}
     </AntBtn>
   );
 }

@@ -74,11 +74,11 @@ export function ActionBtn(p: {
     <div
       className={classNames(
         className,
-        '   w-min whitespace-nowrap mt-[-10px] hover:border-[#29953A] border text-[#000000]  h-6 px-2.5 py-1  rounded-sm justify-start items-center gap-2.5 inline-flex cursor-pointer',
+        'text-sm font-normal leading-none  w-min whitespace-nowrap mt-[-10px] hover:border-[#29953A] hover:text-[#29953A]  border text-[#000000]  h-6 px-2.5 py-1  rounded-sm justify-start items-center gap-2.5 inline-flex cursor-pointer',
       )}
       onClick={onClick}
     >
-      <div className="text-sm font-normal leading-none hover:text-[#29953A]   text-[#000000]">{action}</div>
+      {action}
     </div>
   );
 }
