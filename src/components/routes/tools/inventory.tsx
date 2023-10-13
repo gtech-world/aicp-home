@@ -73,7 +73,7 @@ export function Inventory() {
       {
         title: '描述',
         dataIndex: 'productDescription',
-        width: 300,
+        width: 200,
         ellipsis: true,
       },
       {

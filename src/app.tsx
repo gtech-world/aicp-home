@@ -44,6 +44,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       if (!useStore.getState().userData) {
         history.push('/login');
       }
+      document.body?.scrollTo(0, 0);
     },
     layoutBgImgList: [],
     links: [],
