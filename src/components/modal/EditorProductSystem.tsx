@@ -51,18 +51,31 @@ export function PsStatus(p: { status?: number }) {
   );
 }
 
-export function ActionBtn(p: { action: string; onClick?: undefined | MouseEventHandler<HTMLDivElement>; to?: string }) {
-  const { action, onClick, to } = p;
+export function ActionBtn(p: {
+  action: string;
+  className?: any;
+  onClick?: undefined | MouseEventHandler<HTMLDivElement>;
+  to?: string;
+}) {
+  const { action, onClick, to, className } = p;
   if (to) {
     return (
-      <div className="w-min hover:border-[#29953A] mt-[-10px] hover:text-[#29953A] border text-[#000000] whitespace-nowrap h-6 px-2.5 py-1 bg-zinc-100 rounded-sm justify-start items-center gap-2.5 inline-flex cursor-pointer">
+      <div
+        className={classNames(
+          className,
+          ' w-min hover:border-[#29953A] mt-[-10px] hover:text-[#29953A] border text-[#000000] whitespace-nowrap h-6 px-2.5 py-1 bg-zinc-100 rounded-sm justify-start items-center gap-2.5 inline-flex cursor-pointer',
+        )}
+      >
         <a href={to}>{action}</a>
       </div>
     );
   }
   return (
     <div
-      className="   w-min whitespace-nowrap mt-[-10px] hover:border-[#29953A] border text-[#000000]  h-6 px-2.5 py-1  rounded-sm justify-start items-center gap-2.5 inline-flex cursor-pointer"
+      className={classNames(
+        className,
+        '   w-min whitespace-nowrap mt-[-10px] hover:border-[#29953A] border text-[#000000]  h-6 px-2.5 py-1  rounded-sm justify-start items-center gap-2.5 inline-flex cursor-pointer',
+      )}
       onClick={onClick}
     >
       <div className="text-sm font-normal leading-none hover:text-[#29953A]   text-[#000000]">{action}</div>
@@ -81,6 +94,7 @@ export function LcaActionInfo(p: {
   file?: File;
   openNewTab?: boolean;
   btnText?: string;
+  className?: string;
   onFileChange?: ChangeEventHandler<HTMLInputElement>;
 }) {
   const {
@@ -94,6 +108,7 @@ export function LcaActionInfo(p: {
     modelStatus,
     file,
     onFileChange,
+    className,
     btnText = '上传模型',
   } = p;
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -118,7 +133,7 @@ export function LcaActionInfo(p: {
         renderLook()
       ) : isNew ? (
         <>
-          <ActionBtn action={btnText} onClick={onClickUp} />
+          <ActionBtn action={btnText} onClick={onClickUp} className={className} />
         </>
       ) : (
         <>{!file && renderLook()}</>
@@ -193,14 +208,17 @@ export function EditorProductSystem(p: ModalProps & { psId: number; onSuccess?: 
     {
       label: '产品系统ID',
       dataIndex: 'uuid',
+      render: () => <div className="mt-[-10px]">{ps?.uuid || '-'}</div>,
     },
     {
       label: '描述',
       dataIndex: 'inputDesc',
+      render: () => <div className="mt-[-10px]">{ps?.description || '-'}</div>,
     },
     {
       label: '操作人',
       dataIndex: 'updateUser',
+      render: () => <div className="mt-[-10px]">{ps?.updateUser.name || '-'}</div>,
     },
     {
       label: 'BOM信息',
@@ -230,10 +248,12 @@ export function EditorProductSystem(p: ModalProps & { psId: number; onSuccess?: 
     {
       label: '组织名称',
       dataIndex: 'name',
+      render: () => <div className="mt-[-10px]">{org?.name || '-'}</div>,
     },
     {
       label: '组织编号',
       dataIndex: 'serialNumber',
+      render: () => <div className="mt-[-10px]">{org?.serialNumber || '-'}</div>,
     },
   ];
 

@@ -172,6 +172,15 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
     ),
   };
 
+  const data = {
+    verifyRecord: verifyRecord?.name,
+    carbonNum: verifyRecord?.loadNumber,
+    description: state.desc || verifyRecord?.description,
+    verifyName: 'verifyName',
+    createName: userData?.name,
+    organizationName: userData?.organization?.name,
+  };
+
   const verifyData = {
     verifyName: verifyRecord?.name,
     verifyId: verifyRecord?.id,
@@ -188,47 +197,50 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
     evaluationExpireTime: state.evaluationExpireTime || verifyRecord?.evaluationExpireTime,
   };
 
-  const data = {
-    verifyRecord: verifyRecord?.name,
-    carbonNum: verifyRecord?.loadNumber,
-    description: state.desc || verifyRecord?.description,
-    verifyName: 'verifyName',
-    createName: userData?.name,
-    organizationName: userData?.organization?.name,
+  const divText = (data: string) => {
+    return <div className=" mt-[-15px]">{data}</div>;
   };
 
   const verifyOptions: any[] = [
     {
       label: '验证记录',
       dataIndex: 'verifyName',
+      render: () => divText(verifyRecord?.name),
     },
     {
       label: '验证记录ID',
       dataIndex: 'verifyId',
+      render: () => divText(verifyRecord?.id),
     },
     {
       label: '发起人',
       dataIndex: 'createUser',
+      render: () => divText(verifyRecord?.createUser?.name),
     },
     {
       label: '组织机构',
       dataIndex: 'organizationName',
+      render: () => divText(verifyRecord?.organization?.name),
     },
     {
       label: '描述',
       dataIndex: 'description',
+      render: () => divText(verifyRecord?.description),
     },
     {
       label: '碳足迹批次',
       dataIndex: 'loadName',
+      render: () => divText(verifyRecord?.inventory?.loadName),
     },
     {
       label: '碳足迹批次ID',
       dataIndex: 'loadNumber',
+      render: () => divText(verifyRecord?.loadNumber),
     },
     {
       label: '验证人',
       dataIndex: 'verifyUser',
+      render: () => divText(verifyRecord?.verifyUser?.name),
     },
     renderInputVerifyFiles,
     {
@@ -236,6 +248,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
       dataIndex: 'certificateNumber',
       render: () => (
         <Input
+          style={{ marginTop: '-15px' }}
           value={state.certificateNumber || verifyRecord?.certificateNumber}
           onChange={(e) => setState({ certificateNumber: e.target.value })}
           maxLength={30}
@@ -248,6 +261,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
       dataIndex: 'functionalUnit',
       render: () => (
         <Input
+          style={{ marginTop: '-15px' }}
           value={state.functionalUnit || verifyRecord?.functionalUnit}
           onChange={(e) => setState({ functionalUnit: e.target.value })}
           maxLength={30}
@@ -260,6 +274,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
       dataIndex: 'evaluationBoundary',
       render: () => (
         <Input
+          style={{ marginTop: '-15px' }}
           value={state.evaluationBoundary || verifyRecord?.evaluationBoundary}
           onChange={(e) => setState({ evaluationBoundary: e.target.value })}
           maxLength={30}
@@ -272,6 +287,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
       dataIndex: 'evaluationBasis',
       render: () => (
         <Input
+          style={{ marginTop: '-15px' }}
           value={state.evaluationBasis || verifyRecord?.evaluationBasis}
           onChange={(e) => setState({ evaluationBasis: e.target.value })}
           maxLength={30}
@@ -284,6 +300,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
       dataIndex: 'evaluationExpireTime',
       render: () => (
         <DatePicker
+          style={{ marginTop: '-15px' }}
           defaultValue={
             state.evaluationExpireTime ||
             (verifyRecord?.evaluationExpireTime &&
@@ -428,7 +445,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
                     layout="vertical"
                     column={1}
                     contentStyle={{ color: '#999999', fontWeight: '400', fontSize: '14px' }}
-                    labelStyle={{ color: '#000000', fontWeight: '400', fontSize: '14px' }}
+                    labelStyle={{ color: '#000000', fontWeight: '400', fontSize: '14px', marginTop: '-5px' }}
                   />
                 </>
               ) : (
