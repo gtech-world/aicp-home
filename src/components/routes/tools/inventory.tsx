@@ -144,6 +144,11 @@ export function Inventory() {
         dataIndex: 'optName',
         width: 100,
       },
+      {
+        title: '输入值',
+        dataIndex: 'inputData',
+        width: 100,
+      },
     ],
     [],
   );
@@ -160,12 +165,14 @@ export function Inventory() {
         )
       : ({} as _.Dictionary<ApiModel.LcaParamList>);
     const bases = (params[0]?.parameters || []) as any[];
+
     return bases
       .map((item) => [item.name, item.context.name, item.value, inputMap[item.name]?.paramValue || ''])
       .map(([name, uuid, optName, inputData]) => ({
         name,
         uuid,
-        optName: inputData || optName.toString(),
+        optName: optName.toString(),
+        inputData,
       }));
   }, [paramDetailRef.current]);
 

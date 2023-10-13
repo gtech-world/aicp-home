@@ -223,7 +223,7 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
           >
             {isProgress ? (
               <Fragment>
-                <div className="flex justify-center w-full">{uploadingText}</div>
+                <div className="flex justify-center w-full text-sm">{uploadingText}</div>
                 <Progress value={progress} className="my-5 overflow-hidden rounded-lg" />
               </Fragment>
             ) : type === 'upload' ? (

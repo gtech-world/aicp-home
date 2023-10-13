@@ -1,3 +1,4 @@
+import AButton from '@/components/common/AButton';
 import Descriptions from '@/components/common/Descriptions';
 import { Btn } from '@/components/common/button';
 import { useStore } from '@/components/common/context';
@@ -17,7 +18,7 @@ import { FC, Fragment, ReactNode, useEffect, useMemo, useRef, useState } from 'r
 import { useSetState } from 'react-use';
 
 const TextDiv = (p: { value?: string }) => {
-  return <div className="font-normal leading-[21.79px] text-[16px] text-gray-9">{p.value}</div>;
+  return <div className="font-normal leading-[21.79px] text-[14px] text-gray-9">{p.value}</div>;
 };
 
 const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ closeModal, recordId, type = 'new' }) => {
@@ -142,7 +143,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
       });
   };
   const otherAtt = { directory: '', webkitdirectory: '' };
-  const inputClassName = 'w-full shrink-0 px-5 border border-[#DDDDDD]  h-[40px]  bg-[#F8F8F8] rounded-lg';
+  const inputClassName = 'w-full  shrink-0 px-5 border border-[#DDDDDD]  h-[40px]  bg-[#F8F8F8] rounded-lg';
   const isVerify = type === 'verify';
   const folderName = useMemo(() => {
     if (disableFiles || !state.files) return '验证文件';
@@ -155,7 +156,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
     dataIndex: 'verifyDoc',
     render: () => (
       <Fragment>
-        <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-row items-center gap-2 mt-[-15px]">
           <input
             {...otherAtt}
             ref={FileRef}
@@ -165,15 +166,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
           />
           <VectorIcon />
           <TextDiv value={folderName} />
-          <div
-            onClick={(e) => !busy && FileRef.current?.click()}
-            className={classNames(
-              'flex  rounded-[4px] leading-4 text-[16px] bg-[#F1F1F1] w-[100px] h-[24px]  text-center items-center justify-center ',
-              busy ? 'cursor-not-allowed' : 'cursor-pointer',
-            )}
-          >
-            选择文件夹
-          </div>
+          <AButton onClick={(e) => !busy && FileRef.current?.click()} busy={busy} btnText={' 选择文件夹'} />
         </div>
       </Fragment>
     ),
@@ -314,6 +307,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
           value={state.name || verifyRecord?.name}
           onChange={(e) => setState({ name: e.target.value })}
           maxLength={30}
+          style={{ marginTop: '-15px' }}
           className={inputClassName}
         />
       ),
@@ -329,6 +323,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
             borderColor: '#DDDDDD',
             backgroundColor: '#F8F8F8',
             width: '100%',
+            marginTop: '-15px',
           }}
           onChange={(e) => setState({ carbonNum: e })}
           options={convertArr('loadName', 'loadNumber', inventoryLiteAll)}
@@ -340,6 +335,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
       dataIndex: 'description',
       render: () => (
         <Input
+          style={{ marginTop: '-15px' }}
           value={state.desc || verifyRecord?.description}
           onChange={(e) => setState({ desc: e.target.value })}
           maxLength={100}
@@ -354,6 +350,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
         <Select
           value={state.verifyName || verifyRecord?.verifyUser?.id}
           style={{
+            marginTop: '-15px',
             height: '40px',
             borderColor: '#DDDDDD',
             backgroundColor: '#F8F8F8',
@@ -367,10 +364,12 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
     {
       label: '发起人',
       dataIndex: 'createName',
+      render: () => <div className=" mt-[-15px]">{userData?.name}</div>,
     },
     {
       label: '组织机构',
       dataIndex: 'organizationName',
+      render: () => <div className=" mt-[-15px]">{userData?.organization?.name}</div>,
     },
     renderInputVerifyFiles,
   ];
@@ -380,7 +379,7 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
       <Modal
         className="rounded-lg"
         containerClassName={'mx-5 max-w-[640px]'}
-        titleClassName={'text-[20px] leading-5 font-bold'}
+        titleClassName={'text-[16px] leading-5 font-bold'}
         title={type === 'new' ? '新建验证记录' : '编辑验证记录'}
         line={true}
         bottomBtn={
@@ -430,8 +429,8 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
                     optionEmptyText="-"
                     layout="vertical"
                     column={1}
-                    contentStyle={{ color: '#999999', fontWeight: '400', fontSize: '16px' }}
-                    labelStyle={{ color: '#000000', fontWeight: '400', fontSize: '16px' }}
+                    contentStyle={{ color: '#999999', fontWeight: '400', fontSize: '14px' }}
+                    labelStyle={{ color: '#000000', fontWeight: '400', fontSize: '14px' }}
                   />
                 </>
               ) : (
@@ -442,8 +441,8 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
                     optionEmptyText="-"
                     layout="vertical"
                     column={1}
-                    contentStyle={{ color: '#999999', fontWeight: '400', fontSize: '16px' }}
-                    labelStyle={{ color: '#000000', fontWeight: '400', fontSize: '16px' }}
+                    contentStyle={{ color: '#999999', fontWeight: '400', fontSize: '14px' }}
+                    labelStyle={{ color: '#000000', fontWeight: '400', fontSize: '15px', marginTop: '-5px' }}
                   />
                 </>
               )}

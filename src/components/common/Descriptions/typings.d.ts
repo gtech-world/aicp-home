@@ -13,4 +13,5 @@ export type DescriptionsProps<T = Record<string, any>> = DescriptionsCompProps &
   optionEmptyText?: string | false;
   data: T;
   hideIfEmpty?: boolean; // 是否数据是空的时候隐藏
+  wrapperStyle?: any;
 };
