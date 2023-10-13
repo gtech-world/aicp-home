@@ -76,14 +76,13 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
         }),
     );
   };
+
   const disableUpdate =
     !verifyRecord ||
     !inventoryLiteAll ||
     !verifiers ||
     ((state.name || verifyRecord.name) === verifyRecord.name &&
       (state.desc || verifyRecord.description) === verifyRecord.description &&
-      state.loadNumber === verifyRecord.loadNumber &&
-      state.verifyName === verifyRecord.verifyUserId &&
       disableFiles);
   const doUpdate = () => {
     if (disableUpdate || busy) return;
@@ -418,12 +417,26 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
                 </>
               )}
               {type === 'editor' && (
-                <Btn busy={busy} size="large" disabled={disableUpdate} className="flex-1" onClick={doUpdate}>
+                <Btn
+                  busy={busy}
+                  size="large"
+                  type="primary"
+                  disabled={disableUpdate}
+                  className="flex-1"
+                  onClick={doUpdate}
+                >
                   提交更新
                 </Btn>
               )}
               {type === 'verify' && (
-                <Btn busy={busy} size="large" disabled={disableVerify} className="flex-1" onClick={doVerify}>
+                <Btn
+                  busy={busy}
+                  size="large"
+                  type="primary"
+                  disabled={disableVerify}
+                  className="flex-1"
+                  onClick={doVerify}
+                >
                   提交验证
                 </Btn>
               )}
