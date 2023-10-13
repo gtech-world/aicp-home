@@ -41,8 +41,8 @@ const ViewVerification: FC<ApiModel.ViewVerificationManagementModal> = ({ closeM
         line={true}
         bottomBtn={
           <Btn
+            busy={loading}
             size="large"
-            disabled={loading}
             className="bg-[#29953A] w-full h-[50px] rounded-lg text-[#FFFFFF] "
             onClick={handleDownloadClick}
           >

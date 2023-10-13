@@ -233,6 +233,7 @@ export function NewProductSystem(p: ModalProps & { onSuccess?: () => void }) {
                 value={
                   <LcaActionInfo
                     isNew={true}
+                    className={'!mt-[2px]'}
                     disableSelectFile={isProgress}
                     file={file as any}
                     onFileChange={onFileChange}

@@ -1,8 +1,9 @@
+import WrapProTable, { ProTableColumns } from '@/components/ant/WrapProTable';
 import { Btn } from '@/components/common/button';
 import { Modal } from '@/components/common/modal';
 import { Table } from '@/components/common/table';
 import { formatDate } from '@/lib/utils';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 
 const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = ({
   onOpenModal,
@@ -19,6 +20,7 @@ const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = (
     for (let i = 0; i < rows.length; i++) {
       const rowValues = [];
       const inputs = rows[i].getElementsByTagName('input');
+
       for (let j = 0; j < inputs.length; j++) {
         const inputValue = inputs[j].value;
         rowValues.push(inputValue);
@@ -30,7 +32,7 @@ const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = (
     lcaParamList = tableData?.map((e, i) => {
       const newArr = {
         processId: e.context['@id'],
-        paramValue: values.slice(1)[i][0] || e.value.toString(),
+        paramValue: values.slice(2)[i][0] || e.value.toString(),
         paramName: e.name,
         dateTime: formatDate(),
       };
@@ -54,44 +56,49 @@ const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = (
   }, [realArr, tableData]);
 
   type columnsList = ApiModel.InventoryRealDataList;
-  const columns = [
-    {
-      title: '参数名',
-      dataIndex: 'name',
-      width: '9rem',
-      render: (text: string) => (
-        <div className=" flex items-center h-[33px] font-normal leading-[21px] text-[14px] ">{text}</div>
-      ),
-    },
-    {
-      title: '过程名称',
-      dataIndex: 'name',
-      width: '7rem',
-      render: (text: string, record: columnsList) => (
-        <div className="flex items-center  h-[33px] font-normal leading-[21px] text-[14px] ">{record.context.name}</div>
-      ),
-    },
-    {
-      title: '参考值',
-      width: '10rem',
-      dataIndex: 'value',
-      render: (text: string) => (
-        <div className="flex items-center h-[33px] font-normal leading-[21px] text-[14px] ">{text}</div>
-      ),
-    },
-    {
-      title: '填入值',
-      width: '10rem',
-      dataIndex: 'createTime',
-      render: (text: string, record: columnsList) => (
-        <input
-          defaultValue={record.inputValue}
-          type="number"
-          className="font-normal  leading-[21px] text-[14px] w-[10rem] h-[33px] "
-        />
-      ),
-    },
-  ];
+  const columns = useMemo<ProTableColumns>(
+    () => [
+      {
+        title: '参数名',
+        dataIndex: 'name',
+        width: '9rem',
+        render: (text) => (
+          <div className=" flex items-center h-[33px] font-normal leading-[21px] text-[14px] ">{text}</div>
+        ),
+      },
+      {
+        title: '过程名称',
+        dataIndex: 'name',
+        width: '7rem',
+        render: (text, record) => (
+          <div className="flex items-center  h-[33px] font-normal leading-[21px] text-[14px] ">
+            {record.context.name}
+          </div>
+        ),
+      },
+      {
+        title: '参考值',
+        width: '10rem',
+        dataIndex: 'value',
+        render: (text) => (
+          <div className="flex items-center h-[33px] font-normal leading-[21px] text-[14px] ">{text}</div>
+        ),
+      },
+      {
+        title: '填入值',
+        width: '10rem',
+        dataIndex: 'createTime',
+        render: (text, record) => (
+          <input
+            defaultValue={record.inputValue}
+            type="number"
+            className="font-normal  leading-[21px] text-[14px]  h-[33px] "
+          />
+        ),
+      },
+    ],
+    [],
+  );
 
   return (
     <Modal
@@ -101,7 +108,7 @@ const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = (
       onClose={(typeof onOpenModal === 'function' && onOpenModal) || undefined}
       line={true}
       bottomBtn={
-        <div className="mx-5 ">
+        <div className="">
           <div className="flex flex-row justify-between gap-5 ">
             <Btn
               size="large"
@@ -118,22 +125,14 @@ const InventoryAddRealDataModal: FC<ApiModel.InventoryAddRealDataModalProps> = (
         </div>
       }
     >
-      <div className=" mx-5 w-[640px] max-h-[400px] overflow-y-auto ">
-        <Table
+      <div className=" w-[640px] max-h-[400px] ">
+        <WrapProTable
+          scroll={{ y: 330 }}
           columns={columns}
-          tableId="realDataTable"
-          data={allTableData || []}
-          isSetBorder={true}
-          maxHeight="calc(100vh - 270px)"
-          headerClassName={{
-            background: '#FAFAFA',
-            position: 'sticky',
-            top: 0,
-            fontWeight: '700',
-            fontSize: '18px',
-            lineHeight: '30px',
-            height: '50px',
-          }}
+          id="realDataTable"
+          dataSource={allTableData || []}
+          pagination={false}
+          className="h-full !p-0 mx-5 mt-5 "
         />
       </div>
     </Modal>

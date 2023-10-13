@@ -7,15 +7,15 @@ export type { DescriptionsProps, DescriptionsItemProps };
 const { Item } = DescriptionsComp;
 
 const Descriptions = <T extends Record<string, any>>(props: DescriptionsProps<T>) => {
-  const { options, data, optionEmptyText, wrapperStyle = { backroundColor: 'red' }, hideIfEmpty, ...rest } = props;
+  const { options, data, optionEmptyText, wrapperStyle = `backroundColor: 'red'`, hideIfEmpty, ...rest } = props;
   console.log('wrapperStyle', wrapperStyle);
 
   return useMemo(() => {
     return (
       <DescriptionsComp
         {...rest}
-        contentStyle={{ color: '#999999', fontWeight: '400', fontSize: '14px' }}
-        labelStyle={{ color: '#000000', fontWeight: '400', fontSize: '14px' }}
+        // contentStyle={{ color: '#999999', fontWeight: '400', fontSize: '14px' }}
+        // labelStyle={{ color: '#000000', fontWeight: '400', fontSize: '14px',wrapperStyl }}
       >
         {options.map((option) => {
           const { render, dataIndex, show, ...optionRest } = option;
