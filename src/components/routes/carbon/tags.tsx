@@ -81,21 +81,22 @@ export function Tag() {
         },
       ];
     return records.map(({ loadName, proofTime, tokenId, tokenUrl, uuid, verifyUserName, orgName, orgType }) => {
+      const name = orgType !== 'aicp' ? 'Certified' : 'Verified';
       return {
         title: loadName,
         icon: <SvgTeacher className="w-[2.75rem]" />,
         by: `${getCurrentDate(proofTime, 'YYYY年MM月DD日')}签发 by ${orgName}`,
         id: uuid,
         qrcodeDisable: false,
+        name,
         link: [
           { text: '标签信息', href: `/label?vin=${uuid}` },
           {
             text: '在区块链浏览器查看',
-            href: `/chain?tokenId=${tokenId}`,
+            href: `/chain?tokenId=${tokenId}&name=${name}`,
           },
         ],
         tokenId,
-        name: orgType !== 'aicp' ? 'Certified' : 'Verified',
         orgName,
         qrCode: `${window.origin}${wrapPath('/label')}?vin=${uuid}`,
       };

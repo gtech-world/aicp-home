@@ -105,6 +105,7 @@ function CardInfo(p: any) {
 export function Blockchain() {
   const [sq] = useSearchParams();
   const tokenId = sq.get('tokenId');
+  const name = sq.get('name');
   const { t, formatRelativeTime } = useT();
   const isMobile = useIsMobile();
   const [current, setCurrent] = useState('');
@@ -185,8 +186,6 @@ export function Blockchain() {
     'GGX (GTech Green Chain) is a shared digital space for the automotive industry. GGX offers 3T (Transparency, Traceability, Trust) featured data as a solid foundation for cross-boundary collaboration between automotive value chain players.',
   );
 
-  console.log('sbtTagList', sbtTagList);
-
   return (
     <HeaderLayout>
       <WrapPageContainer loading={loading} className="flex flex-col flex-1 w-full text-black bg-gray-16 min-h-fit">
@@ -195,6 +194,7 @@ export function Blockchain() {
             <div className="bg-white flex justify-center px-10 items-center rounded-lg mo:h-[21rem] mo:px-0">
               <ProductQrcode
                 className=""
+                name={name}
                 data={`${current || 'https://aicp.gtech.world'}${wrapPath('/label')}?vin=${sbtTagList?.uuid}`}
               />
             </div>
@@ -220,7 +220,7 @@ export function Blockchain() {
           </div>
 
           <div className="px-8 py-5 mt-5 bg-white rounded-lg mo:px-4">
-            <h3 className="font-bold text-lg">{t('Item Activity on Blockchain')}</h3>
+            <h3 className="text-lg font-bold">{t('Item Activity on Blockchain')}</h3>
             <div className="w-full overflow-hidden overflow-x-auto mo:pb-5">
               <Table className="mt-5 mo:w-[52rem]" columns={columns} data={sbtTagList?.transferEvents || []} />
             </div>
