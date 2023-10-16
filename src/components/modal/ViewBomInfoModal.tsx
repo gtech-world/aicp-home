@@ -62,8 +62,8 @@ const ViewBomInfoModal: FC<ViewBomInfoModalProps> = ({ onClose, ...props }) => {
           <PairInfo tit="Part Number信息" value={null} />
           {(result || []).map((e: any, i: number) => {
             return (
-              <div key={`info_${i}`} className="flex flex-row gap-10 p-0">
-                <div className="w-[200px] text-sm text-[#666666] ">{e.flowName}</div>
+              <div key={`info_${i}`} className="flex flex-row gap-10  mt-[-15px] ">
+                <div className="w-[230px] text-sm text-[#666666] ">{e.flowName}</div>
                 <div className="flex flex-wrap flex-shrink w-[30rem] items-center">
                   {(e?.partNumbers || []).map((item: any, index: number) => {
                     return (
