@@ -1,5 +1,6 @@
 import { Loading } from '@/components/common/loading';
 import { SIZE } from '@/components/const';
+import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import { FC, useEffect, useRef, useState } from 'react';
 import { FiChevronRight, FiFilter } from 'react-icons/fi';
@@ -132,11 +133,9 @@ export const Table: FC<Table.ITable> = ({
                       )}
                     >
                       {!!v.tip && (
-                        <VscQuestion
-                          data-tooltip-id="tooltip"
-                          data-tooltip-content={v.tip}
-                          className="inline-block text-xl mt-[-0.15rem] mr-1"
-                        />
+                        <Tooltip title={v.tip}>
+                          <VscQuestion className="inline-block text-xl mt-[-0.15rem] mr-1" />
+                        </Tooltip>
                       )}
                       <span>{v.title}</span>
                       {!!filters[v.dataIndex] && (

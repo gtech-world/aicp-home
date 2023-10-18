@@ -123,6 +123,7 @@ export function VerificationManagementList() {
         title: '验证时间',
         dataIndex: 'proofTime',
         valueType: 'dateTime',
+
         width: 170,
       },
       {

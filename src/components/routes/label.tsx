@@ -2,7 +2,7 @@ import { Carbon3 as SVGCarbon3 } from '@/components/svgr';
 
 import { useTagInfo } from '@/lib/hooks/useDatas';
 import { useT } from '@/lib/hooks/useT';
-import { genScanUrl, handleCarbonStr } from '@/lib/utils';
+import { genScanUrl, handleCarbonStr, wrapPath } from '@/lib/utils';
 import { useSearchParams } from '@umijs/max';
 import { Fragment } from 'react';
 import WrapPageContainer from '../ant/WrapPageContainer';
@@ -118,9 +118,9 @@ export function Label() {
                   'A Soul-bounded Token (a special type of NFT that is not allowed to transfer after created) has been generated on blockchain to make sure the information in this label is immutable and will be maintain for traceability forever. Check {{value}} to verify the SBT on blockchain explorer.',
                 ).replace(
                   '{{value}}',
-                  `<a class="text-green-2 cursor-pointer" href="/chain?tokenId=${tokenId}" rel="noreferrer">${t(
-                    'here',
-                  )}</a>`,
+                  `<a class="text-green-2 cursor-pointer" href="${wrapPath(
+                    '/chain',
+                  )}?tokenId=${tokenId}" rel="noreferrer">${t('here')}</a>`,
                 ),
               }}
             />

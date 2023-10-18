@@ -1,10 +1,10 @@
 import { useIntl } from '@umijs/max';
 import { AxiosError } from 'axios';
+import dayjs from 'dayjs';
 import _, { toInteger } from 'lodash';
 import moment from 'moment';
+import { historyType } from '../../config/defaultSettings';
 import { LABEL_CONTRACT, SCAN_BASE } from './env';
-import dayjs from 'dayjs';
-
 export const DATE_FTM = {
   long: 'YYYY-MM-DD HH:mm:ss',
   short: 'YYYY-MM-DD',
@@ -234,3 +234,10 @@ export const convertArr = (label: string | number, value: string | number, arr?:
     return { label: item[label], value: item[value] };
   });
 };
+
+export function wrapPath(path: `/${string}`) {
+  if (historyType === 'hash') {
+    return '/#' + path;
+  }
+  return path;
+}
