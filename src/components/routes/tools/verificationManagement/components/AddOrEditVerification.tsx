@@ -150,19 +150,27 @@ const AddOrEditVerification: FC<ApiModel.VerificationManagementModal> = ({ close
     return shortStr(name, 10, 10);
   }, [state.files, disableFiles]);
 
+  const dealFiles = (event: any) => {
+    const selectedFiles = event.target.files;
+    const filteredFiles: any = Array.from(selectedFiles).filter((file: any) => {
+      return !file.name.startsWith('.');
+    });
+    const dataTransfer = new DataTransfer();
+    filteredFiles.forEach((file: File) => {
+      dataTransfer.items.add(file);
+    });
+    const fileList = dataTransfer.files;
+
+    setState({ files: fileList });
+  };
+
   const renderInputVerifyFiles = {
     label: isVerify ? '验证文档' : '附件',
     dataIndex: 'verifyDoc',
     render: () => (
       <Fragment>
         <div className="flex flex-row items-center gap-2 mt-[-15px]">
-          <input
-            {...otherAtt}
-            ref={FileRef}
-            type="file"
-            hidden
-            onChange={(e) => setState({ files: e.target.files as any })}
-          />
+          <input {...otherAtt} ref={FileRef} type="file" hidden onChange={(e) => dealFiles(e)} />
           <VectorIcon />
           <TextDiv value={folderName} />
           <AButton onClick={(e) => !busy && FileRef.current?.click()} busy={busy} btnText={' 选择文件夹'} />
