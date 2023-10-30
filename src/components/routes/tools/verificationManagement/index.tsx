@@ -8,6 +8,7 @@ import _ from 'lodash';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import AddVerification from './components/AddOrEditVerification';
 import ViewVerification from './components/ViewVerification';
+import { scrollToTop } from '@/lib/utils';
 
 export function VerificationManagementList() {
   const { userData } = useStore();
@@ -187,6 +188,7 @@ export function VerificationManagementList() {
             current: pgNum,
             onChange: (page) => {
               setPgNum(page);
+              scrollToTop();
             },
           }}
         />

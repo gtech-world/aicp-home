@@ -229,7 +229,7 @@ export function Blockchain() {
             <SVGAICP fill="#29953A" className="w-[6.125rem] mb-5" />
             <p className="font-bold">{t('Platform powered by:')}</p>
             <p className="text-green-2">
-              <WrapLink className="!text-base" to="https://aicp.gtech.world/" target="_blank">
+              <WrapLink className="!text-base" to="https://aicp.gtech.world/">
                 {t('Automotive Industry Carbon Platform')}
               </WrapLink>
             </p>

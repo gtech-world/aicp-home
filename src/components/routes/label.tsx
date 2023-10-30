@@ -73,7 +73,7 @@ export function Label() {
               <DivText textArray={productInfo} />
             </div>
           </div>
-          <div className="w-[420px]  mo:w-full  max-h-[450px] bg-[#FFFFFF] mo:max-h-[350px] rounded-lg">
+          <div className="w-[420px]  mo:w-full  max-h-[450px] bg-[#FFFFFF] mo:max-h-[370px] rounded-lg">
             <div className="mx-5 mt-5 mb-5 mmd:mt-10">
               <div className="mb-5 mo:mb-[15px] md:text-[18px]   font-bold mo:text-[18px] text-[20px] leading-7">
                 产品碳足迹评价信息

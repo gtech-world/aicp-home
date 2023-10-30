@@ -8,6 +8,7 @@ import { EditorProductSystem } from '@/components/modal/EditorProductSystem';
 import { NewProductSystem } from '@/components/modal/NewProductSystem';
 import { useProductList } from '@/lib/hooks/useDatas';
 import { useUnVerifier } from '@/lib/hooks/useUser';
+import { scrollToTop } from '@/lib/utils';
 import { useMemo, useState } from 'react';
 
 export function Model() {
@@ -130,6 +131,7 @@ export function Model() {
             current: pgNum,
             onChange: (page) => {
               setPgNum(page);
+              scrollToTop();
             },
           }}
         />

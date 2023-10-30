@@ -8,7 +8,7 @@ import { history } from '@umijs/max';
 import classNames from 'classnames';
 import { useMemo, useRef, useState } from 'react';
 import InventoryResultModal from './inventoryResultModal';
-import { tryParse } from '@/lib/utils';
+import { scrollToTop, tryParse } from '@/lib/utils';
 
 const colorText: any = {
   [-1]: { color: 'text-[red]', text: '计算失败' },
@@ -200,6 +200,7 @@ export function Inventory() {
             current: pgNum,
             onChange: (page) => {
               setPgNum(page);
+              scrollToTop();
             },
           }}
         />
