@@ -165,9 +165,8 @@ export function Inventory() {
         )
       : ({} as _.Dictionary<ApiModel.LcaParamList>);
     const bases = (params[0]?.parameters || []) as any[];
-
     return bases
-      .map((item) => [item.name, item.context.name, item.value, inputMap[item.name]?.paramValue || ''])
+      .map((item) => [item.name, item.context.name, item.value, inputMap[item.name]?.paramValue])
       .map(([name, uuid, optName, inputData]) => ({
         name,
         uuid,
