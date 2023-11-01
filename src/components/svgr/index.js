@@ -40,3 +40,4 @@ export { default as VerifiedIcon } from './VerifiedIcon';
 export { default as Nft } from './Nft';
 export { default as GGX } from './Ggx';
 export { default as Detail } from './Detail';
+export { default as Border } from './Border';

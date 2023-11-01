@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import QRCode from 'qrcode.react';
-import { Carbon3Name, DisableQrcode } from '../svgr';
+import { Border, Carbon3Name, DisableQrcode } from '../svgr';
+import { Fragment } from 'react';
 
 export function ProductQrcode(p: any) {
   const { qrText, className, qrcodeDisable, data, name = 'Certified' } = p;
@@ -20,10 +21,14 @@ export function ProductQrcode(p: any) {
             <p className="text-[0.6875rem] text-center mb-2 leading-[0.945rem] font-semibold mo:leading-[0.865rem]">
               {qrText ? qrText : `Product Carbon Footprint ${name}`}
             </p>
+
+            <Border className={'relative z-100'} />
             {qrcodeDisable ? (
-              <DisableQrcode width="92" height="92" />
+              <DisableQrcode className="" width="77" height="77" />
             ) : (
-              <QRCode className="w-[5.75rem]" size={92} value={data} />
+              <>
+                <QRCode className="w-[5.75rem] absolute z-1000 mo:mt-12 md:mt-13 mt-[50px]" size={76} value={data} />
+              </>
             )}
           </div>
         </div>
