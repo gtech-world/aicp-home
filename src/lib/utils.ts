@@ -189,6 +189,8 @@ export function tryParse<T>(data: any) {
 export const scrollToTop = () => {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
+  const table: any = document.querySelector('.ant-table-content');
+  table.scrollLeft = 0;
 };
 
 export const handleContentRender = (text: string, width: number) => {

@@ -209,7 +209,9 @@ export function Blockchain() {
                     </span>
                     {!isMobile && <p>#{tokenId}</p>}
                   </div>
-                  <span className="text-sm ml-3 mo:ml-0 mt-[0.3rem] mo:mt-2 mo:text-gray-6">{t('by AIAG')}</span>
+                  <span className="text-sm ml-3 mo:ml-0 mt-[0.3rem] mo:mt-2 mo:text-gray-6">
+                    {t('Recognized by AIAG & IAOB')}
+                  </span>
                 </div>
               </div>
               <div className="px-12 py-5 bg-white rounded-lg mo:pl-10 mo:pr-3">
@@ -229,7 +231,7 @@ export function Blockchain() {
             <SVGAICP fill="#29953A" className="w-[6.125rem] mb-5" />
             <p className="font-bold">{t('Platform powered by:')}</p>
             <p className="text-green-2">
-              <WrapLink className="!text-base" to="https://aicp.gtech.world/" target="_blank">
+              <WrapLink className="!text-base" to="https://aicp.gtech.world/">
                 {t('Automotive Industry Carbon Platform')}
               </WrapLink>
             </p>

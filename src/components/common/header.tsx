@@ -1,5 +1,5 @@
 import { Aicp } from '@/components/svgr';
-import { useIntl } from '@umijs/max';
+import { SelectLang, useIntl } from '@umijs/max';
 import classNames from 'classnames';
 import { HTMLAttributes } from 'react';
 import { useTitle } from 'react-use';
@@ -7,6 +7,8 @@ import { WrapLink } from '../ant/Link';
 import MenuAction from '../ant/MenuAction';
 import { useIsMobile } from './context';
 import { HEADER_HEIGHT } from '../../../config/defaultSettings';
+import { LngList, LngsText } from '../const';
+import { Button } from './button';
 
 export function HeaderTitle() {
   const { locale } = useIntl();
@@ -29,6 +31,7 @@ export function HeaderTitle() {
 export function Header(p: HTMLAttributes<HTMLDivElement>) {
   const { className, ...props } = p;
   const isMobile = useIsMobile();
+
   return (
     <div
       {...props}
@@ -37,9 +40,13 @@ export function Header(p: HTMLAttributes<HTMLDivElement>) {
     >
       <WrapLink to={isMobile ? '#' : '/'} className="flex gap-3 items-center !text-white">
         <Aicp height="30" />
-        <HeaderTitle />
       </WrapLink>
-      {!isMobile && <MenuAction key="menu" />}
+
+      <div className="flex items-center gap-5">
+        <SelectLang postLocalesData={() => LngList} reload={false} />
+
+        {!isMobile && <MenuAction key="menu" />}
+      </div>
     </div>
   );
 }
@@ -54,7 +61,7 @@ export function HomeHeader(p: HTMLAttributes<HTMLDivElement>) {
         'h-[6.75rem] z-50 max-w-[75rem] mx-auto bg-transparent w-full text-white flex justify-between items-center px-5 mo:h-[56px] mo:sticky mo:top-0 mo:bg-white mo:text-green-2',
       )}
     >
-      <WrapLink to="/" className="flex gap-3 items-center">
+      <WrapLink to="/" className="flex items-center gap-3">
         <Aicp height="32" />
         <HeaderTitle />
       </WrapLink>
