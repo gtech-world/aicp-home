@@ -5,9 +5,10 @@ module.exports = {
       screens: {
         ssm: { max: '460px' },
         sm: { max: '750px' },
-        mo: { max: '900px' },
+        mo: { max: '899px' },
         md: { max: '1280px' },
         lg: { min: '1440px' },
+        ms: { min: '900px' },
       },
       fontFamily: {
         OpenSans: 'var(--open-sans)',

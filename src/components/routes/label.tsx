@@ -53,6 +53,12 @@ export function Label() {
     },
   ];
 
+  const splitArranyText = pcfResult.split(' ');
+
+  const text1 = splitArranyText[0] || '';
+  const text2 = splitArranyText[1] || '';
+  const text3 = splitArranyText[2] || '';
+
   const noHeader = () => {
     return (
       <Fragment>
@@ -60,8 +66,14 @@ export function Label() {
           <div className="w-[420px] max-h-[480px] p-5 mo:h-auto  bg-[#FFFFFF] text-center  flex justify-center mo:justify-start   mo:flex-row mo:w-full flex-col items-center rounded-lg ">
             <img src="label.jpg" className="text-[5.375rem] w-[5.375rem] mt-[.625rem] mb-5 mo:mb-2  shrink-0" />
             <div className="mo:ml-[2.5rem] mo:flex-1 ">
-              <div className="text-[#29953A] text-[1.75rem] leading-8 font-semibold max-w-full break-all">
+              <div className="text-[#29953A] text-[1.75rem] leading-8 font-semibold max-w-full break-all mo:hidden">
                 {pcfResult}
+              </div>
+              <div className="flex flex-col ms:hidden text-[#29953A] text-[1.75rem] leading-8 font-semibold max-w-full break-all ">
+                <div>{text1}</div>
+                <div>
+                  {text2} {text3}
+                </div>
               </div>
               <div className="font-[1.75rem] leading-8   ">{t('Cradle-to-Grave Footprint')}</div>
             </div>
