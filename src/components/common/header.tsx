@@ -43,7 +43,7 @@ export function Header(p: HTMLAttributes<HTMLDivElement>) {
       </WrapLink>
 
       <div className="flex items-center gap-5">
-        <SelectLang postLocalesData={() => LngList} reload={false} />
+        {/* <SelectLang postLocalesData={() => LngList} reload={false} /> */}
 
         {!isMobile && <MenuAction key="menu" />}
       </div>
