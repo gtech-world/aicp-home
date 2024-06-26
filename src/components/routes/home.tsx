@@ -11,10 +11,10 @@ import {
 import { useT } from '@/lib/hooks/useT';
 import { scrollToAnchor } from '@/lib/utils';
 import classNames from 'classnames';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { WrapLink } from '../ant/Link';
 import { Btn } from '../common/button';
-import { useNavigate } from '@umijs/max';
+import { setLocale, useNavigate } from '@umijs/max';
 
 function Card() {
   const { user } = useUser();
@@ -276,7 +276,7 @@ function CardTabs() {
       <div
         className={`flex text-lg mo:text-base flex-shrink-0 max-w-[75rem] mo:max-w-auto mo:px-0 pt-10 pb-5 px-5  flex-col w-full mo:flex-col mo:mt-11 mo:mb-0`}
       >
-        <ul className="flex justify-between w-full pb-8 gap-5 mo:flex-col mo:pb-0">
+        <ul className="flex justify-between w-full gap-5 pb-8 mo:flex-col mo:pb-0">
           {tabsList.map((v, i) => {
             return (
               <li key={`tabsList${i}`} className={classNames('w-0 flex-1 flex mo:w-full mo:flex-col')}>
@@ -331,6 +331,10 @@ function CardTabs() {
 
 export function Home() {
   const { user } = useUser();
+
+  useEffect(() => {
+    setLocale('zh-CN');
+  }, []);
   return (
     <HomeHeaderLayout>
       <div className={`flex flex-col flex-shrink-0 mo:items-center mo:h-[37.25rem] w-full `}>
